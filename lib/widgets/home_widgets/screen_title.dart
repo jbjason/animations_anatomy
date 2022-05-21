@@ -8,14 +8,12 @@ class ScreenTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder(
-      tween: Tween<double>(begin: 0, end: 1),
+      tween: Tween<double>(begin: 1, end: 0),
       duration: const Duration(seconds: 1),
-      builder: (context, double val, Widget? child) => Opacity(
-        opacity: val,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 25),
-          child: child,
-        ),
+      builder: (context, double val, Widget? child) => Transform(
+        transform: Matrix4.identity()..translate(val * 200, val * 200),
+        alignment: Alignment.center,
+        child: child,
       ),
       child: Text(
         text,

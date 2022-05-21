@@ -18,7 +18,7 @@ class Details extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ClipRRect(
-            child: Image.asset('images/${trip.img}',
+            child: Image.asset('assets/${trip.img}',
                 height: 360, fit: BoxFit.cover, alignment: Alignment.topCenter),
           ),
           const SizedBox(height: 30),

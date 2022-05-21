@@ -1,4 +1,5 @@
 import 'package:animations_anatomy/models/trip.dart';
+import 'package:animations_anatomy/screens/details_screen.dart';
 import 'package:flutter/material.dart';
 
 class TripList extends StatefulWidget {
@@ -19,7 +20,6 @@ class _TripListState extends State<TripList> {
   }
 
   void _addTrips() {
-    // get data from db
     List<Trip> _trips = [
       const Trip(
           title: 'Beach Paradise', price: '350', nights: '3', img: 'beach.png'),
@@ -39,13 +39,13 @@ class _TripListState extends State<TripList> {
   Widget _buildTile(Trip trip) {
     return ListTile(
       onTap: () {
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => Details(trip: trip)));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => Details(trip: trip)));
       },
       contentPadding: const EdgeInsets.all(25),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        children: [
           Text('${trip.nights} nights',
               style: TextStyle(
                   fontSize: 14,
@@ -58,7 +58,7 @@ class _TripListState extends State<TripList> {
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
         child: Image.asset(
-          'images/${trip.img}',
+          'assets/${trip.img}',
           height: 50.0,
         ),
       ),

@@ -19,22 +19,8 @@ class Details extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          AnimatedBuilder(
-            animation: animation,
-            builder: (context, child) {
-              return SlideTransition(
-                position: Tween<Offset>(
-                  begin: const Offset(1, 0),
-                  end: const Offset(0, 0),
-                ).animate(
-                  CurvedAnimation(
-                    parent: animation,
-                    curve: const Interval(0, 0.5, curve: Curves.easeOutCubic),
-                  ),
-                ),
-                child: child,
-              );
-            },
+          Hero(
+            tag: trip.title + trip.img,
             child: ClipRRect(
               child: Image.asset('assets/${trip.img}',
                   height: 360,

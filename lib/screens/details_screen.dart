@@ -75,7 +75,7 @@ class Details extends StatelessWidget {
               // );
             },
             child: Container(
-              color: Colors.grey[850],
+              color: Colors.grey[800],
               padding: const EdgeInsets.all(18),
               child: Text(sss,
                   style: TextStyle(color: Colors.grey[600], height: 1.4)),

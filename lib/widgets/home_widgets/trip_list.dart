@@ -40,12 +40,6 @@ class _TripListState extends State<TripList> {
     return ListTile(
       onTap: () {
         Navigator.of(context).push(PageRouting(widget: trip));
-        // PageRouteBuilder(
-        //   pageBuilder: (context, animation, secondaryAnimation) {
-        //     return Details(trip: trip, animation: animation);
-        //   },
-        //   transitionDuration: const Duration(seconds: 1),
-        // ),
       },
       contentPadding: const EdgeInsets.all(25),
       title: Column(

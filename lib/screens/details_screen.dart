@@ -58,15 +58,21 @@ class Details extends StatelessWidget {
           AnimatedBuilder(
             animation: animation,
             builder: (context, child) {
-              return SlideTransition(
-                position: Tween<Offset>(
-                        begin: const Offset(1, 0), end: const Offset(0, 0))
-                    .animate(CurvedAnimation(
-                        parent: animation,
-                        curve: const Interval(0.5, 1,
-                            curve: Curves.easeOutCubic))),
+              return FadeTransition(
+                opacity: CurvedAnimation(
+                    parent: animation,
+                    curve: const Interval(0.5, 1, curve: Curves.easeOutCubic)),
                 child: child,
               );
+              // return SlideTransition(
+              //   position: Tween<Offset>(
+              //           begin: const Offset(1, 0), end: const Offset(0, 0))
+              //       .animate(CurvedAnimation(
+              //           parent: animation,
+              //           curve: const Interval(0.5, 1,
+              //               curve: Curves.easeOutCubic))),
+              //   child: child,
+              // );
             },
             child: Container(
               color: Colors.grey[850],

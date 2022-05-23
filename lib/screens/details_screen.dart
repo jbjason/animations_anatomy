@@ -35,7 +35,7 @@ class Details extends StatelessWidget {
               return ScaleTransition(
                 scale: CurvedAnimation(
                   parent: animation,
-                  curve: const Interval(0.0, 0.5, curve: Curves.easeInCubic),
+                  curve: const Interval(0.5, 1.0, curve: Curves.easeInCubic),
                 ),
                 child: child,
               );

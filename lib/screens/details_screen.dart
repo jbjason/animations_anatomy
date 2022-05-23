@@ -11,11 +11,6 @@ class Details extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      extendBodyBehindAppBar: true,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -58,27 +53,19 @@ class Details extends StatelessWidget {
           AnimatedBuilder(
             animation: animation,
             builder: (context, child) {
-              return FadeTransition(
-                opacity: CurvedAnimation(
-                    parent: animation,
-                    curve: const Interval(0.5, 1, curve: Curves.easeOutCubic)),
+              return SlideTransition(
+                position: Tween<Offset>(
+                        begin: const Offset(1, 0), end: const Offset(0, 0))
+                    .animate(CurvedAnimation(
+                        parent: animation,
+                        curve: const Interval(0.5, 1,
+                            curve: Curves.easeOutCubic))),
                 child: child,
               );
-              // return SlideTransition(
-              //   position: Tween<Offset>(
-              //           begin: const Offset(1, 0), end: const Offset(0, 0))
-              //       .animate(CurvedAnimation(
-              //           parent: animation,
-              //           curve: const Interval(0.5, 1,
-              //               curve: Curves.easeOutCubic))),
-              //   child: child,
-              // );
             },
             child: Container(
-              color: Colors.grey[800],
               padding: const EdgeInsets.all(18),
-              child: Text(sss,
-                  style: TextStyle(color: Colors.grey[600], height: 1.4)),
+              child: const Text(sss, style: TextStyle(height: 1.4)),
             ),
           ),
           const Expanded(child: CounterWidget())

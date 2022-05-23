@@ -29,18 +29,31 @@ class Details extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 30),
-          ListTile(
-            title: Text(
-              trip.title,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                color: Colors.grey[800],
+          AnimatedBuilder(
+            animation: animation,
+            builder: (context, child) {
+              return ScaleTransition(
+                scale: CurvedAnimation(
+                  parent: animation,
+                  curve: const Interval(0.0, 0.5, curve: Curves.easeInCubic),
+                ),
+                child: child,
+              );
+            },
+            child: ListTile(
+              title: Text(
+                trip.title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.grey[800],
+                ),
               ),
+              subtitle: Text(
+                  '${trip.nights} night stay for only \$${trip.price}',
+                  style: const TextStyle(letterSpacing: 1)),
+              trailing: const Heart(),
             ),
-            subtitle: Text('${trip.nights} night stay for only \$${trip.price}',
-                style: const TextStyle(letterSpacing: 1)),
-            trailing: const Heart(),
           ),
           AnimatedBuilder(
             animation: animation,
@@ -87,7 +100,6 @@ class _CounterWidgetState extends State<CounterWidget> {
           tween: Tween<double>(begin: 0.0, end: 1.0),
           duration: const Duration(seconds: 1),
           builder: (context, double val, child) {
-            print(-50 * (1 - val));
             return Center(
               child: Stack(
                 children: [
@@ -115,12 +127,8 @@ class _CounterWidgetState extends State<CounterWidget> {
           },
         ),
         FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              counter++;
-            });
-          },
           child: const Icon(Icons.add_alert),
+          onPressed: () => setState(() => counter++),
         ),
       ],
     );

@@ -1,5 +1,5 @@
+import 'package:animations_anatomy/models/page_route.dart';
 import 'package:animations_anatomy/models/trip.dart';
-import 'package:animations_anatomy/screens/details_screen.dart';
 import 'package:flutter/material.dart';
 
 class TripList extends StatefulWidget {
@@ -39,14 +39,13 @@ class _TripListState extends State<TripList> {
   Widget _buildTile(Trip trip) {
     return ListTile(
       onTap: () {
-        Navigator.of(context).push(
-          PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) {
-              return Details(trip: trip, animation: animation);
-            },
-            transitionDuration: const Duration(seconds: 1),
-          ),
-        );
+        Navigator.of(context).push(PageRouting(widget: trip));
+        // PageRouteBuilder(
+        //   pageBuilder: (context, animation, secondaryAnimation) {
+        //     return Details(trip: trip, animation: animation);
+        //   },
+        //   transitionDuration: const Duration(seconds: 1),
+        // ),
       },
       contentPadding: const EdgeInsets.all(25),
       title: Column(

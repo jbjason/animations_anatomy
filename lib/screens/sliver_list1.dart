@@ -59,7 +59,7 @@ class _SliverList1State extends State<SliverList1> {
                     opacity: percent,
                     child: Transform(
                       alignment: Alignment.center,
-                      transform: Matrix4.identity()..scale(scale, 1.0),
+                      transform: Matrix4.identity()..scale(scale, scale),
                       child: Container(
                         height: itemSize,
                         padding: const EdgeInsets.all(20),

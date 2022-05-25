@@ -1,4 +1,3 @@
-import 'package:animations_anatomy/screens/sliver_list1.dart';
 import 'package:animations_anatomy/widgets/app_drawer.dart';
 import 'package:animations_anatomy/widgets/home_widgets/screen_title.dart';
 import 'package:animations_anatomy/widgets/home_widgets/trip_list.dart';

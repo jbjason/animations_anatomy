@@ -13,6 +13,7 @@ const itemSize = 200.0;
 class _SliverList1State extends State<SliverList1> {
   final _controller = ScrollController();
   double currentOffset = 0;
+
   void _listen() {
     setState(() {
       currentOffset = _controller.offset;
@@ -49,12 +50,11 @@ class _SliverList1State extends State<SliverList1> {
                 final difference = currentOffset - (itemOffset / 2);
                 double percent = 1 - (difference / (itemSize / 2));
                 double scale = percent;
-                print(percent);
                 if (percent > 1.0) percent = 1.0;
                 if (percent < 0.0) percent = 0.0;
                 if (scale > 1.0) scale = 1.0;
                 return Align(
-                  heightFactor: 0.7,
+                  heightFactor: 0.8,
                   child: Opacity(
                     opacity: percent,
                     child: Transform(

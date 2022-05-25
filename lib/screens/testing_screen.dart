@@ -1,3 +1,4 @@
+import 'package:animations_anatomy/widgets/home_widgets/trip_list.dart';
 import 'package:flutter/material.dart';
 
 class TestingScreen extends StatefulWidget {
@@ -16,8 +17,9 @@ class _TestingScreenState extends State<TestingScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Transform(
-            transform: Matrix4.identity()..scale(_val * 2),
-            child: const FlutterLogo(size: 250),
+            alignment: Alignment.center,
+            transform: Matrix4.identity()..scale(_val * 2, 1.0),
+            child: Image.asset('assets/${trips[0].img}', fit: BoxFit.cover),
           ),
           Slider.adaptive(
             value: _val,

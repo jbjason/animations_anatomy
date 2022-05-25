@@ -16,8 +16,9 @@ class _TestingScreenState extends State<TestingScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Transform(
-              transform: Matrix4.identity()..scale(_val * 2),
-              child: const FlutterLogo(size: 250)),
+            transform: Matrix4.identity()..scale(_val * 2),
+            child: const FlutterLogo(size: 250),
+          ),
           Slider.adaptive(
             value: _val,
             onChanged: (v) {

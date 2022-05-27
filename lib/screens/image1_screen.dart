@@ -51,7 +51,9 @@ class _Image1ScreenState extends State<Image1Screen>
                   child: Center(
                     child: Text(travels[_currentImage].title,
                         style: const TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold)),
+                            fontSize: 40,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold)),
                   ),
                 ),
                 Positioned.fill(
@@ -65,7 +67,8 @@ class _Image1ScreenState extends State<Image1Screen>
                   height: 130,
                   width: size.width,
                   child: PageView.builder(
-                    controller: PageController(viewportFraction: 0.4),
+                    controller:
+                        PageController(viewportFraction: 0.4, initialPage: 0),
                     onPageChanged: (val) => setState(() => _currentImage = val),
                     itemBuilder: (context, index) => Container(
                       width: 150,

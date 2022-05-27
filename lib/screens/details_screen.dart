@@ -17,7 +17,7 @@ class Details extends StatelessWidget {
           Hero(
             tag: trip.title + trip.img,
             child: ClipRRect(
-              child: Image.asset('assets/${trip.img}',
+              child: Image.asset('assets/trip/${trip.img}',
                   height: 360,
                   fit: BoxFit.cover,
                   alignment: Alignment.topCenter),

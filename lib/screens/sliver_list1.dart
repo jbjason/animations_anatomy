@@ -1,4 +1,4 @@
-import 'package:animations_anatomy/widgets/home_widgets/trip_list.dart';
+import 'package:animations_anatomy/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class SliverList1 extends StatefulWidget {

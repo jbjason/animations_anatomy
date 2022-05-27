@@ -57,12 +57,13 @@ class CustomHeader extends SliverPersistentHeaderDelegate {
               height: _discHeight,
               child: Transform.rotate(
                   angle: vector.radians(360 * percent),
-                  child: Image.asset('assets/disk_.png', fit: BoxFit.cover))),
+                  child:
+                      Image.asset('assets/trip/disk_.png', fit: BoxFit.cover))),
           Positioned(
               bottom: 0,
               left: 0,
               height: _boxHeight,
-              child: Image.asset('assets/beach.png', fit: BoxFit.cover))
+              child: Image.asset('assets/trip/beach.png', fit: BoxFit.cover))
         ],
       ),
     );

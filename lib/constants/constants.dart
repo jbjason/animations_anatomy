@@ -16,7 +16,7 @@ final List<Trip> trips = [
 final List<Travel> travels = [
   const Travel(
       imageBack: 'assets/image_1/japan_back.png',
-      imageFront: 'assets/image_1/japan_backImage_front.png',
+      imageFront: 'assets/image_1/japan_front.png',
       title: 'Japan'),
   const Travel(
       imageBack: 'assets/image_1/kuala_lumpur_back.png',

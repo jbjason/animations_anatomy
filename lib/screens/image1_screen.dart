@@ -47,9 +47,12 @@ class _Image1ScreenState extends State<Image1Screen>
                   top: 40,
                   left: 0,
                   right: 0,
-                  child: Text(travels[_currentImage].title,
-                      style: const TextStyle(
-                          fontSize: 24, fontWeight: FontWeight.bold)),
+                  height: 80,
+                  child: Center(
+                    child: Text(travels[_currentImage].title,
+                        style: const TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold)),
+                  ),
                 ),
                 Positioned.fill(
                   bottom: 60,
@@ -57,13 +60,15 @@ class _Image1ScreenState extends State<Image1Screen>
                       fit: BoxFit.cover),
                 ),
                 Positioned(
-                  left: 0,
-                  right: 0,
                   bottom: 0,
+                  left: 10,
                   height: 130,
+                  width: size.width,
                   child: PageView.builder(
+                    controller: PageController(viewportFraction: 0.4),
                     onPageChanged: (val) => setState(() => _currentImage = val),
                     itemBuilder: (context, index) => Container(
+                      width: 150,
                       margin: const EdgeInsets.only(right: 10),
                       child: Image.asset(travels[index].imageBack,
                           fit: BoxFit.cover),
@@ -77,8 +82,11 @@ class _Image1ScreenState extends State<Image1Screen>
           Expanded(
               child: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Recommended'),
+                const SizedBox(height: 20),
+                const Text('Recommended',
+                    style: TextStyle(color: Colors.white, fontSize: 20)),
                 _recommentItem(),
                 _recommentItem(),
                 _recommentItem(),
@@ -93,7 +101,8 @@ class _Image1ScreenState extends State<Image1Screen>
   Widget _recommentItem() {
     return Container(
       height: 130,
-      margin: const EdgeInsets.all(10),
+      color: Colors.grey,
+      margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
       padding: const EdgeInsets.all(10),
       child: Row(
         children: [

@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.all(20),
             decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage("assets/bg.png"),
+                  image: AssetImage("assets/trip/bg.png"),
                   fit: BoxFit.fitWidth,
                   alignment: Alignment.topLeft),
             ),

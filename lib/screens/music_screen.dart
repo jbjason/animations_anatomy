@@ -7,35 +7,38 @@ class MusicScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300]!,
       body: CustomScrollView(
         slivers: [
-          SliverPersistentHeader(delegate: CustomHeader()),
+          SliverPersistentHeader(pinned: true, delegate: CustomHeader()),
+          const SliverToBoxAdapter(child: Placeholder()),
+          const SliverToBoxAdapter(child: Placeholder()),
+          const SliverToBoxAdapter(child: Placeholder()),
         ],
       ),
     );
   }
 }
 
-const double maxHeight = 300, minHeight = 100;
-
 class CustomHeader extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final size = MediaQuery.of(context).size;
+    final width = MediaQuery.of(context).size.width;
     final percent = 1 - (shrinkOffset / maxExtent);
     final double _boxHeight = (170 * percent).clamp(40, 170);
     final double _discHeight = (140 * percent).clamp(10, 140);
+    final double _diskLeft = (140 * percent).clamp(0, 140);
     final double _titleHeight = (22 * percent).clamp(16, 22);
+    final double _titleLeft = ((width / 4) * percent).clamp(60, width / 4);
     final double _subHeight = (16 * percent).clamp(13, 16);
     return Container(
+      padding: const EdgeInsets.only(top: 40, left: 20, bottom: 10),
       color: Colors.grey[300],
       child: Stack(
         children: [
           Positioned(
-            top: 50,
-            left: size.width / 4,
+            top: 8,
+            left: _titleLeft,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -49,15 +52,15 @@ class CustomHeader extends SliverPersistentHeaderDelegate {
             ),
           ),
           Positioned(
-              bottom: 25,
-              left: 20,
+              bottom: 10,
+              left: _diskLeft,
               height: _discHeight,
               child: Transform.rotate(
                   angle: vector.radians(360 * percent),
                   child: Image.asset('assets/disk_.png', fit: BoxFit.cover))),
           Positioned(
-              bottom: 20,
-              left: 20,
+              bottom: 0,
+              left: 0,
               height: _boxHeight,
               child: Image.asset('assets/beach.png', fit: BoxFit.cover))
         ],
@@ -66,10 +69,10 @@ class CustomHeader extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => maxExtent;
+  double get maxExtent => 350;
 
   @override
-  double get minExtent => minExtent;
+  double get minExtent => 100;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>

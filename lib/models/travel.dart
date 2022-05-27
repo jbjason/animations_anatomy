@@ -1,6 +1,6 @@
 class Travel {
-  final String imageFont, imageBack, title;
+  final String imageFront, imageBack, title;
 
   const Travel(
-      {required this.imageBack, required this.imageFont, required this.title});
+      {required this.imageBack, required this.imageFront, required this.title});
 }

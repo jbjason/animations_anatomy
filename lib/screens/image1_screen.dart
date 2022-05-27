@@ -8,8 +8,24 @@ class Image1Screen extends StatefulWidget {
   State<Image1Screen> createState() => _Image1ScreenState();
 }
 
-class _Image1ScreenState extends State<Image1Screen> {
+class _Image1ScreenState extends State<Image1Screen>
+    with SingleTickerProviderStateMixin {
   int _currentImage = 0;
+  late final _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 5));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -28,6 +44,19 @@ class _Image1ScreenState extends State<Image1Screen> {
                       fit: BoxFit.cover),
                 ),
                 Positioned(
+                  top: 40,
+                  left: 0,
+                  right: 0,
+                  child: Text(travels[_currentImage].title,
+                      style: const TextStyle(
+                          fontSize: 24, fontWeight: FontWeight.bold)),
+                ),
+                Positioned.fill(
+                  bottom: 60,
+                  child: Image.asset(travels[_currentImage].imageFront,
+                      fit: BoxFit.cover),
+                ),
+                Positioned(
                   left: 0,
                   right: 0,
                   bottom: 0,
@@ -39,6 +68,7 @@ class _Image1ScreenState extends State<Image1Screen> {
                       child: Image.asset(travels[index].imageBack,
                           fit: BoxFit.cover),
                     ),
+                    itemCount: travels.length,
                   ),
                 ),
               ],

@@ -11,7 +11,7 @@ class Image1Screen extends StatefulWidget {
 class _Image1ScreenState extends State<Image1Screen>
     with SingleTickerProviderStateMixin {
   int _currentImage = 0;
-  late final _controller;
+  late AnimationController _controller;
 
   @override
   void initState() {
@@ -40,38 +40,47 @@ class _Image1ScreenState extends State<Image1Screen>
     );
   }
 
-  Widget _topImagesList(Size size) => SizedBox(
-        height: size.height * .6,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Positioned.fill(
-              bottom: 60,
-              child: Image.asset(travels[_currentImage].imageBack,
-                  fit: BoxFit.cover),
-            ),
-            Positioned(
-              top: 40,
-              left: 0,
-              right: 0,
-              height: 80,
-              child: Center(
-                child: Text(travels[_currentImage].title,
-                    style: const TextStyle(
-                        fontSize: 40,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold)),
+  Widget _topImagesList(Size size) => AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) => child!,
+        child: SizedBox(
+          height: size.height * .6,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Positioned.fill(
+                left: -100.0 * _controller.value,
+                right: -100.0 * (1 - _controller.value),
+                bottom: 60,
+                child: Image.asset(travels[_currentImage].imageBack,
+                    fit: BoxFit.cover),
               ),
-            ),
-            Positioned.fill(
-              bottom: 60,
-              child: Image.asset(travels[_currentImage].imageFront,
-                  fit: BoxFit.cover),
-            ),
-            _pageView(size),
-          ],
+              Positioned(
+                top: 40,
+                left: 0,
+                right: 0,
+                height: 80,
+                child: Center(
+                  child: Text(travels[_currentImage].title,
+                      style: const TextStyle(
+                          fontSize: 40,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold)),
+                ),
+              ),
+              Positioned.fill(
+                left: -100.0 * _controller.value,
+                right: -100.0 * (1 - _controller.value),
+                bottom: 60,
+                child: Image.asset(travels[_currentImage].imageFront,
+                    fit: BoxFit.cover),
+              ),
+              _pageView(size),
+            ],
+          ),
         ),
       );
+
   Widget _pageView(Size size) => Positioned(
         bottom: 0,
         left: 10,
@@ -107,6 +116,7 @@ class _Image1ScreenState extends State<Image1Screen>
           ),
         ),
       );
+
   Widget _recommentItem() {
     return Container(
       height: 120,

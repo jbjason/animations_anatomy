@@ -42,42 +42,46 @@ class _Image1ScreenState extends State<Image1Screen>
     );
   }
 
-  Widget _topImagesList(Size size) => AnimatedBuilder(
-        animation: _controller,
-        builder: (context, _) => SizedBox(
-          height: size.height * .6,
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              Positioned.fill(
-                left: -100.0 * _controller.value,
-                right: -100.0 * (1 - _controller.value),
-                bottom: 60,
-                child: Image.asset(travels[_currentImage].imageBack,
-                    fit: BoxFit.cover),
-              ),
-              Positioned(
-                top: 40,
-                left: 0,
-                right: 0,
-                height: 80,
-                child: Center(
-                  child: Text(travels[_currentImage].title,
-                      style: const TextStyle(
-                          fontSize: 40,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold)),
+  Widget _topImagesList(Size size) => AnimatedSwitcher(
+        key: Key(travels[_currentImage].title),
+        duration: const Duration(milliseconds: 500),
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, _) => SizedBox(
+            height: size.height * .6,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Positioned.fill(
+                  left: -100.0 * _controller.value,
+                  right: -100.0 * (1 - _controller.value),
+                  bottom: 60,
+                  child: Image.asset(travels[_currentImage].imageBack,
+                      fit: BoxFit.cover),
                 ),
-              ),
-              // Positioned.fill(
-              //   left: -100.0 * _controller.value,
-              //   right: -100.0 * (1 - _controller.value),
-              //   bottom: 60,
-              //   child: Image.asset(travels[_currentImage].imageFront,
-              //       fit: BoxFit.cover),
-              // ),
-              _pageView(size),
-            ],
+                Positioned(
+                  top: 40,
+                  left: 0,
+                  right: 0,
+                  height: 80,
+                  child: Center(
+                    child: Text(travels[_currentImage].title,
+                        style: const TextStyle(
+                            fontSize: 40,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold)),
+                  ),
+                ),
+                Positioned.fill(
+                  left: -100.0 * _controller.value,
+                  right: -100.0 * (1 - _controller.value),
+                  bottom: 60,
+                  child: Image.asset(travels[_currentImage].imageFront,
+                      fit: BoxFit.cover),
+                ),
+                _pageView(size),
+              ],
+            ),
           ),
         ),
       );
@@ -88,10 +92,10 @@ class _Image1ScreenState extends State<Image1Screen>
         height: 130,
         width: size.width,
         child: PageView.builder(
-          controller: PageController(viewportFraction: 0.4, initialPage: 0),
-          onPageChanged: (val) => setState(() => _currentImage = val),
-          itemBuilder: (context, index) => AnimatedSwitcher(
-            duration: const Duration(milliseconds: 700),
+          padEnds: false,
+          controller: PageController(viewportFraction: 0.4, initialPage: 1),
+          itemBuilder: (context, index) => InkWell(
+            onTap: () => setState(() => _currentImage = index),
             child: Container(
               width: 150,
               margin: const EdgeInsets.only(right: 10),
@@ -107,7 +111,7 @@ class _Image1ScreenState extends State<Image1Screen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 20),
+              const SizedBox(height: 5),
               const Text('Recommended',
                   style: TextStyle(color: Colors.white, fontSize: 20)),
               _recommentItem(),

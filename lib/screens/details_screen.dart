@@ -14,15 +14,29 @@ class Details extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Hero(
-            tag: trip.title + trip.img,
-            child: ClipRRect(
-              child: Image.asset('assets/trip/${trip.img}',
-                  height: 360,
-                  fit: BoxFit.cover,
-                  alignment: Alignment.topCenter),
-            ),
-          ),
+          SizedBox(
+              height: 360,
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Hero(
+                      tag: trip.title + trip.img,
+                      child: ClipRRect(
+                        child: Image.asset('assets/trip/${trip.img}',
+                            fit: BoxFit.cover, alignment: Alignment.topCenter),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 35,
+                    left: 13,
+                    child: IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: const Icon(Icons.arrow_back_ios_new,
+                            color: Colors.white)),
+                  )
+                ],
+              )),
           const SizedBox(height: 30),
           AnimatedBuilder(
             animation: animation,

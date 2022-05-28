@@ -33,78 +33,84 @@ class _Image1ScreenState extends State<Image1Screen>
       backgroundColor: Colors.grey[850],
       body: Column(
         children: [
-          SizedBox(
-            height: size.height * .6,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                Positioned.fill(
-                  bottom: 60,
-                  child: Image.asset(travels[_currentImage].imageBack,
-                      fit: BoxFit.cover),
-                ),
-                Positioned(
-                  top: 40,
-                  left: 0,
-                  right: 0,
-                  height: 80,
-                  child: Center(
-                    child: Text(travels[_currentImage].title,
-                        style: const TextStyle(
-                            fontSize: 40,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold)),
-                  ),
-                ),
-                Positioned.fill(
-                  bottom: 60,
-                  child: Image.asset(travels[_currentImage].imageFront,
-                      fit: BoxFit.cover),
-                ),
-                Positioned(
-                  bottom: 0,
-                  left: 10,
-                  height: 130,
-                  width: size.width,
-                  child: PageView.builder(
-                    controller:
-                        PageController(viewportFraction: 0.4, initialPage: 0),
-                    onPageChanged: (val) => setState(() => _currentImage = val),
-                    itemBuilder: (context, index) => Container(
-                      width: 150,
-                      margin: const EdgeInsets.only(right: 10),
-                      child: Image.asset(travels[index].imageBack,
-                          fit: BoxFit.cover),
-                    ),
-                    itemCount: travels.length,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-              child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20),
-                const Text('Recommended',
-                    style: TextStyle(color: Colors.white, fontSize: 20)),
-                _recommentItem(),
-                _recommentItem(),
-                _recommentItem(),
-              ],
-            ),
-          ))
+          _topImagesList(size),
+          _recommentList(size),
         ],
       ),
     );
   }
 
+  Widget _topImagesList(Size size) => SizedBox(
+        height: size.height * .6,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Positioned.fill(
+              bottom: 60,
+              child: Image.asset(travels[_currentImage].imageBack,
+                  fit: BoxFit.cover),
+            ),
+            Positioned(
+              top: 40,
+              left: 0,
+              right: 0,
+              height: 80,
+              child: Center(
+                child: Text(travels[_currentImage].title,
+                    style: const TextStyle(
+                        fontSize: 40,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold)),
+              ),
+            ),
+            Positioned.fill(
+              bottom: 60,
+              child: Image.asset(travels[_currentImage].imageFront,
+                  fit: BoxFit.cover),
+            ),
+            _pageView(size),
+          ],
+        ),
+      );
+  Widget _pageView(Size size) => Positioned(
+        bottom: 0,
+        left: 10,
+        height: 130,
+        width: size.width,
+        child: PageView.builder(
+          controller: PageController(viewportFraction: 0.4, initialPage: 0),
+          onPageChanged: (val) => setState(() => _currentImage = val),
+          itemBuilder: (context, index) => AnimatedSwitcher(
+            duration: const Duration(milliseconds: 500),
+            child: Container(
+              width: 150,
+              margin: const EdgeInsets.only(right: 10),
+              child: Image.asset(travels[index].imageBack, fit: BoxFit.cover),
+            ),
+          ),
+          itemCount: travels.length,
+        ),
+      );
+
+  Widget _recommentList(Size size) => Expanded(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
+              const Text('Recommended',
+                  style: TextStyle(color: Colors.white, fontSize: 20)),
+              _recommentItem(),
+              _recommentItem(),
+              _recommentItem(),
+            ],
+          ),
+        ),
+      );
   Widget _recommentItem() {
     return Container(
-      height: 130,
-      color: Colors.grey,
+      height: 120,
+      color: Colors.grey[800],
       margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
       padding: const EdgeInsets.all(10),
       child: Row(

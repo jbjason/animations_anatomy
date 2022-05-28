@@ -18,12 +18,14 @@ class _Image1ScreenState extends State<Image1Screen>
     super.initState();
     _controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 5));
+    // reverse makes the animation smoothly repeat
+    _controller.repeat(reverse: true);
   }
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -42,8 +44,7 @@ class _Image1ScreenState extends State<Image1Screen>
 
   Widget _topImagesList(Size size) => AnimatedBuilder(
         animation: _controller,
-        builder: (context, child) => child!,
-        child: SizedBox(
+        builder: (context, _) => SizedBox(
           height: size.height * .6,
           child: Stack(
             fit: StackFit.expand,
@@ -68,13 +69,13 @@ class _Image1ScreenState extends State<Image1Screen>
                           fontWeight: FontWeight.bold)),
                 ),
               ),
-              Positioned.fill(
-                left: -100.0 * _controller.value,
-                right: -100.0 * (1 - _controller.value),
-                bottom: 60,
-                child: Image.asset(travels[_currentImage].imageFront,
-                    fit: BoxFit.cover),
-              ),
+              // Positioned.fill(
+              //   left: -100.0 * _controller.value,
+              //   right: -100.0 * (1 - _controller.value),
+              //   bottom: 60,
+              //   child: Image.asset(travels[_currentImage].imageFront,
+              //       fit: BoxFit.cover),
+              // ),
               _pageView(size),
             ],
           ),
@@ -90,7 +91,7 @@ class _Image1ScreenState extends State<Image1Screen>
           controller: PageController(viewportFraction: 0.4, initialPage: 0),
           onPageChanged: (val) => setState(() => _currentImage = val),
           itemBuilder: (context, index) => AnimatedSwitcher(
-            duration: const Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 700),
             child: Container(
               width: 150,
               margin: const EdgeInsets.only(right: 10),

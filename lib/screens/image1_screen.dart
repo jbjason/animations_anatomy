@@ -1,4 +1,5 @@
 import 'package:animations_anatomy/constants/constants.dart';
+import 'package:animations_anatomy/widgets/image1_widgets/back_images.dart';
 import 'package:flutter/material.dart';
 
 class Image1Screen extends StatefulWidget {
@@ -8,25 +9,8 @@ class Image1Screen extends StatefulWidget {
   State<Image1Screen> createState() => _Image1ScreenState();
 }
 
-class _Image1ScreenState extends State<Image1Screen>
-    with SingleTickerProviderStateMixin {
+class _Image1ScreenState extends State<Image1Screen> {
   int _currentImage = 0;
-  late AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 5));
-    // reverse makes the animation smoothly repeat
-    _controller.repeat(reverse: true);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,47 +26,20 @@ class _Image1ScreenState extends State<Image1Screen>
     );
   }
 
-  Widget _topImagesList(Size size) => AnimatedSwitcher(
-        key: Key(travels[_currentImage].title),
-        duration: const Duration(milliseconds: 500),
-        child: AnimatedBuilder(
-          animation: _controller,
-          builder: (context, _) => SizedBox(
-            height: size.height * .6,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                Positioned.fill(
-                  left: -100.0 * _controller.value,
-                  right: -100.0 * (1 - _controller.value),
-                  bottom: 60,
-                  child: Image.asset(travels[_currentImage].imageBack,
-                      fit: BoxFit.cover),
-                ),
-                Positioned(
-                  top: 40,
-                  left: 0,
-                  right: 0,
-                  height: 80,
-                  child: Center(
-                    child: Text(travels[_currentImage].title,
-                        style: const TextStyle(
-                            fontSize: 40,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold)),
-                  ),
-                ),
-                Positioned.fill(
-                  left: -100.0 * _controller.value,
-                  right: -100.0 * (1 - _controller.value),
-                  bottom: 60,
-                  child: Image.asset(travels[_currentImage].imageFront,
-                      fit: BoxFit.cover),
-                ),
-                _pageView(size),
-              ],
+  Widget _topImagesList(Size size) => SizedBox(
+        height: size.height * .6,
+        child: Stack(
+          children: [
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              child: BackImages(
+                travel: travels[_currentImage],
+                key: Key(travels[_currentImage].title),
+                currentIndex: _currentImage,
+              ),
             ),
-          ),
+            _pageView(size),
+          ],
         ),
       );
 
@@ -90,7 +47,7 @@ class _Image1ScreenState extends State<Image1Screen>
         bottom: 0,
         left: 10,
         height: 130,
-        width: size.width,
+        width: size.width - 10,
         child: PageView.builder(
           padEnds: false,
           controller: PageController(viewportFraction: 0.4, initialPage: 1),

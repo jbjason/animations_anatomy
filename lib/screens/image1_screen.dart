@@ -31,7 +31,7 @@ class _Image1ScreenState extends State<Image1Screen> {
         child: Stack(
           children: [
             AnimatedSwitcher(
-              duration: const Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 700),
               child: BackImages(
                 travel: travels[_currentImage],
                 key: Key(travels[_currentImage].title),

@@ -137,6 +137,15 @@ class _ClippedContainer extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             CustomPaint(painter: CuttingClipper()),
+            Positioned(
+              right: 100,
+              bottom: 20,
+              child: Text(
+                travels[2].title,
+                style:
+                    const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+            ),
           ],
         ),
       ),

@@ -1,4 +1,5 @@
-import 'package:animations_anatomy/screens/image1_screen.dart';
+import 'package:animations_anatomy/screens/sliver1_screen.dart';
+import 'package:animations_anatomy/screens/sliver2_screen.dart';
 import 'package:animations_anatomy/screens/sliver_list1.dart';
 import 'package:animations_anatomy/screens/music_screen.dart';
 import 'package:flutter/material.dart';
@@ -30,9 +31,16 @@ class AppDrawer extends StatelessWidget {
           const Divider(),
           ListTile(
             leading: const Icon(Icons.payment),
-            title: const Text('Image Animation1'),
+            title: const Text('Sliver Animation1'),
             onTap: () => Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => const Image1Screen())),
+                .push(MaterialPageRoute(builder: (_) => const Sliver1Screen())),
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.payment),
+            title: const Text('Sliver Animation2'),
+            onTap: () => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (_) => const Sliver2Screen())),
           ),
           const Divider(),
         ],

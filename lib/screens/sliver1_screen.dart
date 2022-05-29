@@ -2,14 +2,14 @@ import 'package:animations_anatomy/constants/constants.dart';
 import 'package:animations_anatomy/widgets/image1_widgets/back_images.dart';
 import 'package:flutter/material.dart';
 
-class Image1Screen extends StatefulWidget {
-  const Image1Screen({Key? key}) : super(key: key);
-
+// disk hide animation
+class Sliver1Screen extends StatefulWidget {
+  const Sliver1Screen({Key? key}) : super(key: key);
   @override
-  State<Image1Screen> createState() => _Image1ScreenState();
+  State<Sliver1Screen> createState() => _Sliver1ScreenState();
 }
 
-class _Image1ScreenState extends State<Image1Screen> {
+class _Sliver1ScreenState extends State<Sliver1Screen> {
   int _currentImage = 0;
 
   @override

@@ -48,7 +48,8 @@ class _CardDelegate extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     final double percent = (shrinkOffset / maxExtend).clamp(0.0, 1.0);
-    final double rotateBack = (1 - percent).clamp(0.0, 1.0);
+    const uploadLimit = 13 / 100.0;
+    final double rotateBack = (1 - percent - .77).clamp(0.0, uploadLimit);
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -80,7 +81,7 @@ class _ImageCard extends StatelessWidget {
       child: Transform(
         alignment: Alignment.topRight,
         transform: Matrix4.identity()
-          ..rotateZ(percent > .5 ? rotateBack : percent),
+          ..rotateZ(percent > .5 ? rotateBack * .6 : percent * .6),
         child: Container(
           width: size.width * .27,
           height: size.height * .18,

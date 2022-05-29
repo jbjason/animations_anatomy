@@ -13,6 +13,7 @@ class Sliver2Screen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverPersistentHeader(
+              pinned: true,
               delegate: _CardDelegate(
                   size: size,
                   maxExtend: size.height * .4,

@@ -48,13 +48,14 @@ class _CardDelegate extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     final double percent = (shrinkOffset / maxExtend).clamp(0.0, 1.0);
+    final double rotateBack = (1 - percent).clamp(0.0, 1.0);
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
             image: AssetImage(travels[3].imageBack), fit: BoxFit.cover),
       ),
       child: Stack(children: [
-        _ImageCard(size: size, percent: percent),
+        _ImageCard(size: size, percent: percent, rotateBack: rotateBack),
         Container(),
       ]),
     );
@@ -62,26 +63,30 @@ class _CardDelegate extends SliverPersistentHeaderDelegate {
 }
 
 class _ImageCard extends StatelessWidget {
-  const _ImageCard({Key? key, required this.size, required this.percent})
+  const _ImageCard(
+      {Key? key,
+      required this.rotateBack,
+      required this.size,
+      required this.percent})
       : super(key: key);
   final Size size;
-  final double percent;
+  final double percent, rotateBack;
 
   @override
   Widget build(BuildContext context) {
-    print(percent);
     return Positioned(
       bottom: 10,
       left: 20,
       child: Transform(
-        alignment: Alignment.center,
-        transform: Matrix4.identity()..rotateX(percent * 2),
+        alignment: Alignment.topRight,
+        transform: Matrix4.identity()
+          ..rotateZ(percent > .5 ? rotateBack : percent),
         child: Container(
           width: size.width * .27,
           height: size.height * .18,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(width: 2, color: Colors.grey[900]!)),
+              border: Border.all(width: 2, color: Colors.white)),
           child: Image.asset(travels[2].imageBack, fit: BoxFit.cover),
         ),
       ),

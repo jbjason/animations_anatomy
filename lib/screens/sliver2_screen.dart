@@ -128,15 +128,17 @@ class _ClippedContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      right: 0,
       bottom: 0,
-      left: 0,
-      height: size.height * .12,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          CustomPaint(painter: CuttingClipper()),
-        ],
+      right: 0,
+      left: (-size.width * percent).clamp(0, 0.35),
+      child: SizedBox(
+        height: size.height * .12,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            CustomPaint(painter: CuttingClipper()),
+          ],
+        ),
       ),
     );
   }

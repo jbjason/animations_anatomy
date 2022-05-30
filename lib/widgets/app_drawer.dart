@@ -1,3 +1,4 @@
+import 'package:animations_anatomy/screens/flow_screen.dart';
 import 'package:animations_anatomy/screens/sliver1_screen.dart';
 import 'package:animations_anatomy/screens/sliver2_screen.dart';
 import 'package:animations_anatomy/screens/sliver_list1.dart';
@@ -41,6 +42,13 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Sliver Animation2'),
             onTap: () => Navigator.of(context)
                 .push(MaterialPageRoute(builder: (_) => const Sliver2Screen())),
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.payment),
+            title: const Text('Flow Widgets'),
+            onTap: () => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (_) => const FlowScreen())),
           ),
           const Divider(),
         ],

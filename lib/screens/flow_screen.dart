@@ -20,7 +20,22 @@ class FlowWidgets extends StatefulWidget {
   State<FlowWidgets> createState() => _FlowWidgetsState();
 }
 
-class _FlowWidgetsState extends State<FlowWidgets> {
+class _FlowWidgetsState extends State<FlowWidgets>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 300));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   final List<IconData> _icons = [
     Icons.mail,
     Icons.cabin,
@@ -30,7 +45,7 @@ class _FlowWidgetsState extends State<FlowWidgets> {
   @override
   Widget build(BuildContext context) {
     return Flow(
-      delegate: _FloatingDelegate(),
+      delegate: _FloatingDelegate(controller: _controller),
       children: _icons.map(_body).toList(),
     );
   }
@@ -43,12 +58,20 @@ class _FlowWidgetsState extends State<FlowWidgets> {
           elevation: 0,
           splashColor: Colors.grey[850],
           child: Icon(icon_, color: Colors.red, size: 40),
-          onPressed: () {},
+          onPressed: () {
+            if (_controller.status == AnimationStatus.completed) {
+              _controller.reverse();
+            } else {
+              _controller.forward();
+            }
+          },
         ),
       );
 }
 
 class _FloatingDelegate extends FlowDelegate {
+  final Animation<double> controller;
+  const _FloatingDelegate({required this.controller});
   @override
   void paintChildren(FlowPaintingContext context) {
     final size = context.size;
@@ -59,7 +82,8 @@ class _FloatingDelegate extends FlowDelegate {
     for (int i = context.childCount - 1; i >= 0; i--) {
       final childSize = context.getChildSize(i)!.width;
       final dx = (childSize + 8) * i;
-      final x = xStart, y = yStart - dx;
+      final x = xStart * controller.value;
+      final y = (yStart - dx) * controller.value;
       context.paintChild(i, transform: Matrix4.translationValues(x, y, 0));
     }
   }

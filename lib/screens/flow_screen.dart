@@ -37,10 +37,10 @@ class _FlowWidgetsState extends State<FlowWidgets>
   }
 
   final List<IconData> _icons = [
+    Icons.menu,
     Icons.mail,
     Icons.cabin,
     Icons.notifications_active,
-    Icons.menu,
   ];
   @override
   Widget build(BuildContext context) {
@@ -71,19 +71,20 @@ class _FlowWidgetsState extends State<FlowWidgets>
 
 class _FloatingDelegate extends FlowDelegate {
   final Animation<double> controller;
-  const _FloatingDelegate({required this.controller});
+  const _FloatingDelegate({required this.controller})
+      : super(repaint: controller);
   @override
   void paintChildren(FlowPaintingContext context) {
     final size = context.size;
     final xStart = size.width - 60;
     final yStart = size.height - 60;
-    print(xStart);
-    print(yStart);
     for (int i = context.childCount - 1; i >= 0; i--) {
       final childSize = context.getChildSize(i)!.width;
-      final dx = (childSize + 8) * i;
-      final x = xStart * controller.value;
-      final y = (yStart - dx) * controller.value;
+      // final setValue =
+      //     (val) => i == context.childCount - 1 ? 0.0 : val * controller.value;
+      final dx = (childSize + 8.0) * i;
+      final x = xStart - dx * controller.value;
+      final y = yStart - dx * controller.value;
       context.paintChild(i, transform: Matrix4.translationValues(x, y, 0));
     }
   }

@@ -81,8 +81,8 @@ class Reviews {
     const CardReview(
       date: 'FEB 14th',
       title: 'Michael Scoffield',
-      avatar: 'assets/jb.jpg',
-      image: 'assets/13.jpg',
+      avatar: 'assets/card_/jb.jpg',
+      image: 'assets/card_/13.jpg',
       details:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
       subtitle: 'We travel not to escape life...',
@@ -90,8 +90,8 @@ class Reviews {
     const CardReview(
       date: 'JAN 24th',
       title: 'Daniel Kraig',
-      image: 'assets/12.jpg',
-      avatar: 'assets/jb1.jpg',
+      image: 'assets/card_/12.jpg',
+      avatar: 'assets/card_/jb1.jpg',
       subtitle: 'We travel not to escape life...',
       details:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
@@ -100,8 +100,8 @@ class Reviews {
       subtitle: 'We travel not to escape life...',
       date: 'MAR 18th',
       title: 'Amanda Linn',
-      avatar: 'assets/jb.jpg',
-      image: 'assets/10.jpg',
+      avatar: 'assets/card_/jb.jpg',
+      image: 'assets/card_/10.jpg',
       details:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
     ),
@@ -109,8 +109,8 @@ class Reviews {
       subtitle: 'We travel not to escape life...',
       date: 'AUG 15th',
       title: 'Kim Wexler',
-      avatar: 'assets/jb.jpg',
-      image: 'assets/9.jpg',
+      avatar: 'assets/card_/jb1.jpg',
+      image: 'assets/card_/9.jpg',
       details:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
     ),

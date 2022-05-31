@@ -27,16 +27,23 @@ class _CardFlowScreenState extends State<CardFlowScreen> {
                 decoration: BoxDecoration(gradient: backGradient))),
         SafeArea(
           child: Scaffold(
-            body: Column(
-              children: [
-                const TopSearchContainer(),
-                PageView.builder(
-                  controller: _controller,
-                  itemBuilder: (context, index) =>
-                      CardFlowItemWidget(cardItem: cardFlows[index]),
-                  itemCount: cardFlows.length,
-                ),
-              ],
+            backgroundColor: Colors.transparent,
+            body: Padding(
+              padding: const EdgeInsets.only(top: 15, bottom: 15),
+              child: Column(
+                children: [
+                  const TopSearchContainer(),
+                  const SizedBox(height: 10),
+                  Expanded(
+                    child: PageView.builder(
+                      controller: _controller,
+                      itemBuilder: (context, index) =>
+                          CardFlowItemWidget(cardItem: cardFlows[index]),
+                      itemCount: cardFlows.length,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -170,12 +177,16 @@ class TopSearchContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Container(
-      height: 40,
-      padding: const EdgeInsets.all(20),
+      height: 50,
+      margin: const EdgeInsets.only(left: 20, right: 20),
+      width: width,
       child: Row(
         children: [
           Container(
+            width: width * .8,
+            height: 50,
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
@@ -188,8 +199,8 @@ class TopSearchContainer extends StatelessWidget {
               ],
             ),
           ),
-          IconButton(
-              icon: const Icon(Icons.settings_applications), onPressed: () {})
+          const SizedBox(width: 10),
+          const Icon(Icons.settings_applications)
         ],
       ),
     );

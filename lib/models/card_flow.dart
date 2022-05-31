@@ -36,7 +36,7 @@ final List<CardFlow> cardFlows = [
       place: 'Empire Tower'),
   CardFlow(
       title: 'SYRACUSE',
-      image: 'assets/card_/2.jpg',
+      image: 'assets/card_/4.jpg',
       details: 'La Cresenta-Montrose, CA91020 Glendale',
       date: '6/05/2022',
       price: '440USD',
@@ -52,7 +52,7 @@ final List<CardFlow> cardFlows = [
       place: 'London State'),
   CardFlow(
       title: 'MOUNTAINOUS',
-      image: 'assets/card_/4.jpg',
+      image: 'assets/card_/7.jpg',
       details: 'La Cresenta-Montrose, CA91020 Glendale',
       date: '6/05/2022',
       price: '890USD',

@@ -2,7 +2,7 @@ import 'package:animations_anatomy/constants/constants.dart';
 import 'package:animations_anatomy/widgets/image1_widgets/back_images.dart';
 import 'package:flutter/material.dart';
 
-// disk hide animation
+// Moving images animation
 class Sliver1Screen extends StatefulWidget {
   const Sliver1Screen({Key? key}) : super(key: key);
   @override

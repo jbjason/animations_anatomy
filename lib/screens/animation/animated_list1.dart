@@ -1,16 +1,17 @@
 import 'package:animations_anatomy/constants/constants.dart';
 import 'package:flutter/material.dart';
 
-class SliverList1 extends StatefulWidget {
-  const SliverList1({Key? key}) : super(key: key);
+// items scale to 0 while scalling
+class AnimatedList1 extends StatefulWidget {
+  const AnimatedList1({Key? key}) : super(key: key);
 
   @override
-  State<SliverList1> createState() => _SliverList1State();
+  State<AnimatedList1> createState() => _AnimatedList1State();
 }
 
 const itemSize = 200.0;
 
-class _SliverList1State extends State<SliverList1> {
+class _AnimatedList1State extends State<AnimatedList1> {
   final _controller = ScrollController();
   double currentOffset = 0;
 

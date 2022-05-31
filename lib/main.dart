@@ -1,4 +1,4 @@
-import 'package:animations_anatomy/screens/home_screen.dart';
+import 'package:animations_anatomy/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

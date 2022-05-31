@@ -1,8 +1,9 @@
-import 'package:animations_anatomy/screens/flow_screen.dart';
-import 'package:animations_anatomy/screens/sliver1_screen.dart';
-import 'package:animations_anatomy/screens/sliver2_screen.dart';
-import 'package:animations_anatomy/screens/sliver_list1.dart';
-import 'package:animations_anatomy/screens/music_screen.dart';
+import 'package:animations_anatomy/screens/animation/flow_screen.dart';
+import 'package:animations_anatomy/screens/animation/sliver1_screen.dart';
+import 'package:animations_anatomy/screens/animation/sliver2_screen.dart';
+import 'package:animations_anatomy/screens/animation/animated_list1.dart';
+import 'package:animations_anatomy/screens/animation/music_screen.dart';
+import 'package:animations_anatomy/screens/card_flow_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -20,7 +21,7 @@ class AppDrawer extends StatelessWidget {
             leading: const Icon(Icons.payment),
             title: const Text('Animated List1'),
             onTap: () => Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => const SliverList1())),
+                .push(MaterialPageRoute(builder: (_) => const AnimatedList1())),
           ),
           const Divider(),
           ListTile(
@@ -49,6 +50,13 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Flow Widgets'),
             onTap: () => Navigator.of(context)
                 .push(MaterialPageRoute(builder: (_) => const FlowScreen())),
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.payment),
+            title: const Text('Card Flow1'),
+            onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const CardFlowScreen())),
           ),
           const Divider(),
         ],

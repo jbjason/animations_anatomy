@@ -79,6 +79,15 @@ final List<CardFlow> cardFlows = [
 class Reviews {
   static List<CardReview> allReviews = [
     const CardReview(
+      subtitle: 'We travel not to escape life...',
+      date: 'AUG 15th',
+      title: 'Kim Wexler',
+      avatar: 'assets/card_/jb1.jpg',
+      image: 'assets/card_/9.jpg',
+      details:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
+    ),
+    const CardReview(
       date: 'FEB 14th',
       title: 'Michael Scoffield',
       avatar: 'assets/card_/jb.jpg',
@@ -102,15 +111,6 @@ class Reviews {
       title: 'Amanda Linn',
       avatar: 'assets/card_/jb.jpg',
       image: 'assets/card_/10.jpg',
-      details:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-    ),
-    const CardReview(
-      subtitle: 'We travel not to escape life...',
-      date: 'AUG 15th',
-      title: 'Kim Wexler',
-      avatar: 'assets/card_/jb1.jpg',
-      image: 'assets/card_/9.jpg',
       details:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
     ),

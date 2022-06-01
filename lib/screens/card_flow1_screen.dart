@@ -22,7 +22,7 @@ class _CardFlow1ScreenState extends State<CardFlow1Screen> {
   @override
   void initState() {
     super.initState();
-    _controller = PageController(viewportFraction: 0.78);
+    _controller = PageController(viewportFraction: 0.8);
     _controller.addListener(_listener);
   }
 
@@ -116,7 +116,7 @@ class CardFlowItemWidget extends StatelessWidget {
         }
       },
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.only(right: 15, top: 10),
         child: Column(
           children: [
             Expanded(

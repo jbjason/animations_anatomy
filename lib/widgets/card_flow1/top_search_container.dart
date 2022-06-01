@@ -8,12 +8,12 @@ class TopSearchContainer extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return Container(
       height: 45,
-      margin: const EdgeInsets.only(left: 20, right: 20),
+      margin: const EdgeInsets.only(left: 30, right: 20),
       width: width,
       child: Row(
         children: [
           Container(
-            width: width * .8,
+            width: width * .75,
             height: 40,
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             decoration: BoxDecoration(
@@ -27,8 +27,8 @@ class TopSearchContainer extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(width: 10),
-          const Icon(Icons.settings_applications_rounded)
+          const SizedBox(width: 6),
+          const Icon(Icons.settings, color: Colors.white, size: 30)
         ],
       ),
     );

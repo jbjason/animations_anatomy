@@ -22,7 +22,7 @@ class _CardFlow1ScreenState extends State<CardFlow1Screen> {
   @override
   void initState() {
     super.initState();
-    _controller = PageController(viewportFraction: 0.8);
+    _controller = PageController(viewportFraction: 0.84);
     _controller.addListener(_listener);
   }
 
@@ -61,7 +61,7 @@ class _CardFlow1ScreenState extends State<CardFlow1Screen> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Padding(
-          padding: const EdgeInsets.only(top: 15, bottom: 15),
+          padding: const EdgeInsets.only(top: 15, bottom: 10),
           child: Column(
             children: [
               const TopSearchContainer(),
@@ -116,7 +116,7 @@ class CardFlowItemWidget extends StatelessWidget {
         }
       },
       child: Padding(
-        padding: const EdgeInsets.only(right: 15, top: 10),
+        padding: const EdgeInsets.only(right: 10),
         child: Column(
           children: [
             Expanded(
@@ -127,7 +127,7 @@ class CardFlowItemWidget extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 23, vertical: 20),
               ),
             ),
-            const Spacer(),
+            const SizedBox(height: 40),
             Expanded(
                 flex: 5, child: BottomFlowWidget(reviews: cardItem.reviews[0])),
           ],

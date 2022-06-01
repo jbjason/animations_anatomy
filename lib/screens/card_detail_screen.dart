@@ -15,12 +15,12 @@ class CardDetailScreen extends StatelessWidget {
         const Positioned.fill(
             child: DecoratedBox(
                 decoration: BoxDecoration(gradient: backGradient))),
-        _scaffold(),
+        _scaffold(context),
       ],
     );
   }
 
-  Widget _scaffold() {
+  Widget _scaffold(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Column(
@@ -28,9 +28,23 @@ class CardDetailScreen extends StatelessWidget {
         children: [
           Expanded(
             flex: 3,
-            child: TopFlowWidget(
-              cardItem: cardFlow,
-              padding: const EdgeInsets.only(left: 30, top: 50, bottom: 20),
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: TopFlowWidget(
+                    cardItem: cardFlow,
+                    padding: const EdgeInsets.only(left: 50, top: 50),
+                  ),
+                ),
+                Positioned(
+                  top: 50,
+                  left: 10,
+                  child: InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: const Icon(Icons.arrow_back_ios_new,
+                          color: Colors.white)),
+                )
+              ],
             ),
           ),
           Expanded(

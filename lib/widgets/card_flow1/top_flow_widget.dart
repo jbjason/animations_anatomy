@@ -8,59 +8,66 @@ class TopFlowWidget extends StatelessWidget {
   final EdgeInsets padding;
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Hero(
       tag: 'top ${cardItem.title}',
       child: Stack(
         children: [
           Positioned.fill(
               child: Image.asset(cardItem.image, fit: BoxFit.cover)),
-          Padding(
+          Container(
             padding: padding,
+            width: width,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   cardItem.title,
-                  style: const TextStyle(
-                      color: Colors.white,
+                  style: TextStyle(
+                      color: Colors.black.computeLuminance() < .5
+                          ? Colors.white
+                          : Colors.black,
                       fontSize: 22,
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
                   cardItem.price,
-                  style: const TextStyle(
-                      color: Colors.white,
+                  style: TextStyle(
+                      color: Colors.black.computeLuminance() < .5
+                          ? Colors.white
+                          : Colors.black,
                       fontSize: 24,
                       fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 20),
                 Text(
                   cardItem.place,
-                  style: const TextStyle(fontSize: 13, color: Colors.white),
-                ),
-                Expanded(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        cardItem.date,
-                        style:
-                            const TextStyle(fontSize: 11, color: Colors.white),
-                      ),
-                      // Container(
-                      //   padding: const EdgeInsets.all(10),
-                      //   decoration: BoxDecoration(
-                      //       borderRadius: BorderRadius.circular(20),
-                      //       color: Colors.white.withOpacity(0.2)),
-                      //   child: const Text('CheckIn',
-                      //       overflow: TextOverflow.ellipsis),
-                      // )
-                    ],
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.black.computeLuminance() < .5
+                        ? Colors.white
+                        : Colors.black,
                   ),
+                ),
+                Text(
+                  cardItem.date,
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: Colors.black.computeLuminance() < .5
+                        ? Colors.white
+                        : Colors.black,
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white.withOpacity(0.4)),
+                  child: const Text('CheckIn', overflow: TextOverflow.ellipsis),
                 )
               ],
             ),
-          )
+          ),
         ],
       ),
     );

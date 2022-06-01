@@ -28,7 +28,7 @@ class CardReview {
 final List<CardFlow> cardFlows = [
   const CardFlow(
       title: 'ATCOASTAL',
-      image: 'assets/card_/1.jpg',
+      image: 'assets/card_/7.jpg',
       details: 'La Cresenta-Montrose, CA91020 Glendale',
       date: '6/05/2022',
       price: '450USD',
@@ -109,7 +109,7 @@ final List<CardFlow> cardFlows = [
       place: 'London State'),
   const CardFlow(
       title: 'MOUNTAINOUS',
-      image: 'assets/card_/7.jpg',
+      image: 'assets/card_/5.jpg',
       details: 'La Cresenta-Montrose, CA91020 Glendale',
       date: '6/05/2022',
       price: '890USD',
@@ -136,7 +136,7 @@ final List<CardFlow> cardFlows = [
       place: 'Los Angelas'),
   const CardFlow(
       title: 'NEW YORK',
-      image: 'assets/card_/5.jpg',
+      image: 'assets/card_/1.jpg',
       details: 'La Cresenta-Montrose, CA91020 Glendale',
       date: '6/05/2022',
       price: '890USD',

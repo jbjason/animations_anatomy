@@ -16,21 +16,15 @@ class CardDetailScreen extends StatelessWidget {
             child: DecoratedBox(
                 decoration: BoxDecoration(gradient: backGradient))),
         _scaffold(),
-        Positioned(
-          top: 35,
-          left: 15,
-          child: InkWell(
-            onTap: () => Navigator.pop(context),
-            child: const Icon(Icons.arrow_back_ios_new),
-          ),
-        )
       ],
     );
   }
 
   Widget _scaffold() {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
             flex: 3,
@@ -43,7 +37,9 @@ class CardDetailScreen extends StatelessWidget {
             flex: 5,
             child: ListView.builder(
               shrinkWrap: true,
-              itemBuilder: (context, index) => SizedBox(
+              itemBuilder: (context, index) => Container(
+                  color: Colors.transparent,
+                  padding: const EdgeInsets.all(10),
                   height: MediaQuery.of(context).size.height * .4,
                   child: BottomFlowWidget(reviews: cardFlow.reviews[index])),
             ),

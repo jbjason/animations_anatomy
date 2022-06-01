@@ -9,12 +9,11 @@ class TopFlowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: 'top ${cardItem.image}',
+      tag: 'top ${cardItem.title}',
       child: Stack(
         children: [
           Positioned.fill(
-            child: Image.asset(cardItem.image, fit: BoxFit.cover),
-          ),
+              child: Image.asset(cardItem.image, fit: BoxFit.cover)),
           Padding(
             padding: padding,
             child: Column(
@@ -39,22 +38,25 @@ class TopFlowWidget extends StatelessWidget {
                   cardItem.place,
                   style: const TextStyle(fontSize: 13, color: Colors.white),
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      cardItem.date,
-                      style: const TextStyle(fontSize: 11, color: Colors.white),
-                    ),
-                    const Spacer(),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white.withOpacity(0.2)),
-                      child: const Text('CheckIn'),
-                    )
-                  ],
+                Expanded(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        cardItem.date,
+                        style:
+                            const TextStyle(fontSize: 11, color: Colors.white),
+                      ),
+                      // Container(
+                      //   padding: const EdgeInsets.all(10),
+                      //   decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(20),
+                      //       color: Colors.white.withOpacity(0.2)),
+                      //   child: const Text('CheckIn',
+                      //       overflow: TextOverflow.ellipsis),
+                      // )
+                    ],
+                  ),
                 )
               ],
             ),

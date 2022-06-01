@@ -129,7 +129,7 @@ class CardFlowItemWidget extends StatelessWidget {
             ),
             const Spacer(),
             Expanded(
-                flex: 5, child: BottomFlowWidget(reviews: cardItem.reviews[3])),
+                flex: 5, child: BottomFlowWidget(reviews: cardItem.reviews[0])),
           ],
         ),
       ),

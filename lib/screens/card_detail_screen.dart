@@ -37,6 +37,7 @@ class CardDetailScreen extends StatelessWidget {
             flex: 5,
             child: ListView.builder(
               shrinkWrap: true,
+              itemCount: cardFlow.reviews.length,
               itemBuilder: (context, index) => Container(
                   color: Colors.transparent,
                   padding:

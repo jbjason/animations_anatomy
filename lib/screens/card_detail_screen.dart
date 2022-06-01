@@ -39,7 +39,8 @@ class CardDetailScreen extends StatelessWidget {
               shrinkWrap: true,
               itemBuilder: (context, index) => Container(
                   color: Colors.transparent,
-                  padding: const EdgeInsets.all(10),
+                  padding:
+                      const EdgeInsets.only(left: 10, right: 10, bottom: 10),
                   height: MediaQuery.of(context).size.height * .4,
                   child: BottomFlowWidget(reviews: cardFlow.reviews[index])),
             ),

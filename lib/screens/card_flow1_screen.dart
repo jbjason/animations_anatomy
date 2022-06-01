@@ -37,7 +37,7 @@ class _CardFlow1ScreenState extends State<CardFlow1Screen> {
 
   void _onSwipe(CardFlow _card) {
     Navigator.of(context).push(PageRouteBuilder(
-        transitionDuration: const Duration(milliseconds: 500),
+        transitionDuration: const Duration(milliseconds: 800),
         pageBuilder: (context, animation, secondaryAnimation) {
           return FadeTransition(
               opacity: animation, child: CardDetailScreen(cardFlow: _card));

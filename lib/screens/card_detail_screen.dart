@@ -10,20 +10,25 @@ class CardDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        const Positioned.fill(
-            child: DecoratedBox(
-                decoration: BoxDecoration(gradient: backGradient))),
-        _scaffold(context),
-      ],
+    return Scaffold(
+      body: Stack(
+        children: [
+          const Positioned.fill(
+              child: DecoratedBox(
+                  decoration: BoxDecoration(gradient: backGradient))),
+          _body(context),
+        ],
+      ),
     );
   }
 
-  Widget _scaffold(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Column(
+  Widget _body(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Container(
+      height: size.height,
+      width: size.width,
+      color: Colors.transparent,
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(

@@ -8,16 +8,14 @@ class TopFlowWidget extends StatelessWidget {
   final EdgeInsets padding;
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     return Hero(
       tag: 'top ${cardItem.title}',
       child: Stack(
         children: [
           Positioned.fill(
               child: Image.asset(cardItem.image, fit: BoxFit.cover)),
-          Container(
+          Padding(
             padding: padding,
-            width: width,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -49,22 +47,29 @@ class TopFlowWidget extends StatelessWidget {
                         : Colors.black,
                   ),
                 ),
-                Text(
-                  cardItem.date,
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: Colors.black.computeLuminance() < .5
-                        ? Colors.white
-                        : Colors.black,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      cardItem.date,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.black.computeLuminance() < .5
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    ),
+                    const Spacer(),
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white.withOpacity(0.4)),
+                      child: const Text('CheckIn',
+                          overflow: TextOverflow.ellipsis),
+                    ),
+                    const SizedBox(width: 10),
+                  ],
                 ),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white.withOpacity(0.4)),
-                  child: const Text('CheckIn', overflow: TextOverflow.ellipsis),
-                )
               ],
             ),
           ),

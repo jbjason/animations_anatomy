@@ -65,7 +65,7 @@ class _CardFlow1ScreenState extends State<CardFlow1Screen> {
           child: Column(
             children: [
               const TopSearchContainer(),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               Expanded(
                 child: PageView.builder(
                   controller: _controller,

@@ -35,6 +35,7 @@ class TopFlowWidget extends StatelessWidget {
                 Text(cardItem.date, style: _place),
                 Expanded(
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(cardItem.date, style: _place),
                       const Spacer(),

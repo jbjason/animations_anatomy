@@ -35,7 +35,6 @@ class CardDetailScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
             flex: 3,

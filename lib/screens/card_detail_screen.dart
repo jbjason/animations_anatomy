@@ -40,7 +40,7 @@ class CardDetailScreen extends StatelessWidget {
             flex: 3,
             child: TopFlowWidget(
               cardItem: cardFlow,
-              padding: const EdgeInsets.only(left: 50, top: 50),
+              padding: const EdgeInsets.only(left: 50, top: 50, right: 10),
             ),
           ),
           Expanded(

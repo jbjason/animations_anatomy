@@ -6,6 +6,7 @@ class TopFlowWidget extends StatelessWidget {
       : super(key: key);
   final CardFlow cardItem;
   final EdgeInsets padding;
+
   @override
   Widget build(BuildContext context) {
     final _title = TextStyle(
@@ -17,6 +18,8 @@ class TopFlowWidget extends StatelessWidget {
         fontSize: 13,
         color:
             Colors.black.computeLuminance() < .5 ? Colors.white : Colors.black);
+    const _checkIn = TextStyle(
+        fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black);
     return Hero(
       tag: 'top ${cardItem.title}',
       child: Stack(
@@ -32,7 +35,6 @@ class TopFlowWidget extends StatelessWidget {
                 Text(cardItem.price, style: _title),
                 const SizedBox(height: 20),
                 Text(cardItem.place, style: _place),
-                Text(cardItem.date, style: _place),
                 Expanded(
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,9 +46,8 @@ class TopFlowWidget extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             color: Colors.white.withOpacity(0.4)),
-                        child: const Text('CheckIn'),
+                        child: const Text('CheckIn', style: _checkIn),
                       ),
-                      const SizedBox(width: 10),
                     ],
                   ),
                 ),

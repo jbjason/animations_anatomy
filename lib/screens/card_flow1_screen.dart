@@ -57,43 +57,41 @@ class _CardFlow1ScreenState extends State<CardFlow1Screen> {
   }
 
   Widget _scaffold() {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Padding(
-          padding: const EdgeInsets.only(top: 15, bottom: 10),
-          child: Column(
-            children: [
-              const TopSearchContainer(),
-              const SizedBox(height: 20),
-              Expanded(
-                child: PageView.builder(
-                  controller: _controller,
-                  itemBuilder: (context, index) {
-                    final percent = (_page - index).abs().clamp(0.0, 1.0);
-                    // for this line left pageItem -1=hide thake & right pageItem visible
-                    final factor = _controller.position.userScrollDirection ==
-                            ScrollDirection.forward
-                        ? 1.0
-                        : -1.0;
-                    return Transform(
-                      transform: Matrix4.identity()
-                        ..setEntry(3, 2, 0.001)
-                        ..rotateY(math.radians(45 * percent * factor)),
-                      child: Opacity(
-                        opacity: 1 - percent.clamp(0.0, 0.6),
-                        child: CardFlowItemWidget(
-                          cardItem: cardFlows[index],
-                          onSwipe: () => _onSwipe(cardFlows[index]),
-                        ),
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Padding(
+        padding: const EdgeInsets.only(top: 35, bottom: 10),
+        child: Column(
+          children: [
+            const TopSearchContainer(),
+            const SizedBox(height: 20),
+            Expanded(
+              child: PageView.builder(
+                controller: _controller,
+                itemBuilder: (context, index) {
+                  final percent = (_page - index).abs().clamp(0.0, 1.0);
+                  // for this line left pageItem -1=hide thake & right pageItem visible
+                  final factor = _controller.position.userScrollDirection ==
+                          ScrollDirection.forward
+                      ? 1.0
+                      : -1.0;
+                  return Transform(
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, 0.001)
+                      ..rotateY(math.radians(45 * percent * factor)),
+                    child: Opacity(
+                      opacity: 1 - percent.clamp(0.0, 0.6),
+                      child: CardFlowItemWidget(
+                        cardItem: cardFlows[index],
+                        onSwipe: () => _onSwipe(cardFlows[index]),
                       ),
-                    );
-                  },
-                  itemCount: cardFlows.length,
-                ),
+                    ),
+                  );
+                },
+                itemCount: cardFlows.length,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

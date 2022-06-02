@@ -64,7 +64,7 @@ final List<CardFlow> cardFlows = [
           date: 'JAN 24th',
           title: 'Daniel Kraig',
           image: 'assets/card_/12.jpg',
-          avatar: 'assets/card_/jb1.jpg',
+          avatar: 'assets/card_/jb.jpg',
           subtitle: 'We travel not to escape life...',
           details:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
@@ -73,7 +73,7 @@ final List<CardFlow> cardFlows = [
           subtitle: 'We travel not to escape life...',
           date: 'MAR 18th',
           title: 'Amanda Linn',
-          avatar: 'assets/card_/jb.jpg',
+          avatar: 'assets/card_/jb1.jpg',
           image: 'assets/card_/10.jpg',
           details:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
@@ -91,7 +91,7 @@ final List<CardFlow> cardFlows = [
           subtitle: 'We travel not to escape life...',
           date: 'MAR 18th',
           title: 'Amanda Linn2',
-          avatar: 'assets/card_/jb.jpg',
+          avatar: 'assets/card_/jb1.jpg',
           image: 'assets/card_/7.jpg',
           details:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
@@ -100,7 +100,7 @@ final List<CardFlow> cardFlows = [
           date: 'JAN 24th',
           title: 'Daniel Kraig2',
           image: 'assets/card_/8.jpg',
-          avatar: 'assets/card_/jb1.jpg',
+          avatar: 'assets/card_/jb.jpg',
           subtitle: 'We travel not to escape life...',
           details:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',

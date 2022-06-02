@@ -13,17 +13,8 @@ class TopFlowWidget extends StatelessWidget {
             Colors.black.computeLuminance() < .5 ? Colors.white : Colors.black,
         fontSize: 22,
         fontWeight: FontWeight.bold);
-    final _price = TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.bold,
-        color:
-            Colors.black.computeLuminance() < .5 ? Colors.white : Colors.black);
     final _place = TextStyle(
         fontSize: 13,
-        color:
-            Colors.black.computeLuminance() < .5 ? Colors.white : Colors.black);
-    final _date = TextStyle(
-        fontSize: 11,
         color:
             Colors.black.computeLuminance() < .5 ? Colors.white : Colors.black);
     return Hero(
@@ -35,26 +26,28 @@ class TopFlowWidget extends StatelessWidget {
           Padding(
             padding: padding,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(cardItem.title, style: _title),
-                Text(cardItem.price, style: _price),
+                Text(cardItem.price, style: _title),
                 const SizedBox(height: 20),
                 Text(cardItem.place, style: _place),
-                Row(
-                  children: [
-                    Text(cardItem.date, style: _date),
-                    const Spacer(),
-                    // Container(
-                    //   padding: const EdgeInsets.all(10),
-                    //   decoration: BoxDecoration(
-                    //       borderRadius: BorderRadius.circular(20),
-                    //       color: Colors.white.withOpacity(0.4)),
-                    //   child: const Text('CheckIn',
-                    //       overflow: TextOverflow.ellipsis),
-                    // ),
-                    // const SizedBox(width: 10),
-                  ],
+                Text(cardItem.date, style: _place),
+                Expanded(
+                  child: Row(
+                    children: [
+                      Text(cardItem.date, style: _place),
+                      const Spacer(),
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.white.withOpacity(0.4)),
+                        child: const Text('CheckIn'),
+                      ),
+                      const SizedBox(width: 10),
+                    ],
+                  ),
                 ),
               ],
             ),

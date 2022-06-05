@@ -15,18 +15,21 @@ class _TapBarScreenState extends State<TapBarScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              height: 100,
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+              height: 60,
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
               alignment: Alignment.bottomCenter,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     'HomePage',
-                    style: TextStyle(color: Colors.blue[900]),
+                    style: TextStyle(
+                        color: Colors.blue[900],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
                   ),
                   const CircleAvatar(
-                      radius: 30,
+                      radius: 17,
                       backgroundImage: AssetImage('assets/card_/jb.jpg')),
                 ],
               ),

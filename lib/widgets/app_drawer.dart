@@ -3,7 +3,8 @@ import 'package:animations_anatomy/screens/animation/sliver1_screen.dart';
 import 'package:animations_anatomy/screens/animation/sliver2_screen.dart';
 import 'package:animations_anatomy/screens/animation/animated_list1.dart';
 import 'package:animations_anatomy/screens/animation/music_screen.dart';
-import 'package:animations_anatomy/screens/card_flow1_screen.dart';
+import 'package:animations_anatomy/screens/card_flow1/card_flow1_screen.dart';
+import 'package:animations_anatomy/screens/tap_bar_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -57,6 +58,13 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Card Flow1'),
             onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(builder: (_) => const CardFlow1Screen())),
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.payment),
+            title: const Text('Sync TapBar'),
+            onTap: () => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (_) => const TapBarScreen())),
           ),
           const Divider(),
         ],

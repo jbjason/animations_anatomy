@@ -1,5 +1,9 @@
 import 'package:animations_anatomy/models/travel.dart';
 import 'package:animations_anatomy/models/trip.dart';
+import 'package:flutter/cupertino.dart';
+
+const backGradient =
+    LinearGradient(colors: [Color(0xFF4b6889), Color(0xFF9FB4D2)]);
 
 final List<Trip> trips = [
   const Trip(

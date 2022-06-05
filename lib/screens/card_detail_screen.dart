@@ -1,5 +1,5 @@
+import 'package:animations_anatomy/constants/constants.dart';
 import 'package:animations_anatomy/models/card_flow.dart';
-import 'package:animations_anatomy/screens/card_flow1_screen.dart';
 import 'package:animations_anatomy/widgets/card_flow1/bottom_flow_widget.dart';
 import 'package:animations_anatomy/widgets/card_flow1/top_flow_widget.dart';
 import 'package:flutter/material.dart';

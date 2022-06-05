@@ -1,5 +1,5 @@
 import 'package:animations_anatomy/models/trip.dart';
-import 'package:animations_anatomy/screens/home/details_screen.dart';
+import 'package:animations_anatomy/screens/home_/details_screen.dart';
 import 'package:flutter/cupertino.dart';
 
 class PageRouting extends PageRouteBuilder {

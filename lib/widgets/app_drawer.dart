@@ -4,7 +4,7 @@ import 'package:animations_anatomy/screens/animation_/sliver2_screen.dart';
 import 'package:animations_anatomy/screens/animation_/animated_list1.dart';
 import 'package:animations_anatomy/screens/animation_/music_screen.dart';
 import 'package:animations_anatomy/screens/card_flow1/card_flow1_screen.dart';
-import 'package:animations_anatomy/screens/tap_bar_screen.dart';
+import 'package:animations_anatomy/screens/tab_bar_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {

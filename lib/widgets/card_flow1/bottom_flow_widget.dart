@@ -9,6 +9,7 @@ class BottomFlowWidget extends StatelessWidget {
     return Hero(
       tag: 'bottom ${reviews.title}${reviews.image}',
       child: Material(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 10,
         color: Colors.white,
         child: Padding(

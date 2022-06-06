@@ -47,22 +47,19 @@ class _SyncConceptState extends State<SyncConcept>
             ),
           ),
           Expanded(
-            child: Container(
-              color: Colors.grey[300],
-              child: ListView.builder(
-                  controller: _bloc.scrollController,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  itemBuilder: (context, index) {
-                    final f = _bloc.allItems[index];
-                    // if hint is cat means its a category
-                    if (f.hint == 'cat') {
-                      return SyncCategoryItem(title: f.category);
-                    } else {
-                      return SyncProductItem(product: f.product);
-                    }
-                  },
-                  itemCount: _bloc.allItems.length),
-            ),
+            child: ListView.builder(
+                controller: _bloc.scrollController,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                itemBuilder: (context, index) {
+                  final f = _bloc.allItems[index];
+                  // if hint is cat means its a category
+                  if (f.hint == 'cat') {
+                    return SyncCategoryItem(title: f.category);
+                  } else {
+                    return SyncProductItem(product: f.product);
+                  }
+                },
+                itemCount: _bloc.allItems.length),
           ),
         ],
       ),

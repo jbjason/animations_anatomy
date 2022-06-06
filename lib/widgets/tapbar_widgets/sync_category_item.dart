@@ -8,6 +8,7 @@ class SyncCategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: categoryHeight,
+      color: Colors.grey[200],
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Text(
         title,

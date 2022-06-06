@@ -11,34 +11,41 @@ class SyncProductItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       height: productHeight,
       child: Card(
-        elevation: 6,
+        elevation: 0,
         shadowColor: Colors.black38,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Row(
           children: [
-            Image.asset(product.image, fit: BoxFit.cover, width: 150),
+            ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child:
+                    Image.asset(product.image, fit: BoxFit.cover, width: 150)),
             const SizedBox(width: 15),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  product.title,
-                  style: TextStyle(
-                      color: Colors.blueGrey[900],
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold),
-                ),
-                Text(product.details,
-                    maxLines: 2, style: const TextStyle(fontSize: 11)),
-                Text(
-                  '\$ ${product.price}',
-                  style: const TextStyle(
-                      color: Colors.tealAccent,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.title,
+                    style: TextStyle(
+                        color: Colors.blueGrey[800],
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(product.details,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 11)),
+                  Text(
+                    '\$ ${product.price}',
+                    style: TextStyle(
+                        color: Colors.teal[900],
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

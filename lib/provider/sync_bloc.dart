@@ -9,6 +9,7 @@ class SyncBloc with ChangeNotifier {
 
   void init(TickerProvider ticker) {
     controller = TabController(length: syncCategories.length, vsync: ticker);
+    scrollController = ScrollController();
     for (int i = 0; i < syncCategories.length; i++) {
       final singleCategory = syncCategories[i];
       tabs.add(SyncTabCategory(category: singleCategory, selected: i == 0));

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:animations_anatomy/provider/sync_bloc.dart';
 
 const categoryHeight = 55.0;
-const productHeight = 100.0;
+const productHeight = 125.0;
 
 class SyncConcept extends StatefulWidget {
   const SyncConcept({Key? key}) : super(key: key);
@@ -37,7 +37,7 @@ class _SyncConceptState extends State<SyncConcept>
         children: [
           Container(
             color: Colors.white,
-            height: 80,
+            height: 70,
             child: TabBar(
               controller: _bloc.controller,
               isScrollable: true,
@@ -49,7 +49,6 @@ class _SyncConceptState extends State<SyncConcept>
           Expanded(
             child: ListView.builder(
                 controller: _bloc.scrollController,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
                 itemBuilder: (context, index) {
                   final f = _bloc.allItems[index];
                   // if hint is cat means its a category

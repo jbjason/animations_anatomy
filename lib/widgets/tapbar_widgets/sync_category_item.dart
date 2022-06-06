@@ -7,6 +7,7 @@ class SyncCategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.centerLeft,
       height: categoryHeight,
       color: Colors.grey[200],
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -14,9 +15,8 @@ class SyncCategoryItem extends StatelessWidget {
         title,
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          color: Colors.blue[900],
+          color: Colors.blueGrey[800]!,
           fontSize: 18,
-          letterSpacing: 1.5,
         ),
       ),
     );

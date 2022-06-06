@@ -45,12 +45,12 @@ List<SyncCategory> syncCategories = [
   const SyncCategory(
     name: 'Favorites',
     products: [
-      SyncProduct(
-        title: 'SYRACUSEL',
-        image: 'assets/card_/1.jpg',
-        details: 'La Cresenta-Montrose, CA91020 Glendale',
-        price: 240,
-      ),
+      // SyncProduct(
+      //   title: 'SYRACUSEL',
+      //   image: 'assets/card_/1.jpg',
+      //   details: 'La Cresenta-Montrose, CA91020 Glendale',
+      //   price: 240,
+      // ),
       SyncProduct(
         title: 'Daniel Kraig',
         image: 'assets/card_/2.jpg',
@@ -101,20 +101,20 @@ List<SyncCategory> syncCategories = [
         details: 'La Cresenta-Montrose, CA91020 Glendale',
         price: 240,
       ),
-      SyncProduct(
-        title: 'Kim Wexler2',
-        image: 'assets/card_/11.jpg',
-        details:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        price: 450,
-      ),
-      SyncProduct(
-        title: 'Michael Scoffield2',
-        image: 'assets/card_/12.jpg',
-        details:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
-        price: 750,
-      ),
+      // SyncProduct(
+      //   title: 'Kim Wexler2',
+      //   image: 'assets/card_/11.jpg',
+      //   details:
+      //       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
+      //   price: 450,
+      // ),
+      // SyncProduct(
+      //   title: 'Michael Scoffield2',
+      //   image: 'assets/card_/12.jpg',
+      //   details:
+      //       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
+      //   price: 750,
+      // ),
     ],
   ),
   const SyncCategory(

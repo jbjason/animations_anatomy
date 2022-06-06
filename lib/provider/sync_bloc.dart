@@ -17,7 +17,7 @@ class SyncBloc with ChangeNotifier {
 
       // storing categories exact offset , this will help to go that selected category's offset postion
       if (i != 0) {
-        offset += syncCategories[i].products.length * productHeight;
+        offset += syncCategories[i - 1].products.length * productHeight;
       }
       // declaring all tabs  selected element to false except 0
       tabs.add(SyncTabCategory(

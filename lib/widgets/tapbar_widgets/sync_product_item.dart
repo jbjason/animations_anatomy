@@ -34,7 +34,7 @@ class SyncProductItem extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   ),
                   Text(product.details,
-                      maxLines: 2,
+                      maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(fontSize: 11)),
                   Text(

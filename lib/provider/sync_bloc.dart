@@ -14,23 +14,24 @@ class SyncBloc with ChangeNotifier {
     scrollController = ScrollController();
     for (int i = 0; i < syncCategories.length; i++) {
       final singleCategory = syncCategories[i];
-      // declaring all tabs  selected element to false except 0
-      tabs.add(SyncTabCategory(category: singleCategory, selected: i == 0));
-
       if (i > 0) {
-        offset += syncCategories[i - 1].products.length * productHeight;
+        offset += syncCategories[i].products.length * productHeight;
       }
+      // declaring all tabs  selected element to false except 0
+      tabs.add(SyncTabCategory(
+        category: singleCategory,
+        selected: i == 0,
+        offset: offset + (i * categoryHeight),
+      ));
+
       //adding all items & category line by line in a list name allItem[]
+      const emptyProduct =
+          SyncProduct(title: '', details: '', image: '', price: 0);
       allItems.add(SyncAllItem(
-          hint: 'cat',
-          category: singleCategory.name,
-          offset: offset + (i * categoryHeight),
-          product:
-              const SyncProduct(title: '', details: '', image: '', price: 0)));
+          hint: 'cat', category: singleCategory.name, product: emptyProduct));
       for (int j = 0; j < singleCategory.products.length; j++) {
-        final p = singleCategory.products[j];
-        allItems
-            .add(SyncAllItem(hint: 'pro', category: '', product: p, offset: 0));
+        final product = singleCategory.products[j];
+        allItems.add(SyncAllItem(hint: 'pro', category: '', product: product));
       }
     }
     notifyListeners();
@@ -43,7 +44,7 @@ class SyncBloc with ChangeNotifier {
           .changeSelection(selected.category.name == tabs[i].category.name);
     }
     notifyListeners();
-    scrollController.animateTo(offset,
+    scrollController.animateTo(selected.offset,
         duration: const Duration(milliseconds: 500), curve: Curves.easeInCubic);
   }
 
@@ -58,21 +59,20 @@ class SyncBloc with ChangeNotifier {
 class SyncTabCategory {
   final SyncCategory category;
   final bool selected;
+  final double offset;
 
   SyncTabCategory changeSelection(bool sel) =>
-      SyncTabCategory(category: category, selected: sel);
+      SyncTabCategory(category: category, offset: offset, selected: sel);
 
-  const SyncTabCategory({required this.category, required this.selected});
+  const SyncTabCategory(
+      {required this.category, required this.offset, required this.selected});
 }
 
 class SyncAllItem {
   final String hint;
   final String category;
   final SyncProduct product;
-  final double offset;
+
   const SyncAllItem(
-      {required this.hint,
-      required this.offset,
-      required this.category,
-      required this.product});
+      {required this.hint, required this.category, required this.product});
 }

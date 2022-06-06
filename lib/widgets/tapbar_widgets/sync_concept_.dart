@@ -38,6 +38,7 @@ class _SyncConceptState extends State<SyncConcept>
           Container(
             color: Colors.white,
             height: 70,
+            margin: const EdgeInsets.only(bottom: 10),
             child: TabBar(
               controller: _bloc.controller,
               isScrollable: true,

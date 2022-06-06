@@ -12,7 +12,6 @@ class SyncProductItem extends StatelessWidget {
       height: productHeight,
       child: Card(
         elevation: 0,
-        shadowColor: Colors.black38,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Row(
           children: [

@@ -15,7 +15,7 @@ class SyncCategoryItem extends StatelessWidget {
         title,
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          color: Colors.blueGrey[800]!,
+          color: Colors.blueGrey[800],
           fontSize: 18,
         ),
       ),

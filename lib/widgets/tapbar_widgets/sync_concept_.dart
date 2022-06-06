@@ -80,7 +80,7 @@ class SyncTabWidget extends StatelessWidget {
           child: Text(
             tabCategory.category.name,
             style: TextStyle(
-                color: Colors.blueGrey[900],
+                color: Colors.blueGrey[800],
                 fontWeight: FontWeight.bold,
                 fontSize: 13),
           ),

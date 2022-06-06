@@ -15,18 +15,15 @@ class SyncBloc with ChangeNotifier {
     for (int i = 0; i < syncCategories.length; i++) {
       final singleCategory = syncCategories[i];
 
-      // storing categories exact offset , this will help to go that selected category's offset position
-      if (i == 0) {
-        offset = 0;
-      } else {
-        offset += (i * categoryHeight) +
-            syncCategories[i].products.length * productHeight;
+      // storing categories exact offset , this will help to go that selected category's offset postion
+      if (i != 0) {
+        offset += syncCategories[i].products.length * productHeight;
       }
       // declaring all tabs  selected element to false except 0
       tabs.add(SyncTabCategory(
         category: singleCategory,
         selected: i == 0 ? true : false,
-        offset: offset,
+        offset: offset + (i * categoryHeight),
       ));
 
       //adding all items & category line by line in a list name allItem[]

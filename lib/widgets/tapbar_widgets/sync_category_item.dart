@@ -9,7 +9,6 @@ class SyncCategoryItem extends StatelessWidget {
     return Container(
       alignment: Alignment.centerLeft,
       height: categoryHeight,
-      color: Colors.grey[200],
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Text(
         title,

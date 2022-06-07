@@ -40,7 +40,7 @@ class _SyncConceptState extends State<SyncConcept>
             height: 70,
             margin: const EdgeInsets.only(bottom: 10),
             child: TabBar(
-              controller: _bloc.controller,
+              controller: _bloc.tabController,
               isScrollable: true,
               onTap: (i) => _bloc.onCategorySelected(i),
               tabs:

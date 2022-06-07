@@ -3,27 +3,27 @@ import 'package:animations_anatomy/widgets/tapbar_widgets/sync_concept_.dart';
 import 'package:flutter/material.dart';
 
 class SyncBloc with ChangeNotifier {
-  late TabController controller;
+  late TabController tabController;
   late ScrollController scrollController;
   List<SyncTabCategory> tabs = [];
   List<SyncAllItem> allItems = [];
   double offsetFrom = 0.0, offsetTo = 0.0;
+  bool _isListening = true;
 
   void init(TickerProvider ticker) {
-    controller = TabController(length: syncCategories.length, vsync: ticker);
+    tabController = TabController(length: syncCategories.length, vsync: ticker);
     scrollController = ScrollController();
     for (int i = 0; i < syncCategories.length; i++) {
       final singleCategory = syncCategories[i];
-
       // storing categories exact offset , this will help to go that selected category's offset postion
       if (i != 0) {
         offsetFrom += syncCategories[i - 1].products.length * productHeight;
-        print('From : $offsetFrom ');
       }
       if (i < syncCategories.length - 1) {
         offsetTo =
             offsetFrom + syncCategories[i + 1].products.length * productHeight;
-        print('to : $offsetTo');
+      } else {
+        offsetFrom = double.infinity; // for last item
       }
 
       tabs.add(
@@ -31,6 +31,7 @@ class SyncBloc with ChangeNotifier {
             category: singleCategory,
             // declaring all tabs  selected element to false except 0
             selected: i == 0 ? true : false,
+            // (i * categoryHeight) gives for 0 =0, for 1= 1category involved ,for 2=2category involved so 2*categoryHeigh
             offsetFrom: offsetFrom + (i * categoryHeight),
             offsetTo: offsetTo),
       );
@@ -45,24 +46,46 @@ class SyncBloc with ChangeNotifier {
         allItems.add(SyncAllItem(hint: 'pro', category: '', product: product));
       }
     }
-    notifyListeners();
+    scrollController.addListener(_onScrollListen);
   }
 
-  void onCategorySelected(int currentIndex) {
+  void _onScrollListen() {
+    if (_isListening) {
+      for (int i = 0; i < tabs.length; i++) {
+        if (scrollController.offset >= tabs[i].offsetFrom &&
+            scrollController.offset <= tabs[i].offsetTo &&
+            tabs[i].selected == false) {
+          onCategorySelected(i, tabSelected: false);
+          tabController.animateTo(i);
+          break;
+        }
+      }
+    }
+  }
+
+  void onCategorySelected(int currentIndex, {bool tabSelected = true}) async {
     final selected = tabs[currentIndex];
     for (int i = 0; i < tabs.length; i++) {
       tabs[i] = tabs[i]
           .changeSelection(selected.category.name == tabs[i].category.name);
     }
     notifyListeners();
-    scrollController.animateTo(selected.offsetFrom,
-        duration: const Duration(milliseconds: 500), curve: Curves.easeInCubic);
+
+    // we need scroller if we choose tab my thyself, either we dont need to scroll to a offset
+    if (tabSelected) {
+      _isListening = false;
+      await scrollController.animateTo(selected.offsetFrom,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInCubic);
+      _isListening = true;
+    }
   }
 
   @override
   void dispose() {
+    scrollController.removeListener(_onScrollListen);
     scrollController.dispose();
-    controller.dispose();
+    tabController.dispose();
     super.dispose();
   }
 }

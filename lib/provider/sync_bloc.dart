@@ -23,7 +23,7 @@ class SyncBloc with ChangeNotifier {
         offsetTo =
             offsetFrom + syncCategories[i + 1].products.length * productHeight;
       } else {
-        offsetFrom = double.infinity; // for last item
+        offsetTo = double.infinity; // for last item
       }
 
       tabs.add(

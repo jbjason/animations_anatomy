@@ -3,7 +3,7 @@ import 'package:animations_anatomy/widgets/tapbar_widgets/sync_product_item.dart
 import 'package:flutter/material.dart';
 import 'package:animations_anatomy/provider/sync_bloc.dart';
 
-const categoryHeight = 55.0;
+const categoryHeight = 50.0;
 const productHeight = 125.0;
 
 class SyncConcept extends StatefulWidget {
@@ -36,12 +36,13 @@ class _SyncConceptState extends State<SyncConcept>
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            color: Colors.white,
-            height: 70,
-            margin: const EdgeInsets.only(bottom: 10),
+            height: 60,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10), color: Colors.white),
             child: TabBar(
               controller: _bloc.tabController,
               isScrollable: true,
+              indicatorColor: Colors.teal[900],
               onTap: (i) => _bloc.onCategorySelected(i),
               tabs:
                   _bloc.tabs.map((e) => SyncTabWidget(tabCategory: e)).toList(),

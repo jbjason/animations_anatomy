@@ -20,8 +20,9 @@ class SyncBloc with ChangeNotifier {
         offsetFrom += syncCategories[i - 1].products.length * productHeight;
       }
       if (i < syncCategories.length - 1) {
-        offsetTo =
-            offsetFrom + syncCategories[i + 1].products.length * productHeight;
+        offsetTo = offsetFrom +
+            categoryHeight +
+            syncCategories[i].products.length * productHeight;
       } else {
         offsetTo = double.infinity; // for last item
       }

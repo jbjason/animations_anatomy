@@ -9,16 +9,21 @@ class SyncProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      margin: const EdgeInsets.only(left: 5),
       height: productHeight,
-      child: Card(
-        elevation: 0,
+      child: Material(
+        elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Row(
           children: [
-            ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child:
-                    Image.asset(product.image, fit: BoxFit.cover, width: 150)),
+            Container(
+              width: 150,
+              margin: const EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                      image: AssetImage(product.image), fit: BoxFit.cover)),
+            ),
             const SizedBox(width: 15),
             Expanded(
               child: Column(

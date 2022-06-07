@@ -7,7 +7,7 @@ class SyncBloc with ChangeNotifier {
   late ScrollController scrollController;
   List<SyncTabCategory> tabs = [];
   List<SyncAllItem> allItems = [];
-  double offset = 0.0;
+  double offsetFrom = 0.0, offsetTo = 0.0;
 
   void init(TickerProvider ticker) {
     controller = TabController(length: syncCategories.length, vsync: ticker);
@@ -17,14 +17,22 @@ class SyncBloc with ChangeNotifier {
 
       // storing categories exact offset , this will help to go that selected category's offset postion
       if (i != 0) {
-        offset += syncCategories[i - 1].products.length * productHeight;
+        offsetFrom += syncCategories[i - 1].products.length * productHeight;
       }
-      // declaring all tabs  selected element to false except 0
-      tabs.add(SyncTabCategory(
-        category: singleCategory,
-        selected: i == 0 ? true : false,
-        offset: offset + (i * categoryHeight),
-      ));
+      if (i < syncCategories.length - 1) {
+        offsetTo =
+            offsetFrom + syncCategories[i + 1].products.length * productHeight;
+        print(offsetTo);
+      }
+
+      tabs.add(
+        SyncTabCategory(
+            category: singleCategory,
+            // declaring all tabs  selected element to false except 0
+            selected: i == 0 ? true : false,
+            offsetFrom: offsetFrom + (i * categoryHeight),
+            offsetTo: offsetTo),
+      );
 
       //adding all items & category line by line in a list name allItem[]
       const emptyProduct =
@@ -46,7 +54,7 @@ class SyncBloc with ChangeNotifier {
           .changeSelection(selected.category.name == tabs[i].category.name);
     }
     notifyListeners();
-    scrollController.animateTo(selected.offset,
+    scrollController.animateTo(selected.offsetFrom,
         duration: const Duration(milliseconds: 500), curve: Curves.easeInCubic);
   }
 
@@ -61,13 +69,19 @@ class SyncBloc with ChangeNotifier {
 class SyncTabCategory {
   final SyncCategory category;
   final bool selected;
-  final double offset;
-
-  SyncTabCategory changeSelection(bool sel) =>
-      SyncTabCategory(category: category, offset: offset, selected: sel);
+  final double offsetFrom, offsetTo;
 
   const SyncTabCategory(
-      {required this.category, required this.offset, required this.selected});
+      {required this.category,
+      required this.offsetTo,
+      required this.offsetFrom,
+      required this.selected});
+
+  SyncTabCategory changeSelection(bool sel) => SyncTabCategory(
+      category: category,
+      offsetTo: offsetTo,
+      offsetFrom: offsetFrom,
+      selected: sel);
 }
 
 class SyncAllItem {

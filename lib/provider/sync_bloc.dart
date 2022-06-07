@@ -18,11 +18,12 @@ class SyncBloc with ChangeNotifier {
       // storing categories exact offset , this will help to go that selected category's offset postion
       if (i != 0) {
         offsetFrom += syncCategories[i - 1].products.length * productHeight;
+        print('From : ${offsetTo + (i * categoryHeight)}');
       }
       if (i < syncCategories.length - 1) {
         offsetTo =
             offsetFrom + syncCategories[i + 1].products.length * productHeight;
-        print(offsetTo);
+        print('From : $offsetTo');
       }
 
       tabs.add(

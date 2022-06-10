@@ -3,8 +3,9 @@ import 'package:animations_anatomy/screens/animation_/sliver1_screen.dart';
 import 'package:animations_anatomy/screens/animation_/sliver2_screen.dart';
 import 'package:animations_anatomy/screens/animation_/animated_list1.dart';
 import 'package:animations_anatomy/screens/animation_/music_screen.dart';
+import 'package:animations_anatomy/screens/book_screen.dart';
 import 'package:animations_anatomy/screens/card_flow1/card_flow1_screen.dart';
-import 'package:animations_anatomy/screens/tab_bar_screen.dart';
+import 'package:animations_anatomy/screens/tab_bar/tab_bar_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -65,6 +66,13 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Sync TapBar'),
             onTap: () => Navigator.of(context)
                 .push(MaterialPageRoute(builder: (_) => const TapBarScreen())),
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.payment),
+            title: const Text('Book Concept'),
+            onTap: () => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (_) => const BookScreen())),
           ),
           const Divider(),
         ],

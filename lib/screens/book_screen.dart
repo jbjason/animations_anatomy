@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animations_anatomy/models/book.dart';
 import 'package:flutter/material.dart';
 
@@ -35,40 +37,40 @@ class _BookScreenState extends State<BookScreen> {
       body: Stack(
         children: [
           Positioned.fill(
-            child:
-                Image.asset('assets/card_/background.png', fit: BoxFit.cover),
-          ),
-          // Positioned(
-          //   child: AppBar(
-          //     leading: InkWell(
-          //         onTap: () => Navigator.pop(context),
-          //         child: const Icon(Icons.arrow_back_ios_new)),
-          //     title: const Text('Book Concept'),
-          //   ),
-          // ),
+              child: Image.asset('assets/card_/background.png',
+                  fit: BoxFit.cover)),
           Positioned(
-            top: kToolbarHeight + 30,
+            height: kToolbarHeight + 20,
+            top: 0,
             left: 0,
             right: 0,
+            child: AppBar(
+              backgroundColor: Colors.grey[800],
+              leading: InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: const Icon(Icons.arrow_back_ios_new)),
+              title: const Text('Book Concept'),
+            ),
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            height: size.height,
             child: ValueListenableBuilder<double>(
-                valueListenable: _notifier,
-                builder: (context, double value, _) {
-                  return PageView.builder(
-                    controller: _controller,
-                    itemBuilder: (ctx, index) {
-                      // 0.9 ,o.8 to 0.1, 0.0
-                      final percent = (index - value).clamp(0.0, 1.0);
-                      return Transform(
-                          alignment: Alignment.centerLeft,
-                          transform: Matrix4.identity()
-                            ..setEntry(3, 2, 002)
-                            ..rotateY(2 * percent)
-                            ..scale(1 + percent)
-                            ..translate(-size.width * .8 * percent),
-                          child: BookItem(book: books[index]));
-                    },
-                  );
-                }),
+              valueListenable: _notifier,
+              builder: (context, double value, _) {
+                return PageView.builder(
+                  controller: _controller,
+                  itemBuilder: (ctx, index) {
+                    // 0.9 ,o.8 to 0.1, 0.0
+                    final percent = (index - value).clamp(0.0, 1.0);
+                    return BookItem(
+                        book: books[index], percent: percent, size: size);
+                  },
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -77,20 +79,65 @@ class _BookScreenState extends State<BookScreen> {
 }
 
 class BookItem extends StatelessWidget {
-  const BookItem({Key? key, required this.book}) : super(key: key);
+  const BookItem(
+      {Key? key, required this.book, required this.percent, required this.size})
+      : super(key: key);
   final Book book;
+  final Size size;
+  final double percent;
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(
-          book.image,
-          fit: BoxFit.cover,
-          width: MediaQuery.of(context).size.width * .8,
+        Stack(
+          children: [
+            Container(
+              height: size.height * .6,
+              width: size.width * .7,
+              decoration: const BoxDecoration(color: Colors.white, boxShadow: [
+                BoxShadow(
+                  color: Colors.black,
+                  blurRadius: 10,
+                  spreadRadius: 2,
+                  offset: Offset(5.0, 5.0),
+                ),
+              ]),
+            ),
+            Transform(
+              alignment: Alignment.centerLeft,
+              transform: Matrix4.identity()
+                ..setEntry(3, 2, 0.002)
+                ..rotateY(pow(percent, 0.5) * 1.5)
+                ..scale(1 + percent)
+                ..translate(-size.width * percent),
+              child: Image.asset(
+                book.image,
+                fit: BoxFit.cover,
+                height: size.height * .6,
+                width: size.width * .7,
+              ),
+            ),
+          ],
         ),
-        const SizedBox(height: 20),
-        Text(book.title),
-        Text(book.author),
+        SizedBox(height: size.height * .1),
+        Opacity(
+          opacity: 1 - percent,
+          child: Column(
+            children: [
+              Text(book.title,
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.bold)),
+              Text(
+                book.author,
+                style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

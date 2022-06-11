@@ -8,7 +8,7 @@ class BookScreen extends StatefulWidget {
 }
 
 class _BookScreenState extends State<BookScreen> {
-  late PageController _controller;
+  final _controller = PageController();
   final _notifier = ValueNotifier(0.0);
   @override
   void initState() {
@@ -31,9 +31,14 @@ class _BookScreenState extends State<BookScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
-          Positioned.fill(child: Image.asset('assets/card_/background.png')),
+          Positioned.fill(
+              child: Image.asset(
+            'assets/card_/background.png',
+            fit: BoxFit.cover,
+          )),
           Positioned(
             child: AppBar(
               leading: InkWell(
@@ -44,26 +49,31 @@ class _BookScreenState extends State<BookScreen> {
           ),
           Positioned(
             top: kToolbarHeight + 30,
-            height: size.height * .6,
+            height: size.height * .8,
             width: size.width,
-            child: ValueListenableBuilder<double>(
-                valueListenable: _notifier,
-                builder: (context, double value, _) {
-                  return PageView.builder(
-                    controller: _controller,
-                    itemBuilder: (ctx, index) {
-                      final percent = (index - value).clamp(0.0, 1.0);
-                      print(percent);
-                      return Transform(
-                          alignment: Alignment.centerLeft,
-                          transform: Matrix4.identity()
-                            ..setEntry(3, 2, 002)
-                            ..rotateY(2 * percent)
-                            ..scale(1 + percent),
-                          child: BookItem(book: books[index]));
-                    },
-                  );
-                }),
+            child: Container(
+              color: Colors.white,
+              child: ValueListenableBuilder<double>(
+                  valueListenable: _notifier,
+                  builder: (context, double value, _) {
+                    return PageView.builder(
+                      controller: _controller,
+                      itemBuilder: (ctx, index) {
+                        // 0.9 ,o.8 to 0.1, 0.0
+                        final percent = (index - value).clamp(0.0, 1.0);
+                        print(percent);
+                        return Transform(
+                            alignment: Alignment.centerLeft,
+                            transform: Matrix4.identity()
+                              ..setEntry(3, 2, 002)
+                              ..rotateY(2 * percent)
+                              ..scale(1 + percent)
+                              ..translate(-size.width * .8 * percent),
+                            child: BookItem(book: books[index]));
+                      },
+                    );
+                  }),
+            ),
           ),
         ],
       ),
@@ -76,6 +86,20 @@ class BookItem extends StatelessWidget {
   final Book book;
   @override
   Widget build(BuildContext context) {
-    return Image.asset(book.image, fit: BoxFit.cover);
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          Image.asset(
+            book.image,
+            fit: BoxFit.cover,
+            width: MediaQuery.of(context).size.width * .8,
+          ),
+          const SizedBox(height: 20),
+          Text(book.title),
+          Text(book.author),
+        ],
+      ),
+    );
   }
 }

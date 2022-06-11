@@ -68,6 +68,7 @@ class _BookScreenState extends State<BookScreen> {
                     return BookItem(
                         book: books[index], percent: percent, size: size);
                   },
+                  itemCount: books.length,
                 );
               },
             ),

@@ -13,12 +13,13 @@ class _NavBar1State extends State<NavBar1> with SingleTickerProviderStateMixin {
   static const double _maxHeight = 350;
   static const double _minHeight = 70;
   bool _isExpand = false;
+  double _currentHeight = 0.0;
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 500));
+        vsync: this, duration: const Duration(milliseconds: 600));
   }
 
   @override
@@ -33,13 +34,31 @@ class _NavBar1State extends State<NavBar1> with SingleTickerProviderStateMixin {
     final _menuWidth = size.width * .45;
     return Scaffold(
       backgroundColor: Colors.grey[850],
-      body: Container(
-        height: 100,
-        width: size.width,
-        color: Colors.white,
-      ),
+      body: Container(height: 100, width: size.width, color: Colors.white),
       bottomNavigationBar: GestureDetector(
-        onTap: () => setState(() => _isExpand = !_isExpand),
+        onVerticalDragUpdate: (val) {
+          if (_isExpand) {
+            setState(() {
+              final newHeight = _currentHeight - val.delta.dy;
+              _currentHeight = newHeight.clamp(_minHeight, _maxHeight);
+              _controller.value = _currentHeight / _maxHeight;
+            });
+          }
+        },
+        onVerticalDragEnd: (val) {
+          if (_isExpand) {
+            if (_currentHeight > _maxHeight / 2) {
+              // if dragValue is heigher than maxHeight/2 then animation goes reverse
+              _controller.reverse();
+              _isExpand = false;
+            } else {
+              // if dragValue is less than maxHeight/2 then animation goes Forward
+              _controller.forward(from: _currentHeight / _maxHeight);
+              _isExpand = true;
+              _currentHeight = _maxHeight;
+            }
+          }
+        },
         child: AnimatedBuilder(
           animation: _controller,
           builder: (ctx, _) {
@@ -69,29 +88,32 @@ class _NavBar1State extends State<NavBar1> with SingleTickerProviderStateMixin {
   }
 
   Widget _expandedWidget() => Container(
-        color: Colors.deepOrange,
+        color: Colors.deepPurple,
         padding: const EdgeInsets.only(top: 40),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(height: 80, width: 80, color: Colors.black),
-            const SizedBox(height: 15),
-            const Text('jb jason', style: TextStyle(color: Colors.white)),
-            const Text('BLACK BERRY',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, color: Colors.white)),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Icon(Icons.close, size: 30),
-                SizedBox(width: 30),
-                Icon(Icons.pause, size: 30),
-                SizedBox(width: 30),
-                Icon(Icons.skip_next, size: 30),
-              ],
-            )
-          ],
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(height: 80, width: 80, color: Colors.black),
+              const SizedBox(height: 15),
+              const Text('jb jason', style: TextStyle(color: Colors.white)),
+              const Text('BLACK BERRY',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.white)),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.close, size: 30),
+                  SizedBox(width: 30),
+                  Icon(Icons.pause, size: 30),
+                  SizedBox(width: 30),
+                  Icon(Icons.skip_next, size: 30),
+                ],
+              )
+            ],
+          ),
         ),
       );
 
@@ -102,10 +124,18 @@ class _NavBar1State extends State<NavBar1> with SingleTickerProviderStateMixin {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: const [
-            Icon(Icons.adb, size: 30),
-            Icon(Icons.adb, size: 30),
-            Icon(Icons.adb, size: 30),
+          children: [
+            const Icon(Icons.adb, size: 30),
+            InkWell(
+                onTap: () {
+                  setState(() {
+                    _isExpand = true;
+                    _currentHeight = _maxHeight;
+                  });
+                  _controller.forward(from: 0.0);
+                },
+                child: const Icon(Icons.adb, size: 30)),
+            const Icon(Icons.adb, size: 30),
           ],
         ),
       );

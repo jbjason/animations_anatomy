@@ -47,12 +47,12 @@ class _NavBar1State extends State<NavBar1> with SingleTickerProviderStateMixin {
         },
         onVerticalDragEnd: (val) {
           if (_isExpand) {
-            if (_currentHeight > _maxHeight / 2) {
-              // if dragValue is heigher than maxHeight/2 then animation goes reverse
+            if (_currentHeight < _maxHeight / 2) {
+              // if dragValue is less than maxHeight/2 then animation goes reverse
               _controller.reverse();
               _isExpand = false;
             } else {
-              // if dragValue is less than maxHeight/2 then animation goes Forward
+              // if dragValue is heigher than maxHeight/2 then animation goes Forward
               _controller.forward(from: _currentHeight / _maxHeight);
               _isExpand = true;
               _currentHeight = _maxHeight;
@@ -72,6 +72,7 @@ class _NavBar1State extends State<NavBar1> with SingleTickerProviderStateMixin {
                   width: lerpDouble(_menuWidth, size.width, value),
                   child: Container(
                     decoration: BoxDecoration(
+                      color: _isExpand ? Colors.deepPurple : Colors.deepOrange,
                       borderRadius: BorderRadius.vertical(
                           bottom: Radius.circular(lerpDouble(40.0, 0, value)!),
                           top: const Radius.circular(40)),
@@ -87,9 +88,8 @@ class _NavBar1State extends State<NavBar1> with SingleTickerProviderStateMixin {
     );
   }
 
-  Widget _expandedWidget() => Container(
-        color: Colors.deepPurple,
-        padding: const EdgeInsets.only(top: 40),
+  Widget _expandedWidget() => Padding(
+        padding: const EdgeInsets.only(top: 20),
         child: FittedBox(
           fit: BoxFit.scaleDown,
           child: Column(
@@ -117,26 +117,20 @@ class _NavBar1State extends State<NavBar1> with SingleTickerProviderStateMixin {
         ),
       );
 
-  Widget _initialWidget() => Container(
-        decoration: BoxDecoration(
-          color: Colors.deepOrange,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            const Icon(Icons.adb, size: 30),
-            InkWell(
-                onTap: () {
-                  setState(() {
-                    _isExpand = true;
-                    _currentHeight = _maxHeight;
-                  });
-                  _controller.forward(from: 0.0);
-                },
-                child: const Icon(Icons.adb, size: 30)),
-            const Icon(Icons.adb, size: 30),
-          ],
-        ),
+  Widget _initialWidget() => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          const Icon(Icons.adb, size: 30),
+          InkWell(
+              onTap: () {
+                setState(() {
+                  _isExpand = true;
+                  _currentHeight = _maxHeight;
+                });
+                _controller.forward(from: 0.0);
+              },
+              child: const Icon(Icons.adb, size: 30)),
+          const Icon(Icons.adb, size: 30),
+        ],
       );
 }

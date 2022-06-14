@@ -1,3 +1,4 @@
+import 'package:animations_anatomy/screens/animation_/fb_story_screen.dart';
 import 'package:animations_anatomy/screens/animation_/flow_screen.dart';
 import 'package:animations_anatomy/screens/animation_/sliver1_screen.dart';
 import 'package:animations_anatomy/screens/animation_/sliver2_screen.dart';
@@ -81,6 +82,13 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Bottom NavBar1'),
             onTap: () => Navigator.of(context)
                 .push(MaterialPageRoute(builder: (_) => const NavBar1())),
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.payment),
+            title: const Text('Fb Story'),
+            onTap: () => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (_) => const FbStoryScreen())),
           ),
           const Divider(),
         ],

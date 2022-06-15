@@ -35,7 +35,6 @@ class _FbStoryScreenState extends State<FbStoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

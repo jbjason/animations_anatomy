@@ -1,4 +1,3 @@
-import 'package:animations_anatomy/constants/constants.dart';
 import 'package:animations_anatomy/provider/page_route.dart';
 import 'package:animations_anatomy/models/trip.dart';
 import 'package:flutter/material.dart';

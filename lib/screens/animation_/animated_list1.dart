@@ -1,4 +1,4 @@
-import 'package:animations_anatomy/constants/constants.dart';
+import 'package:animations_anatomy/models/trip.dart';
 import 'package:flutter/material.dart';
 
 // items scale to 0 while scalling

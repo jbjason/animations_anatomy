@@ -1,4 +1,4 @@
-import 'package:animations_anatomy/constants/constants.dart';
+import 'package:animations_anatomy/models/travel.dart';
 import 'package:animations_anatomy/widgets/sliver2_widgets/cutting_clipper.dart';
 import 'package:flutter/material.dart';
 

@@ -1,4 +1,5 @@
-import 'package:animations_anatomy/constants/constants.dart';
+import 'package:animations_anatomy/models/travel.dart';
+import 'package:animations_anatomy/models/trip.dart';
 import 'package:animations_anatomy/widgets/image1_widgets/back_images.dart';
 import 'package:flutter/material.dart';
 

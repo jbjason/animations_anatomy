@@ -1,5 +1,3 @@
-import 'dart:ui';
-import 'dart:math' as math;
 import 'package:animations_anatomy/constants/constants.dart';
 import 'package:animations_anatomy/models/travel.dart';
 import 'package:flutter/material.dart';
@@ -59,22 +57,15 @@ class HeroItem extends StatelessWidget {
       children: [
         InkWell(
           onTap: () async {
-            await controller.forward();
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (_) => HeroDetails1(travel: travel)));
-            // controller.reverse();
+            await Navigator.of(context).push(PageRouteBuilder(
+                pageBuilder: ((context, animation, secondaryAnimation) {
+              return HeroDetails1(travel: travel);
+            })));
           },
-          child: AnimatedBuilder(
-            animation: controller,
-            builder: (context, _) => Transform.rotate(
-              alignment: Alignment.topLeft,
-              angle: lerpDouble(90 * (math.pi / 180), 0, controller.value)!,
-              child: Hero(
-                tag: travel.imageFront + travel.imageBack,
-                child: Image.asset(travel.imageFront,
-                    height: 400, fit: BoxFit.cover),
-              ),
-            ),
+          child: Hero(
+            tag: travel.imageFront + travel.imageBack,
+            child:
+                Image.asset(travel.imageFront, height: 400, fit: BoxFit.cover),
           ),
         ),
         const SizedBox(height: 40),

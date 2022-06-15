@@ -1,3 +1,4 @@
+import 'package:animations_anatomy/constants/constants.dart';
 import 'package:animations_anatomy/models/travel.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class _HeroChallenge1State extends State<HeroChallenge1> {
 
   @override
   void initState() {
-    _controller = PageController(viewportFraction: 0.8, initialPage: 0);
+    _controller = PageController(viewportFraction: 0.9, initialPage: 0);
     super.initState();
   }
 
@@ -30,10 +31,37 @@ class _HeroChallenge1State extends State<HeroChallenge1> {
           child: PageView.builder(
             controller: _controller,
             itemBuilder: (context, index) {
-              return Container();
+              return HeroItem(travel: travels[index]);
             },
             itemCount: travels.length,
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class HeroDetails1 extends StatelessWidget {
+  const HeroDetails1({Key? key, required this.travel}) : super(key: key);
+  final Travel travel;
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            Image.asset(travel.imageFront, fit: BoxFit.cover),
+            const SizedBox(height: 40),
+            Text(
+              travel.title,
+              style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 40),
+            const Text(
+              '$detailsText\n$detailsText',
+              style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
       ),
     );
@@ -45,21 +73,24 @@ class HeroItem extends StatelessWidget {
   final Travel travel;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        children: [
-          RotatedBox(
-              quarterTurns: 1,
-              child: Image.asset(travel.imageFront,
-                  height: 400, fit: BoxFit.cover)),
-          const SizedBox(height: 40),
-          Text(
-            travel.title,
-            style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-          )
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        InkWell(
+          onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => HeroDetails1(travel: travel))),
+          child: RotatedBox(
+            quarterTurns: 1,
+            child:
+                Image.asset(travel.imageFront, height: 400, fit: BoxFit.cover),
+          ),
+        ),
+        const SizedBox(height: 40),
+        Text(
+          travel.title,
+          style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+        )
+      ],
     );
   }
 }

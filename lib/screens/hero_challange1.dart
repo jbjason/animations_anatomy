@@ -1,3 +1,5 @@
+import 'dart:ui';
+import 'dart:math' as math;
 import 'package:animations_anatomy/constants/constants.dart';
 import 'package:animations_anatomy/models/travel.dart';
 import 'package:flutter/material.dart';
@@ -8,17 +10,22 @@ class HeroChallenge1 extends StatefulWidget {
   State<HeroChallenge1> createState() => _HeroChallenge1State();
 }
 
-class _HeroChallenge1State extends State<HeroChallenge1> {
-  late PageController _controller;
+class _HeroChallenge1State extends State<HeroChallenge1>
+    with SingleTickerProviderStateMixin {
+  late PageController _pageController;
+  late AnimationController _controller;
 
   @override
   void initState() {
-    _controller = PageController(viewportFraction: 0.9, initialPage: 0);
+    _pageController = PageController(viewportFraction: 0.9, initialPage: 0);
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 500));
     super.initState();
   }
 
   @override
   void dispose() {
+    _pageController.dispose();
     _controller.dispose();
     super.dispose();
   }
@@ -29,9 +36,9 @@ class _HeroChallenge1State extends State<HeroChallenge1> {
       child: Scaffold(
         body: Center(
           child: PageView.builder(
-            controller: _controller,
+            controller: _pageController,
             itemBuilder: (context, index) {
-              return HeroItem(travel: travels[index]);
+              return HeroItem(travel: travels[index], controller: _controller);
             },
             itemCount: travels.length,
           ),
@@ -42,22 +49,31 @@ class _HeroChallenge1State extends State<HeroChallenge1> {
 }
 
 class HeroItem extends StatelessWidget {
-  const HeroItem({Key? key, required this.travel}) : super(key: key);
+  const HeroItem({Key? key, required this.travel, required this.controller})
+      : super(key: key);
   final Travel travel;
+  final AnimationController controller;
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         InkWell(
-          onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => HeroDetails1(travel: travel))),
-          child: RotatedBox(
-            quarterTurns: 0,
-            child: Hero(
-              tag: travel.imageFront + travel.imageBack,
-              child: Image.asset(travel.imageFront,
-                  height: 400, fit: BoxFit.cover),
+          onTap: () async {
+            await controller.forward();
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => HeroDetails1(travel: travel)));
+            // controller.reverse();
+          },
+          child: AnimatedBuilder(
+            animation: controller,
+            builder: (context, _) => Transform.rotate(
+              alignment: Alignment.topLeft,
+              angle: lerpDouble(90 * (math.pi / 180), 0, controller.value)!,
+              child: Hero(
+                tag: travel.imageFront + travel.imageBack,
+                child: Image.asset(travel.imageFront,
+                    height: 400, fit: BoxFit.cover),
+              ),
             ),
           ),
         ),

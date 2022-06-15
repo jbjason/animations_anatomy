@@ -41,33 +41,6 @@ class _HeroChallenge1State extends State<HeroChallenge1> {
   }
 }
 
-class HeroDetails1 extends StatelessWidget {
-  const HeroDetails1({Key? key, required this.travel}) : super(key: key);
-  final Travel travel;
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            Image.asset(travel.imageFront, fit: BoxFit.cover),
-            const SizedBox(height: 40),
-            Text(
-              travel.title,
-              style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 40),
-            const Text(
-              '$detailsText\n$detailsText',
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class HeroItem extends StatelessWidget {
   const HeroItem({Key? key, required this.travel}) : super(key: key);
   final Travel travel;
@@ -80,9 +53,12 @@ class HeroItem extends StatelessWidget {
           onTap: () => Navigator.of(context).push(
               MaterialPageRoute(builder: (_) => HeroDetails1(travel: travel))),
           child: RotatedBox(
-            quarterTurns: 1,
-            child:
-                Image.asset(travel.imageFront, height: 400, fit: BoxFit.cover),
+            quarterTurns: 0,
+            child: Hero(
+              tag: travel.imageFront + travel.imageBack,
+              child: Image.asset(travel.imageFront,
+                  height: 400, fit: BoxFit.cover),
+            ),
           ),
         ),
         const SizedBox(height: 40),
@@ -91,6 +67,46 @@ class HeroItem extends StatelessWidget {
           style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
         )
       ],
+    );
+  }
+}
+
+class HeroDetails1 extends StatelessWidget {
+  const HeroDetails1({Key? key, required this.travel}) : super(key: key);
+  final Travel travel;
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(Icons.arrow_back_ios_new)),
+              Hero(
+                tag: travel.imageFront + travel.imageBack,
+                child: Image.asset(travel.imageFront, fit: BoxFit.cover),
+              ),
+              const SizedBox(height: 40),
+              Center(
+                child: Text(
+                  travel.title,
+                  style: const TextStyle(
+                      fontSize: 23, fontWeight: FontWeight.bold),
+                ),
+              ),
+              const SizedBox(height: 40),
+              const Text(
+                '$detailsText\n$detailsText',
+                style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

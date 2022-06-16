@@ -8,15 +8,19 @@ class HeroChallenge1 extends StatefulWidget {
   State<HeroChallenge1> createState() => _HeroChallenge1State();
 }
 
-class _HeroChallenge1State extends State<HeroChallenge1> {
+class _HeroChallenge1State extends State<HeroChallenge1>
+    with SingleTickerProviderStateMixin {
   late PageController _pageController;
+  late AnimationController _animController;
   final notifierValue = ValueNotifier(0.0);
-  final _isSelected = ValueNotifier(false);
 
   @override
   void initState() {
     _pageController = PageController(viewportFraction: 0.7, initialPage: 0);
     _pageController.addListener(_listener);
+    _animController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 300));
+
     super.initState();
   }
 
@@ -24,6 +28,7 @@ class _HeroChallenge1State extends State<HeroChallenge1> {
 
   @override
   void dispose() {
+    _animController.dispose();
     _pageController.removeListener(_listener);
     _pageController.dispose();
     super.dispose();
@@ -49,7 +54,7 @@ class _HeroChallenge1State extends State<HeroChallenge1> {
                       scale: _opacity,
                       child: HeroItem(
                         travel: trips1[index],
-                        onItemSelected: (val) => _isSelected.value = val,
+                        function: _onPressed,
                       ),
                     ),
                   );
@@ -58,19 +63,16 @@ class _HeroChallenge1State extends State<HeroChallenge1> {
               ),
             ),
             Positioned(
-              top: 60,
+              top: 20,
               left: 0,
               right: 0,
               height: kToolbarHeight,
-              child: ValueListenableBuilder(
-                valueListenable: _isSelected,
-                builder: (context, _, __) => TweenAnimationBuilder<double>(
-                  duration: const Duration(milliseconds: 400),
-                  curve: Curves.fastOutSlowIn,
-                  tween: Tween<double>(begin: 0.0, end: 1.0),
-                  builder: (context, val, child) => Transform.translate(
-                      offset: Offset(0, -50 * val), child: child),
+              child: AnimatedBuilder(
+                animation: _animController,
+                builder: (context, _) => Transform.translate(
+                  offset: Offset(0, -70 * _animController.value),
                   child: AppBar(
+                    backgroundColor: Colors.transparent,
                     elevation: 0,
                     title: const Text(
                       'Space\'X Model',
@@ -89,13 +91,27 @@ class _HeroChallenge1State extends State<HeroChallenge1> {
       ),
     );
   }
+
+  void _onPressed(Trip travel) async {
+    _animController.forward();
+    await Navigator.of(context).push(
+      PageRouteBuilder(
+          transitionDuration: const Duration(milliseconds: 500),
+          reverseTransitionDuration: const Duration(milliseconds: 300),
+          pageBuilder: ((context, animation, secondaryAnimation) {
+            return FadeTransition(
+                opacity: animation, child: HeroDetails1(travel: travel));
+          })),
+    );
+    _animController.reverse();
+  }
 }
 
 class HeroItem extends StatelessWidget {
-  const HeroItem({Key? key, required this.travel, required this.onItemSelected})
+  const HeroItem({Key? key, required this.travel, required this.function})
       : super(key: key);
   final Trip travel;
-  final ValueChanged<bool> onItemSelected;
+  final Function(Trip trip) function;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -106,18 +122,7 @@ class HeroItem extends StatelessWidget {
           height: size.height * .7,
           width: size.width,
           child: InkWell(
-              onTap: () {
-                onItemSelected(true);
-                Navigator.of(context).push(
-                  PageRouteBuilder(
-                      transitionDuration: const Duration(milliseconds: 500),
-                      pageBuilder: ((context, animation, secondaryAnimation) {
-                        return FadeTransition(
-                            opacity: animation,
-                            child: HeroDetails1(travel: travel));
-                      })),
-                );
-              },
+              onTap: () => function(travel),
               child: Image.asset(travel.img, fit: BoxFit.fitHeight)),
         ),
         //const SizedBox(height: 40),

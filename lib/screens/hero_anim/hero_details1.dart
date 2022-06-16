@@ -17,7 +17,7 @@ class _HeroDetails1State extends State<HeroDetails1>
   @override
   void initState() {
     _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 500));
+        vsync: this, duration: const Duration(milliseconds: 800));
     _animation = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
         parent: _controller,
         curve: Curves.easeInOutBack,
@@ -61,20 +61,27 @@ class _HeroDetails1State extends State<HeroDetails1>
             Positioned(
               top: size.height * .5,
               width: size.width,
-              child: Column(
-                children: [
-                  const SizedBox(height: 40),
-                  Text(
-                    widget.travel.title,
-                    style: const TextStyle(
-                        fontSize: 23, fontWeight: FontWeight.bold),
+              child: Opacity(
+                opacity: 1 - _animation.value,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 40),
+                      Text(
+                        widget.travel.title,
+                        style: const TextStyle(
+                            fontSize: 23, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 40),
+                      const Text(
+                        '$detailsText\n$detailsText',
+                        style: TextStyle(
+                            fontSize: 11, fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 40),
-                  const Text(
-                    '$detailsText\n$detailsText',
-                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-                  ),
-                ],
+                ),
               ),
             ),
             Positioned(

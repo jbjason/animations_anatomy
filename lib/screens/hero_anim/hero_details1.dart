@@ -1,3 +1,4 @@
+import 'package:animations_anatomy/constants/constants.dart';
 import 'package:animations_anatomy/models/trip.dart';
 import 'package:flutter/material.dart';
 
@@ -39,33 +40,43 @@ class _HeroDetails1State extends State<HeroDetails1>
         body: Stack(
           clipBehavior: Clip.none,
           children: [
-            SizedBox(
-              height: size.height * .83,
-              width: size.width,
-              child: AnimatedBuilder(
-                animation: _animation,
-                builder: (context, _) => Transform(
-                  //  origin: const Offset(-70, -70),
-                  transform: Matrix4.identity()
-                    ..rotateZ(-1.6 * _animation.value),
-                  alignment: Alignment.center,
-                  child: Image.asset(widget.travel.img, fit: BoxFit.fitHeight),
+            Positioned(
+              top: size.height * .1,
+              child: SizedBox(
+                height: size.height * .715,
+                width: size.width,
+                child: AnimatedBuilder(
+                  animation: _animation,
+                  builder: (context, _) => Transform(
+                    origin: const Offset(-20, 100),
+                    transform: Matrix4.identity()
+                      ..rotateZ(-1.57 * _animation.value),
+                    alignment: Alignment.topCenter,
+                    child:
+                        Image.asset(widget.travel.img, fit: BoxFit.fitHeight),
+                  ),
                 ),
               ),
             ),
-            // const SizedBox(height: 40),
-            // Center(
-            //   child: Text(
-            //     widget.travel.title,
-            //     style:
-            //         const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-            //   ),
-            // ),
-            // const SizedBox(height: 40),
-            // const Text(
-            //   '$detailsText\n$detailsText',
-            //   style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-            // ),
+            Positioned(
+              top: size.height * .5,
+              width: size.width,
+              child: Column(
+                children: [
+                  const SizedBox(height: 40),
+                  Text(
+                    widget.travel.title,
+                    style: const TextStyle(
+                        fontSize: 23, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 40),
+                  const Text(
+                    '$detailsText\n$detailsText',
+                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
             Positioned(
               top: 10,
               left: 20,

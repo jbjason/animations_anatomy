@@ -47,17 +47,16 @@ class HeroItem extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Column(
       children: [
+        SizedBox(height: size.height * .1),
         SizedBox(
-          height: size.height * .8,
+          height: size.height * .7,
           width: size.width,
           child: InkWell(
               onTap: () {
                 Navigator.of(context).push(
                   PageRouteBuilder(
                       pageBuilder: ((context, animation, secondaryAnimation) {
-                    return FadeTransition(
-                        opacity: animation,
-                        child: HeroDetails1(travel: travel));
+                    return HeroDetails1(travel: travel);
                   })),
                 );
               },

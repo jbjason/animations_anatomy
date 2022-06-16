@@ -52,7 +52,6 @@ class HeroItem extends StatelessWidget {
           onTap: () {
             Navigator.of(context).push(
               PageRouteBuilder(
-                  //   reverseTransitionDuration: const Duration(milliseconds: 100),
                   pageBuilder: ((context, animation, secondaryAnimation) {
                 return FadeTransition(
                     opacity: animation, child: HeroDetails1(travel: travel));

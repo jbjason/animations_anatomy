@@ -34,28 +34,44 @@ class _HeroDetails1State extends State<HeroDetails1>
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.symmetric(vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IconButton(
-                onPressed: () async {
-                  await _controller.reverse();
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.arrow_back_ios_new),
-              ),
-              AnimatedBuilder(
-                animation: _animation,
-                builder: (context, _) => Transform(
-                  transform: Matrix4.identity()
-                    ..rotateZ(-1.5 * _animation.value),
-                  alignment: Alignment.centerLeft,
-                  child:
-                      Image.asset(widget.travel.imageFront, fit: BoxFit.cover),
+              SizedBox(
+                height: size.height * .5,
+                width: size.width,
+                child: Stack(
+                  clipBehavior: Clip.antiAlias,
+                  children: [
+                    Positioned.fill(
+                      child: AnimatedBuilder(
+                        animation: _animation,
+                        builder: (context, _) => Transform(
+                          transform: Matrix4.identity()
+                            ..rotateZ(-1.5 * _animation.value),
+                          alignment: Alignment.centerLeft,
+                          child: Image.asset(widget.travel.imageFront,
+                              fit: BoxFit.cover),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 10,
+                      left: 20,
+                      child: IconButton(
+                        onPressed: () async {
+                          await _controller.reverse();
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.arrow_back_ios_new),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 40),

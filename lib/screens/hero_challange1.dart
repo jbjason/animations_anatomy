@@ -1,4 +1,4 @@
-import 'package:animations_anatomy/models/travel.dart';
+import 'package:animations_anatomy/models/trip.dart';
 import 'package:animations_anatomy/screens/hero_anim/hero_details1.dart';
 import 'package:flutter/material.dart';
 
@@ -27,13 +27,14 @@ class _HeroChallenge1State extends State<HeroChallenge1> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Center(
+        body: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 30),
           child: PageView.builder(
             controller: _pageController,
             itemBuilder: (context, index) {
-              return HeroItem(travel: travels[index]);
+              return HeroItem(travel: trips1[index]);
             },
-            itemCount: travels.length,
+            itemCount: trips1.length,
           ),
         ),
       ),
@@ -43,27 +44,29 @@ class _HeroChallenge1State extends State<HeroChallenge1> {
 
 class HeroItem extends StatelessWidget {
   const HeroItem({Key? key, required this.travel}) : super(key: key);
-  final Travel travel;
+  final Trip travel;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        InkWell(
-          onTap: () {
-            Navigator.of(context).push(
-              PageRouteBuilder(
-                  pageBuilder: ((context, animation, secondaryAnimation) {
-                return FadeTransition(
-                    opacity: animation, child: HeroDetails1(travel: travel));
-              })),
-            );
-          },
-          child: Image.asset(travel.imageFront, height: 400, fit: BoxFit.cover),
+        Expanded(
+          child: InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                PageRouteBuilder(
+                    pageBuilder: ((context, animation, secondaryAnimation) {
+                  return FadeTransition(
+                      opacity: animation, child: HeroDetails1(travel: travel));
+                })),
+              );
+            },
+            child: Image.asset(travel.img, height: 400, fit: BoxFit.cover),
+          ),
         ),
         const SizedBox(height: 40),
         Text(
           travel.title,
-          style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
         )
       ],
     );

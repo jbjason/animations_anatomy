@@ -1,10 +1,10 @@
-import 'package:animations_anatomy/models/travel.dart';
+import 'package:animations_anatomy/models/trip.dart';
 import 'package:flutter/material.dart';
 import 'package:animations_anatomy/constants/constants.dart';
 
 class HeroDetails1 extends StatefulWidget {
   const HeroDetails1({Key? key, required this.travel}) : super(key: key);
-  final Travel travel;
+  final Trip travel;
   @override
   State<HeroDetails1> createState() => _HeroDetails1State();
 }
@@ -55,8 +55,8 @@ class _HeroDetails1State extends State<HeroDetails1>
                           transform: Matrix4.identity()
                             ..rotateZ(-1.5 * _animation.value),
                           alignment: Alignment.centerLeft,
-                          child: Image.asset(widget.travel.imageFront,
-                              fit: BoxFit.cover),
+                          child:
+                              Image.asset(widget.travel.img, fit: BoxFit.cover),
                         ),
                       ),
                     ),

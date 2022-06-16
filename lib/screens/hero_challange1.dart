@@ -10,15 +10,20 @@ class HeroChallenge1 extends StatefulWidget {
 
 class _HeroChallenge1State extends State<HeroChallenge1> {
   late PageController _pageController;
+  final notifierValue = ValueNotifier(0.0);
 
   @override
   void initState() {
-    _pageController = PageController(viewportFraction: 0.9, initialPage: 0);
+    _pageController = PageController(viewportFraction: 0.7, initialPage: 0);
+    _pageController.addListener(_listener);
     super.initState();
   }
 
+  void _listener() => notifierValue.value = _pageController.page!;
+
   @override
   void dispose() {
+    _pageController.removeListener(_listener);
     _pageController.dispose();
     super.dispose();
   }
@@ -27,12 +32,21 @@ class _HeroChallenge1State extends State<HeroChallenge1> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: PageView.builder(
-          controller: _pageController,
-          itemBuilder: (context, index) {
-            return HeroItem(travel: trips1[index]);
-          },
-          itemCount: trips1.length,
+        body: ValueListenableBuilder<double>(
+          valueListenable: notifierValue,
+          builder: (context, value, child) => PageView.builder(
+            controller: _pageController,
+            itemBuilder: (context, index) {
+              final percent = 1 - (index - value).abs();
+              final _opacity = (percent).clamp(0.7, 1.0);
+              return Opacity(
+                opacity: _opacity,
+                child: Transform.scale(
+                    scale: _opacity, child: HeroItem(travel: trips1[index])),
+              );
+            },
+            itemCount: trips1.length,
+          ),
         ),
       ),
     );

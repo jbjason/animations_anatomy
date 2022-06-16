@@ -40,6 +40,4 @@ final List<Trip> trips1 = [
       title: 'City', price: '400', nights: '5', img: 'assets/trip/004.png'),
   const Trip(
       title: 'Ski', price: '750', nights: '2', img: 'assets/trip/005.png'),
-  const Trip(
-      title: 'Space', price: '600', nights: '4', img: 'assets/trip/space.png'),
 ];

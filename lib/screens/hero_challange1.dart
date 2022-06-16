@@ -27,15 +27,12 @@ class _HeroChallenge1State extends State<HeroChallenge1> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30),
-          child: PageView.builder(
-            controller: _pageController,
-            itemBuilder: (context, index) {
-              return HeroItem(travel: trips1[index]);
-            },
-            itemCount: trips1.length,
-          ),
+        body: PageView.builder(
+          controller: _pageController,
+          itemBuilder: (context, index) {
+            return HeroItem(travel: trips1[index]);
+          },
+          itemCount: trips1.length,
         ),
       ),
     );
@@ -47,23 +44,26 @@ class HeroItem extends StatelessWidget {
   final Trip travel;
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Column(
       children: [
-        Expanded(
+        SizedBox(
+          height: size.height * .8,
+          width: size.width,
           child: InkWell(
-            onTap: () {
-              Navigator.of(context).push(
-                PageRouteBuilder(
-                    pageBuilder: ((context, animation, secondaryAnimation) {
-                  return FadeTransition(
-                      opacity: animation, child: HeroDetails1(travel: travel));
-                })),
-              );
-            },
-            child: Image.asset(travel.img, height: 400, fit: BoxFit.cover),
-          ),
+              onTap: () {
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                      pageBuilder: ((context, animation, secondaryAnimation) {
+                    return FadeTransition(
+                        opacity: animation,
+                        child: HeroDetails1(travel: travel));
+                  })),
+                );
+              },
+              child: Image.asset(travel.img, fit: BoxFit.fitHeight)),
         ),
-        const SizedBox(height: 40),
+        //const SizedBox(height: 40),
         Text(
           travel.title,
           style: const TextStyle(fontSize: 27, fontWeight: FontWeight.bold),

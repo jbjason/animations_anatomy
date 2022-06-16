@@ -1,6 +1,5 @@
 import 'package:animations_anatomy/models/trip.dart';
 import 'package:flutter/material.dart';
-import 'package:animations_anatomy/constants/constants.dart';
 
 class HeroDetails1 extends StatefulWidget {
   const HeroDetails1({Key? key, required this.travel}) : super(key: key);
@@ -40,7 +39,9 @@ class _HeroDetails1State extends State<HeroDetails1>
         body: Stack(
           clipBehavior: Clip.none,
           children: [
-            Positioned.fill(
+            SizedBox(
+              height: size.height * .83,
+              width: size.width,
               child: AnimatedBuilder(
                 animation: _animation,
                 builder: (context, _) => Transform(
@@ -48,23 +49,23 @@ class _HeroDetails1State extends State<HeroDetails1>
                   transform: Matrix4.identity()
                     ..rotateZ(-1.6 * _animation.value),
                   alignment: Alignment.center,
-                  child: Image.asset(widget.travel.img),
+                  child: Image.asset(widget.travel.img, fit: BoxFit.fitHeight),
                 ),
               ),
             ),
-            const SizedBox(height: 40),
-            Center(
-              child: Text(
-                widget.travel.title,
-                style:
-                    const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(height: 40),
-            const Text(
-              '$detailsText\n$detailsText',
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-            ),
+            // const SizedBox(height: 40),
+            // Center(
+            //   child: Text(
+            //     widget.travel.title,
+            //     style:
+            //         const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+            //   ),
+            // ),
+            // const SizedBox(height: 40),
+            // const Text(
+            //   '$detailsText\n$detailsText',
+            //   style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+            // ),
             Positioned(
               top: 10,
               left: 20,

@@ -11,6 +11,7 @@ class HeroChallenge1 extends StatefulWidget {
 class _HeroChallenge1State extends State<HeroChallenge1> {
   late PageController _pageController;
   final notifierValue = ValueNotifier(0.0);
+  final _isSelected = ValueNotifier(false);
 
   @override
   void initState() {
@@ -32,21 +33,58 @@ class _HeroChallenge1State extends State<HeroChallenge1> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: ValueListenableBuilder<double>(
-          valueListenable: notifierValue,
-          builder: (context, value, child) => PageView.builder(
-            controller: _pageController,
-            itemBuilder: (context, index) {
-              final percent = 1 - (index - value).abs();
-              final _opacity = (percent).clamp(0.7, 1.0);
-              return Opacity(
-                opacity: _opacity,
-                child: Transform.scale(
-                    scale: _opacity, child: HeroItem(travel: trips1[index])),
-              );
-            },
-            itemCount: trips1.length,
-          ),
+        backgroundColor: Colors.grey[300],
+        body: Stack(
+          children: [
+            ValueListenableBuilder<double>(
+              valueListenable: notifierValue,
+              builder: (context, value, child) => PageView.builder(
+                controller: _pageController,
+                itemBuilder: (context, index) {
+                  final percent = 1 - (index - value).abs();
+                  final _opacity = (percent).clamp(0.7, 1.0);
+                  return Opacity(
+                    opacity: _opacity,
+                    child: Transform.scale(
+                      scale: _opacity,
+                      child: HeroItem(
+                        travel: trips1[index],
+                        onItemSelected: (val) => _isSelected.value = val,
+                      ),
+                    ),
+                  );
+                },
+                itemCount: trips1.length,
+              ),
+            ),
+            Positioned(
+              top: 60,
+              left: 0,
+              right: 0,
+              height: kToolbarHeight,
+              child: ValueListenableBuilder(
+                valueListenable: _isSelected,
+                builder: (context, _, __) => TweenAnimationBuilder<double>(
+                  duration: const Duration(milliseconds: 400),
+                  curve: Curves.fastOutSlowIn,
+                  tween: Tween<double>(begin: 0.0, end: 1.0),
+                  builder: (context, val, child) => Transform.translate(
+                      offset: Offset(0, -50 * val), child: child),
+                  child: AppBar(
+                    elevation: 0,
+                    title: const Text(
+                      'Space\'X Model',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black),
+                    ),
+                    actions: const [
+                      Icon(Icons.search_off, color: Colors.black)
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -54,8 +92,10 @@ class _HeroChallenge1State extends State<HeroChallenge1> {
 }
 
 class HeroItem extends StatelessWidget {
-  const HeroItem({Key? key, required this.travel}) : super(key: key);
+  const HeroItem({Key? key, required this.travel, required this.onItemSelected})
+      : super(key: key);
   final Trip travel;
+  final ValueChanged<bool> onItemSelected;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -67,11 +107,15 @@ class HeroItem extends StatelessWidget {
           width: size.width,
           child: InkWell(
               onTap: () {
+                onItemSelected(true);
                 Navigator.of(context).push(
                   PageRouteBuilder(
+                      transitionDuration: const Duration(milliseconds: 500),
                       pageBuilder: ((context, animation, secondaryAnimation) {
-                    return HeroDetails1(travel: travel);
-                  })),
+                        return FadeTransition(
+                            opacity: animation,
+                            child: HeroDetails1(travel: travel));
+                      })),
                 );
               },
               child: Image.asset(travel.img, fit: BoxFit.fitHeight)),

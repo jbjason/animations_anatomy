@@ -42,8 +42,12 @@ class _HeroDetails1State extends State<HeroDetails1>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(Icons.arrow_back_ios_new)),
+                onPressed: () async {
+                  await _controller.reverse();
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back_ios_new),
+              ),
               Hero(
                 tag: widget.travel.imageFront + widget.travel.imageBack,
                 child: Transform(

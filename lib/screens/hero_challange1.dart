@@ -49,20 +49,17 @@ class HeroItem extends StatelessWidget {
     return Column(
       children: [
         InkWell(
-          onTap: () async {
-            await Navigator.of(context).push(
+          onTap: () {
+            Navigator.of(context).push(
               PageRouteBuilder(
-                  reverseTransitionDuration: const Duration(milliseconds: 600),
+                  //   reverseTransitionDuration: const Duration(milliseconds: 100),
                   pageBuilder: ((context, animation, secondaryAnimation) {
-                    return HeroDetails1(travel: travel);
-                  })),
+                return FadeTransition(
+                    opacity: animation, child: HeroDetails1(travel: travel));
+              })),
             );
           },
-          child: Hero(
-            tag: travel.imageFront + travel.imageBack,
-            child:
-                Image.asset(travel.imageFront, height: 400, fit: BoxFit.cover),
-          ),
+          child: Image.asset(travel.imageFront, height: 400, fit: BoxFit.cover),
         ),
         const SizedBox(height: 40),
         Text(

@@ -48,15 +48,15 @@ class _HeroDetails1State extends State<HeroDetails1>
                 },
                 icon: const Icon(Icons.arrow_back_ios_new),
               ),
-              Hero(
-                tag: widget.travel.imageFront + widget.travel.imageBack,
-                child: Transform(
-                    origin: const Offset(-75, -150),
-                    transform: Matrix4.identity()
-                      ..rotateZ(2 * _animation.value),
-                    alignment: Alignment.topLeft,
-                    child: Image.asset(widget.travel.imageFront,
-                        fit: BoxFit.cover)),
+              AnimatedBuilder(
+                animation: _animation,
+                builder: (context, _) => Transform(
+                  transform: Matrix4.identity()
+                    ..rotateZ(-1.5 * _animation.value),
+                  alignment: Alignment.centerLeft,
+                  child:
+                      Image.asset(widget.travel.imageFront, fit: BoxFit.cover),
+                ),
               ),
               const SizedBox(height: 40),
               Center(

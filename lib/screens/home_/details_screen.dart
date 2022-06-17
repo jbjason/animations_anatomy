@@ -22,7 +22,7 @@ class Details extends StatelessWidget {
                     child: Hero(
                       tag: trip.title + trip.img,
                       child: ClipRRect(
-                        child: Image.asset('assets/trip/${trip.img}',
+                        child: Image.asset(trip.img,
                             fit: BoxFit.cover, alignment: Alignment.topCenter),
                       ),
                     ),

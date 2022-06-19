@@ -21,13 +21,13 @@ class _DiskChallenge2State extends State<DiskChallenge2> {
           elevation: 0,
           title: const Text('Disk Challenge2'),
           actions: [
-            InkWell(
-              onTap: () => setState(() => _count = _count != 2 ? 2 : 1),
-              child: _count == 2
+            IconButton(
+              onPressed: () => setState(() => _count = _count != 2 ? 2 : 1),
+              icon: _count == 2
                   ? const Icon(Icons.grid_4x4_sharp, color: Colors.white)
                   : const Icon(Icons.stacked_line_chart, color: Colors.white),
             ),
-            const SizedBox(width: 10),
+            const SizedBox(width: 20),
           ],
         ),
         body: Padding(

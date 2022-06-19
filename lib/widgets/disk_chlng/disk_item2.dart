@@ -12,19 +12,21 @@ class _DiskItemState extends State<DiskItem> with TickerProviderStateMixin {
   late AnimationController _controller;
   late AnimationController _animation;
   final _key = GlobalKey();
-  late Position _lastPosition;
+  Position _lastPosition = const Position(x: 0, y: 0);
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 500));
+        vsync: this, duration: const Duration(milliseconds: 300));
     _animation = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 800));
-    _controller.forward();
+
     _controller.addStatusListener((status) {
-      if (_controller.status == AnimationStatus.completed) {
-        _lastPosition = getPosition(_key);
+      if (status == AnimationStatus.completed) {
+        setState(() {
+          _lastPosition = getPosition(_key);
+        });
       }
     });
   }
@@ -37,21 +39,25 @@ class _DiskItemState extends State<DiskItem> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    _controller.forward(from: 0.0);
     final size = MediaQuery.of(context).size;
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        double x = 0, y = 0;
-        if (_key.currentContext!.findRenderObject() != null) {
-          final _pos = getPosition(_key);
-          x = (_lastPosition.height - _pos.height).abs();
-          y = (_lastPosition.width - _pos.width).abs();
-        }
-        return Transform.translate(
-          offset:
-              Offset(x * (1 - _controller.value), y * (1 - _controller.value)),
-          child: Container(
-            key: _key,
+    return Container(
+      key: _key,
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          double x = 0, y = 0;
+          final f = _key.currentContext;
+          if (f != null) {
+            if (f.findRenderObject() != null) {
+              final _pos = getPosition(_key);
+              x = (_lastPosition.x - _pos.x);
+              y = (_lastPosition.y - _pos.y);
+            }
+          }
+          return Transform.translate(
+            offset: Offset(
+                x * (1 - _controller.value), y * (1 - _controller.value)),
             child: Stack(
               children: [
                 AnimatedBuilder(
@@ -73,20 +79,20 @@ class _DiskItemState extends State<DiskItem> with TickerProviderStateMixin {
                 ),
               ],
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
 
 class Position {
-  final double height, width;
-  const Position({required this.height, required this.width});
+  final double x, y;
+  const Position({required this.x, required this.y});
 }
 
 Position getPosition(GlobalKey _key) {
   final box = _key.currentContext!.findRenderObject() as RenderBox;
   final position = box.localToGlobal(Offset.zero);
-  return Position(height: position.dy, width: position.dx);
+  return Position(x: position.dx, y: position.dy);
 }

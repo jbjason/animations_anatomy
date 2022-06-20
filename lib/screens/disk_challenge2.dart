@@ -39,8 +39,9 @@ class _DiskChallenge2State extends State<DiskChallenge2> {
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: _count,
-                mainAxisSpacing: 5,
-                mainAxisExtent: size.height * .16,
+                mainAxisSpacing: _count == 2 ? 5 : 25,
+                mainAxisExtent:
+                    _count == 2 ? size.height * .16 : size.height * .18,
                 crossAxisSpacing: 10),
             itemBuilder: (context, index) =>
                 DiskItem(trip: trips[index], count: _count, isFirst: _isFirst),

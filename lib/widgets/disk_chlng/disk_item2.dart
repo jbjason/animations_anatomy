@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:animations_anatomy/models/trip.dart';
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math.dart' as vector;
@@ -47,12 +46,12 @@ class _DiskItemState extends State<DiskItem> with TickerProviderStateMixin {
   }
 
   void _setAnimation() async {
-    if (widget.isFirst) {
-      _controller.forward(from: 0);
-    } else {
-      await _animation.reverse();
+    if (!widget.isFirst) {
       await _controller.forward(from: 0);
-      _controller.forward(from: 0);
+      _animation.forward(from: 0.0);
+    } else {
+      await _controller.forward(from: 0);
+      _animation.forward(from: 0.0);
     }
   }
 
@@ -77,27 +76,39 @@ class _DiskItemState extends State<DiskItem> with TickerProviderStateMixin {
           return Transform.translate(
             offset: Offset(
                 x * (1 - _controller.value), y * (1 - _controller.value)),
-            child: Stack(
-              children: [
-                AnimatedBuilder(
-                  animation: _animation,
-                  builder: (context, child) => Positioned(
-                    left: lerpDouble(0, 60, _animation.value),
+            child: AnimatedBuilder(
+              animation: _animation,
+              builder: (context, child) => Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Positioned(
+                    left: (widget.count == 2 ? 60 : 100) * _animation.value,
                     bottom: 5,
                     child: Transform.rotate(
                       alignment: Alignment.center,
                       angle: vector.radians(360 * _animation.value),
                       child: Image.asset('assets/trip/disk_.png',
-                          height: size.height * .16, fit: BoxFit.cover),
+                          height: widget.count == 2
+                              ? (size.height * .16 - 10)
+                              : size.height *
+                                  .18 *
+                                  _animation.value.clamp(0.8, 1),
+                          fit: BoxFit.cover),
                     ),
                   ),
-                ),
-                Positioned(
-                  left: 0,
-                  child: Image.asset(widget.trip.img,
-                      fit: BoxFit.fitHeight, width: 120),
-                ),
-              ],
+                  Positioned(
+                    left: 0,
+                    child: Transform.scale(
+                      scale: widget.count == 2
+                          ? 1
+                          : .3 + _animation.value.clamp(0.8, 1),
+                      child: Image.asset(widget.trip.img,
+                          fit: BoxFit.fitHeight,
+                          width: widget.count == 2 ? 120 : 130),
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         },

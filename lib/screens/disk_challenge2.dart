@@ -10,6 +10,7 @@ class DiskChallenge2 extends StatefulWidget {
 
 class _DiskChallenge2State extends State<DiskChallenge2> {
   int _count = 2;
+  bool _isFirst = true;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -22,7 +23,10 @@ class _DiskChallenge2State extends State<DiskChallenge2> {
           title: const Text('Disk Challenge2'),
           actions: [
             IconButton(
-              onPressed: () => setState(() => _count = _count != 2 ? 2 : 1),
+              onPressed: () => setState(() {
+                _count = _count != 2 ? 2 : 1;
+                _isFirst = false;
+              }),
               icon: _count == 2
                   ? const Icon(Icons.grid_4x4_sharp, color: Colors.white)
                   : const Icon(Icons.stacked_line_chart, color: Colors.white),
@@ -39,7 +43,7 @@ class _DiskChallenge2State extends State<DiskChallenge2> {
                 mainAxisExtent: size.height * .16,
                 crossAxisSpacing: 10),
             itemBuilder: (context, index) =>
-                DiskItem(trip: trips[index], count: _count),
+                DiskItem(trip: trips[index], count: _count, isFirst: _isFirst),
             itemCount: trips.length,
           ),
         ),

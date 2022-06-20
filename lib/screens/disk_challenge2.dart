@@ -38,7 +38,8 @@ class _DiskChallenge2State extends State<DiskChallenge2> {
                 mainAxisSpacing: 5,
                 mainAxisExtent: size.height * .16,
                 crossAxisSpacing: 10),
-            itemBuilder: (context, index) => DiskItem(trip: trips[index]),
+            itemBuilder: (context, index) =>
+                DiskItem(trip: trips[index], count: _count),
             itemCount: trips.length,
           ),
         ),

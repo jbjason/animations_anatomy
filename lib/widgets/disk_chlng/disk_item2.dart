@@ -15,13 +15,13 @@ class _DiskItemState extends State<DiskItem> with TickerProviderStateMixin {
   late AnimationController _controller;
   late AnimationController _animation;
   final _key = GlobalKey();
-  Position _lastPosition = const Position(x: 0, y: 0);
+  Offset _lastPosition = Offset.zero;
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 500));
+        vsync: this, duration: const Duration(milliseconds: 600));
     _animation = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 600));
 
@@ -52,8 +52,8 @@ class _DiskItemState extends State<DiskItem> with TickerProviderStateMixin {
           if (f != null) {
             if (f.findRenderObject() != null) {
               final _pos = getPosition(_key);
-              x = (_lastPosition.x - _pos.x);
-              y = (_lastPosition.y - _pos.y);
+              x = (_lastPosition.dx - _pos.dx);
+              y = (_lastPosition.dy - _pos.dy);
             }
           }
           return Transform.translate(
@@ -88,13 +88,8 @@ class _DiskItemState extends State<DiskItem> with TickerProviderStateMixin {
   }
 }
 
-class Position {
-  final double x, y;
-  const Position({required this.x, required this.y});
-}
-
-Position getPosition(GlobalKey _key) {
+Offset getPosition(GlobalKey _key) {
   final box = _key.currentContext!.findRenderObject() as RenderBox;
   final position = box.localToGlobal(Offset.zero);
-  return Position(x: position.dx, y: position.dy);
+  return Offset(position.dx, position.dy);
 }

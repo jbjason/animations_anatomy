@@ -17,10 +17,12 @@ class Drink {
   final String cupImage;
   final String description;
   final Color lightColor;
+  final double price;
   final Color darkColor;
 
   const Drink(
       {required this.name,
+      required this.price,
       required this.conName,
       required this.backgroundImage,
       required this.imageTop,
@@ -32,10 +34,11 @@ class Drink {
       required this.darkColor});
 }
 
-List<Drink> drinkList = [
+final List<Drink> drinkList = [
   Drink(
     name: 'Tirami',
     conName: 'Sù',
+    price: 4.70,
     backgroundImage: 'images/blur_image.png',
     imageTop: 'images/bean_top.png',
     imageSmall: 'images/bean_small.png',
@@ -43,12 +46,13 @@ List<Drink> drinkList = [
     cupImage: 'images/cup.png',
     description:
         'then top with whipped cream and mocha drizzle to bring you endless \njava joy',
-    lightColor: mAppGreen,
-    darkColor: mToGreen,
+    lightColor: mBrownLight,
+    darkColor: mBrown,
   ),
   Drink(
     name: 'Green',
     conName: 'Tea',
+    price: 8.50,
     backgroundImage: 'images/green_image.png',
     imageTop: 'images/green_top.png',
     imageSmall: 'images/green_small.png',
@@ -61,6 +65,7 @@ List<Drink> drinkList = [
   ),
   Drink(
     name: 'Triple',
+    price: 11.70,
     conName: 'Mocha',
     backgroundImage: 'images/mocha_image.png',
     imageTop: 'images/chocolate_top.png',

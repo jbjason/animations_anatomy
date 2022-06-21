@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:animations_anatomy/models/drink.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +42,8 @@ class _StarbuckChallengeState extends State<StarbuckChallenge> {
                 controller: _controller,
                 itemBuilder: (context, index) {
                   final _percent = (index - _value).abs();
-                  return DrinkItem(drink: drinkList[index], size: _size);
+                  return DrinkItem(
+                      drink: drinkList[index], size: _size, percent: _percent);
                 },
                 itemCount: drinkList.length,
               ),
@@ -67,10 +70,15 @@ class _StarbuckChallengeState extends State<StarbuckChallenge> {
 }
 
 class DrinkItem extends StatelessWidget {
-  const DrinkItem({Key? key, required this.size, required this.drink})
+  const DrinkItem(
+      {Key? key,
+      required this.percent,
+      required this.size,
+      required this.drink})
       : super(key: key);
   final Drink drink;
   final Size size;
+  final double percent;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -102,18 +110,18 @@ class DrinkItem extends StatelessWidget {
             child: Image.asset(drink.cupImage, height: size.height * .6),
           ),
           Positioned(
-            left: size.width * 0.15,
+            left: lerpDouble(size.width * 0.15, size.width * 0.2, percent),
             top: 65,
             child: Image.asset(drink.imageTop, height: 85, width: 85),
           ),
           Positioned(
-            right: -10,
+            right: lerpDouble(-10, 10, percent),
             top: size.height * .4,
             child: Image.asset(drink.imageSmall, height: 50, width: 50),
           ),
           Positioned(
             bottom: 30,
-            left: size.width * .2,
+            left: lerpDouble(size.width * .2, size.width * .1, percent),
             child: Image.asset(drink.imageBlur, height: 100, width: 100),
           ),
         ],

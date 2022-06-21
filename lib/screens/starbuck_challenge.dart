@@ -34,18 +34,7 @@ class _StarbuckChallengeState extends State<StarbuckChallenge> {
       child: Scaffold(
         body: Column(
           children: [
-            Container(
-              height: 80,
-              color: Colors.transparent,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset('assets/starbuck/location.png', height: 30),
-                  Image.asset('assets/starbuck/logo.png'),
-                  Image.asset('assets/starbuck/drawer.png', height: 30),
-                ],
-              ),
-            ),
+            _appBar(),
             Expanded(
               child: PageView.builder(
                 controller: _controller,
@@ -61,6 +50,20 @@ class _StarbuckChallengeState extends State<StarbuckChallenge> {
       ),
     );
   }
+
+  Widget _appBar() => Container(
+        height: 80,
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        color: Colors.transparent,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Image.asset('assets/starbuck/location.png', height: 30),
+            Image.asset('assets/starbuck/logo.png'),
+            Image.asset('assets/starbuck/drawer.png', height: 30),
+          ],
+        ),
+      );
 }
 
 class DrinkItem extends StatelessWidget {
@@ -70,49 +73,46 @@ class DrinkItem extends StatelessWidget {
   final Size size;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _title(),
-        const SizedBox(height: 30),
-        Expanded(
-          child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                image: DecorationImage(
-                    image: AssetImage(drink.backgroundImage),
-                    fit: BoxFit.cover),
-              ),
-              child: _containerBody()),
-        ),
-        const SizedBox(height: 70),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(right: 15),
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: Column(
+              children: [
+                _title(),
+                const SizedBox(height: 30),
+                Expanded(child: _column()),
+                const SizedBox(height: 70),
+              ],
+            ),
+          ),
+          _containerBody(),
+        ],
+      ),
     );
   }
 
   Widget _containerBody() => Stack(
+        clipBehavior: Clip.none,
         children: [
-          _column(),
           Positioned(
-            right: -20,
-            bottom: -50,
+            right: -35,
+            bottom: -30,
             child: Image.asset(drink.cupImage, height: size.height * .6),
           ),
           Positioned(
             left: size.width * 0.15,
-            top: -30,
-            child: Image.asset(drink.imageTop, height: 80, width: 80),
+            top: 65,
+            child: Image.asset(drink.imageTop, height: 85, width: 85),
           ),
           Positioned(
             right: -10,
-            top: size.height * .15,
-            child: Image.asset(
-              drink.imageSmall,
-              height: 40,
-              width: 40,
-            ),
+            top: size.height * .4,
+            child: Image.asset(drink.imageSmall, height: 50, width: 50),
           ),
           Positioned(
-            bottom: -10,
+            bottom: 30,
             left: size.width * .2,
             child: Image.asset(drink.imageBlur, height: 100, width: 100),
           ),
@@ -144,6 +144,11 @@ class DrinkItem extends StatelessWidget {
   Widget _column() => Container(
         margin: const EdgeInsets.only(right: 20),
         padding: const EdgeInsets.all(20.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          image: DecorationImage(
+              image: AssetImage(drink.backgroundImage), fit: BoxFit.cover),
+        ),
         child: Column(
           children: [
             const Text(

@@ -1,4 +1,4 @@
-import 'package:animations_anatomy/screens/starbuck_challenge.dart';
+import 'package:animations_anatomy/screens/animation_/starbuck_/starbuck_challenge.dart';
 import 'package:flutter/material.dart';
 
 void main() {

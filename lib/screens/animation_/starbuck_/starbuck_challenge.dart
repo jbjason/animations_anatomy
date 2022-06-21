@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:animations_anatomy/models/drink.dart';
+import 'package:animations_anatomy/screens/animation_/starbuck_/starbuck_home.dart';
 import 'package:flutter/material.dart';
 
 class StarbuckChallenge extends StatefulWidget {
@@ -15,7 +16,7 @@ class _StarbuckChallengeState extends State<StarbuckChallenge> {
 
   @override
   void initState() {
-    _controller = PageController(initialPage: 0, viewportFraction: 0.85);
+    _controller = PageController(initialPage: 0, viewportFraction: 0.9);
     _controller.addListener(_listen);
     super.initState();
   }
@@ -62,7 +63,16 @@ class _StarbuckChallengeState extends State<StarbuckChallenge> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Image.asset('assets/starbuck/location.png', height: 30),
-            Image.asset('assets/starbuck/logo.png'),
+            InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    PageRouteBuilder(
+                        transitionDuration: const Duration(seconds: 2),
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            StarbuckHome(animation: animation)),
+                  );
+                },
+                child: Image.asset('assets/starbuck/logo.png')),
             Image.asset('assets/starbuck/drawer.png', height: 30),
           ],
         ),
@@ -82,7 +92,7 @@ class DrinkItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 15),
+      padding: const EdgeInsets.only(right: 20),
       child: Stack(
         children: [
           Positioned.fill(
@@ -106,57 +116,34 @@ class DrinkItem extends StatelessWidget {
         children: [
           // cup image
           Positioned(
-            right: -35,
-            bottom: -30,
+            right: -20,
+            bottom: 10,
             child: Image.asset(drink.cupImage,
-                fit: BoxFit.cover, height: size.height * .6),
+                fit: BoxFit.cover, height: size.height * .55),
           ),
           // top smallImage
           Positioned(
             left: lerpDouble(size.width * 0.15, size.width * 0.6, percent),
-            top: 65,
+            top: 75,
             child: Image.asset(drink.imageTop,
-                fit: BoxFit.cover, height: 100, width: 100),
+                fit: BoxFit.cover, height: 60, width: 60),
           ),
           // rightCenter smallImage
           Positioned(
             right: lerpDouble(-10, 80, percent),
-            top: size.height * .4,
+            top: size.height * .37,
             child: Image.asset(drink.imageSmall,
-                fit: BoxFit.cover, height: 75, width: 75),
+                fit: BoxFit.cover, height: 60, width: 60),
           ),
           // bottom smallImage
           Positioned(
-            bottom: 10,
+            bottom: 20,
             left: lerpDouble(size.width * .22, size.width * .01, percent),
             child: Image.asset(drink.imageBlur,
-                fit: BoxFit.cover, height: 130, width: 130),
+                fit: BoxFit.cover, height: 90, width: 90),
           ),
         ],
       );
-
-  Widget _title() => Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Row(
-          children: [
-            Text(
-              drink.name,
-              style: TextStyle(
-                  color: drink.lightColor,
-                  fontSize: 34,
-                  fontWeight: FontWeight.bold),
-            ),
-            Text(
-              drink.conName,
-              style: TextStyle(
-                  color: drink.darkColor,
-                  fontSize: 35,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      );
-
   Widget _column() => Container(
         margin: const EdgeInsets.only(right: 20),
         padding: const EdgeInsets.all(20.0),
@@ -231,6 +218,27 @@ class DrinkItem extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
+          ],
+        ),
+      );
+  Widget _title() => Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          children: [
+            Text(
+              drink.name,
+              style: TextStyle(
+                  color: drink.lightColor,
+                  fontSize: 34,
+                  fontWeight: FontWeight.bold),
+            ),
+            Text(
+              drink.conName,
+              style: TextStyle(
+                  color: drink.darkColor,
+                  fontSize: 35,
+                  fontWeight: FontWeight.bold),
+            ),
           ],
         ),
       );

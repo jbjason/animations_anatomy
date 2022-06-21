@@ -9,7 +9,7 @@ import 'package:animations_anatomy/screens/card_flow1/card_flow1_screen.dart';
 import 'package:animations_anatomy/screens/animation_/disk_challenge2.dart';
 import 'package:animations_anatomy/screens/hero_anim/hero_challange1.dart';
 import 'package:animations_anatomy/screens/nav_bar/nav_bar1.dart';
-import 'package:animations_anatomy/screens/starbuck_challenge.dart';
+import 'package:animations_anatomy/screens/animation_/starbuck_/starbuck_challenge.dart';
 import 'package:animations_anatomy/screens/tab_bar/tab_bar_screen.dart';
 import 'package:flutter/material.dart';
 

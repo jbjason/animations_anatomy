@@ -13,7 +13,7 @@ class _StarbuckChallengeState extends State<StarbuckChallenge> {
 
   @override
   void initState() {
-    _controller = PageController(initialPage: 0, viewportFraction: 0.8);
+    _controller = PageController(initialPage: 0, viewportFraction: 0.9);
     _controller.addListener(_listen);
     super.initState();
   }
@@ -39,19 +39,23 @@ class _StarbuckChallengeState extends State<StarbuckChallenge> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image.asset('assets/starbuck/location.png'),
+                  Image.asset('assets/starbuck/location.png', height: 20),
                   Image.asset('assets/starbuck/logo.png'),
-                  Image.asset('assets/starbuck/drawer.png'),
+                  Image.asset('assets/starbuck/drawer.png', height: 20),
                 ],
               ),
             ),
             Expanded(
-              child: PageView.builder(
-                itemBuilder: (context, index) {
-                  final _percent = (index - _value).abs();
-                  return DrinkItem(drink: drinkList[index]);
-                },
-                itemCount: drinkList.length,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: PageView.builder(
+                  controller: _controller,
+                  itemBuilder: (context, index) {
+                    final _percent = (index - _value).abs();
+                    return DrinkItem(drink: drinkList[index]);
+                  },
+                  itemCount: drinkList.length,
+                ),
               ),
             ),
           ],
@@ -69,10 +73,13 @@ class DrinkItem extends StatelessWidget {
     return Column(
       children: [
         _title(),
+        const SizedBox(height: 60),
         Expanded(
           child: Container(
+            padding: const EdgeInsets.all(20),
+            margin: const EdgeInsets.only(right: 20),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(20),
               image: DecorationImage(
                   image: AssetImage(drink.backgroundImage), fit: BoxFit.cover),
             ),
@@ -83,7 +90,7 @@ class DrinkItem extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 100),
+        const SizedBox(height: 70),
       ],
     );
   }
@@ -94,14 +101,14 @@ class DrinkItem extends StatelessWidget {
             drink.name,
             style: TextStyle(
                 color: drink.lightColor,
-                fontSize: 24,
+                fontSize: 34,
                 fontWeight: FontWeight.bold),
           ),
           Text(
             drink.conName,
             style: TextStyle(
                 color: drink.darkColor,
-                fontSize: 26,
+                fontSize: 35,
                 fontWeight: FontWeight.bold),
           ),
         ],
@@ -122,21 +129,27 @@ class DrinkItem extends StatelessWidget {
             style: TextStyle(color: Colors.white.withOpacity(0.3)),
           ),
           const Spacer(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(width: 20),
-              Image.asset('assets/stardust/cup_L.png'),
-              const SizedBox(width: 10),
-              Image.asset('assets/stardust/cup_M.png'),
-              const SizedBox(width: 10),
-              Image.asset('assets/stardust/cup_s.png'),
-            ],
+          Container(
+            height: 60,
+            padding: const EdgeInsets.only(left: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                const SizedBox(width: 20),
+                Image.asset('assets/starbuck/cup_L.png', height: 40),
+                const SizedBox(width: 7),
+                Image.asset('assets/starbuck/cup_M.png', height: 30),
+                const SizedBox(width: 7),
+                Image.asset('assets/starbuck/cup_s.png', height: 20),
+              ],
+            ),
           ),
           const SizedBox(height: 15),
           Container(
-            margin: const EdgeInsets.only(left: 10),
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+            height: 60,
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(40),
               gradient: LinearGradient(
@@ -147,18 +160,18 @@ class DrinkItem extends StatelessWidget {
             child: RichText(
               overflow: TextOverflow.ellipsis,
               text: TextSpan(
-                text: '\$',
+                text: '\$ ',
                 style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 27),
                 children: [
                   TextSpan(
                     text: '${drink.price.toInt()}.',
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 17),
+                        fontWeight: FontWeight.bold, fontSize: 24),
                   ),
                   TextSpan(
                     text: drink.price.toString().split('.')[1],
-                    style: const TextStyle(fontSize: 12),
+                    style: const TextStyle(fontSize: 13),
                   ),
                 ],
               ),

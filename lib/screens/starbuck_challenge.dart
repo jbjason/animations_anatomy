@@ -104,25 +104,33 @@ class DrinkItem extends StatelessWidget {
   Widget _containerBody() => Stack(
         clipBehavior: Clip.none,
         children: [
+          // cup image
           Positioned(
             right: -35,
             bottom: -30,
-            child: Image.asset(drink.cupImage, height: size.height * .6),
+            child: Image.asset(drink.cupImage,
+                fit: BoxFit.cover, height: size.height * .6),
           ),
+          // top smallImage
           Positioned(
-            left: lerpDouble(size.width * 0.15, size.width * 0.2, percent),
+            left: lerpDouble(size.width * 0.15, size.width * 0.6, percent),
             top: 65,
-            child: Image.asset(drink.imageTop, height: 85, width: 85),
+            child: Image.asset(drink.imageTop,
+                fit: BoxFit.cover, height: 100, width: 100),
           ),
+          // rightCenter smallImage
           Positioned(
-            right: lerpDouble(-10, 10, percent),
+            right: lerpDouble(-10, 80, percent),
             top: size.height * .4,
-            child: Image.asset(drink.imageSmall, height: 50, width: 50),
+            child: Image.asset(drink.imageSmall,
+                fit: BoxFit.cover, height: 75, width: 75),
           ),
+          // bottom smallImage
           Positioned(
-            bottom: 30,
-            left: lerpDouble(size.width * .2, size.width * .1, percent),
-            child: Image.asset(drink.imageBlur, height: 100, width: 100),
+            bottom: 10,
+            left: lerpDouble(size.width * .22, size.width * .01, percent),
+            child: Image.asset(drink.imageBlur,
+                fit: BoxFit.cover, height: 130, width: 130),
           ),
         ],
       );
@@ -171,7 +179,7 @@ class DrinkItem extends StatelessWidget {
               drink.description,
               overflow: TextOverflow.ellipsis,
               maxLines: 5,
-              style: TextStyle(color: Colors.white.withOpacity(0.3)),
+              style: TextStyle(color: Colors.white.withOpacity(0.6)),
             ),
             const Spacer(),
             Container(

@@ -59,13 +59,15 @@ class DrinkItemAnimated extends StatelessWidget {
             child: Container(
               width: lerpDouble(size.width * .78, size.width, _value),
               margin: EdgeInsets.only(
-                  bottom: lerpDouble(70, 0, _value)!,
-                  top: lerpDouble(size.height * .1, 20, _value)!),
+                bottom: lerpDouble(70, 0, _value)!,
+                top: lerpDouble(size.height * .1, 20, _value)!,
+              ),
               padding: const EdgeInsets.all(20.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.vertical(
-                    top: const Radius.circular(30),
-                    bottom: Radius.circular(lerpDouble(30, 0, _value)!)),
+                  top: const Radius.circular(40),
+                  bottom: Radius.circular(lerpDouble(40, 0, _value)!),
+                ),
                 image: DecorationImage(
                     image: AssetImage(drink.backgroundImage),
                     fit: BoxFit.cover),
@@ -79,7 +81,7 @@ class DrinkItemAnimated extends StatelessWidget {
             ),
           ),
           _containerBody(_value),
-          Positioned(top: 0, left: 0, child: _title()),
+          Positioned(top: 0, left: 0, child: _title(_value)),
         ],
       ),
     );
@@ -195,9 +197,12 @@ class DrinkItemAnimated extends StatelessWidget {
           const SizedBox(height: 30),
         ],
       );
-  Widget _title() => Container(
+  Widget _title(double val) => Container(
         height: size.height * .1,
-        padding: const EdgeInsets.only(top: 20.0),
+        padding: EdgeInsets.only(
+          top: 20.0,
+          left: lerpDouble(20 + size.width * .11, 20.0, val)!,
+        ),
         child: Row(
           children: [
             Text(

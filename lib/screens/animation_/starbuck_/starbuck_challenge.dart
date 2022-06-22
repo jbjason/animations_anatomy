@@ -114,21 +114,21 @@ class DrinkItem extends StatelessWidget {
             left: lerpDouble(size.width * 0.15, size.width * 0.6, percent),
             top: 75,
             child: Image.asset(drink.imageTop,
-                fit: BoxFit.cover, height: 55, width: 55),
+                fit: BoxFit.cover, height: 45, width: 45),
           ),
           // rightCenter smallImage
           Positioned(
             right: lerpDouble(-10, 80, percent),
             top: size.height * .37,
             child: Image.asset(drink.imageSmall,
-                fit: BoxFit.cover, height: 45, width: 45),
+                fit: BoxFit.cover, height: 40, width: 40),
           ),
           // bottom smallImage
           Positioned(
             bottom: 25,
             left: lerpDouble(size.width * .29, size.width * .01, percent),
             child: Image.asset(drink.imageBlur,
-                fit: BoxFit.cover, height: 80, width: 80),
+                fit: BoxFit.cover, height: 75, width: 75),
           ),
         ],
       );
@@ -150,7 +150,7 @@ class DrinkItem extends StatelessWidget {
                   fontSize: 35,
                   fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 30),
             Text(
               drink.description,
               overflow: TextOverflow.ellipsis,

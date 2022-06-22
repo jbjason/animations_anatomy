@@ -55,29 +55,31 @@ class DrinkItemAnimated extends StatelessWidget {
       },
       child: Stack(
         children: [
-          Positioned(top: 0, left: 0, child: _title()),
           Positioned.fill(
             child: Container(
               width: lerpDouble(size.width * .78, size.width, _value),
               margin: EdgeInsets.only(
                   bottom: lerpDouble(70, 0, _value)!,
-                  top: lerpDouble(size.height * .1, 0, _value)!),
+                  top: lerpDouble(size.height * .1, 20, _value)!),
               padding: const EdgeInsets.all(20.0),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.vertical(
+                    top: const Radius.circular(30),
+                    bottom: Radius.circular(lerpDouble(30, 0, _value)!)),
                 image: DecorationImage(
                     image: AssetImage(drink.backgroundImage),
                     fit: BoxFit.cover),
               ),
               child: Column(
                 children: [
-                  const SizedBox(height: 30),
+                  SizedBox(height: lerpDouble(30, size.height * .1, _value)),
                   Expanded(child: _column()),
                 ],
               ),
             ),
           ),
           _containerBody(_value),
+          Positioned(top: 0, left: 0, child: _title()),
         ],
       ),
     );
@@ -98,21 +100,21 @@ class DrinkItemAnimated extends StatelessWidget {
             left: lerpDouble(size.width * 0.3, size.width * 0.85, _value),
             top: 75,
             child: Image.asset(drink.imageTop,
-                fit: BoxFit.cover, height: 55, width: 55),
+                fit: BoxFit.cover, height: 45, width: 45),
           ),
           // rightCenter smallImage
           Positioned(
-            right: lerpDouble(-10, 120, _value),
-            top: lerpDouble(size.height * .45, size.height * .1, _value),
+            right: lerpDouble(-10, 100, _value),
+            top: lerpDouble(size.height * .45, size.height * .19, _value),
             child: Image.asset(drink.imageSmall,
-                fit: BoxFit.cover, height: 45, width: 45),
+                fit: BoxFit.cover, height: 40, width: 40),
           ),
           // bottom smallImage
           Positioned(
-            bottom: lerpDouble(25, size.height * .5, _value),
+            bottom: lerpDouble(25, size.height * .7, _value),
             left: lerpDouble(size.width * .01, 40, _value),
             child: Image.asset(drink.imageBlur,
-                fit: BoxFit.cover, height: 80, width: 80),
+                fit: BoxFit.cover, height: 75, width: 75),
           ),
         ],
       );
@@ -126,7 +128,7 @@ class DrinkItemAnimated extends StatelessWidget {
                 letterSpacing: 1.5,
                 fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 30),
           Text(
             drink.description,
             overflow: TextOverflow.ellipsis,

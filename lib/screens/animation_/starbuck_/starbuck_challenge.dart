@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:animations_anatomy/models/drink.dart';
+import 'package:animations_anatomy/screens/animation_/starbuck_/starbuck_details.dart';
 import 'package:animations_anatomy/screens/animation_/starbuck_/starbuck_home.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +38,7 @@ class _StarbuckChallengeState extends State<StarbuckChallenge> {
       child: Scaffold(
         body: Column(
           children: [
-            _appBar(),
+            StarbuckAppBar(height: _size.height * .1),
             Expanded(
               child: PageView.builder(
                 controller: _controller,
@@ -54,29 +55,6 @@ class _StarbuckChallengeState extends State<StarbuckChallenge> {
       ),
     );
   }
-
-  Widget _appBar() => Container(
-        height: 80,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        color: Colors.transparent,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset('assets/starbuck/location.png', height: 30),
-            InkWell(
-                onTap: () {
-                  Navigator.of(context).push(
-                    PageRouteBuilder(
-                        transitionDuration: const Duration(seconds: 2),
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            StarbuckHome(animation: animation)),
-                  );
-                },
-                child: Image.asset('assets/starbuck/logo.png')),
-            Image.asset('assets/starbuck/drawer.png', height: 30),
-          ],
-        ),
-      );
 }
 
 class DrinkItem extends StatelessWidget {
@@ -91,22 +69,32 @@ class DrinkItem extends StatelessWidget {
   final double percent;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 20),
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: Column(
-              children: [
-                _title(),
-                const SizedBox(height: 30),
-                Expanded(child: _column()),
-                const SizedBox(height: 70),
-              ],
+    return GestureDetector(
+      onVerticalDragUpdate: (val) {
+        if (val.delta.dy < -10) {
+          Navigator.of(context).push(PageRouteBuilder(
+              transitionDuration: const Duration(milliseconds: 1000),
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  StarbuckDetails(drink: drink, animation: animation)));
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(right: 20),
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: Column(
+                children: [
+                  _title(),
+                  const SizedBox(height: 30),
+                  Expanded(child: _column()),
+                  const SizedBox(height: 70),
+                ],
+              ),
             ),
-          ),
-          _containerBody(),
-        ],
+            _containerBody(),
+          ],
+        ),
       ),
     );
   }
@@ -126,21 +114,21 @@ class DrinkItem extends StatelessWidget {
             left: lerpDouble(size.width * 0.15, size.width * 0.6, percent),
             top: 75,
             child: Image.asset(drink.imageTop,
-                fit: BoxFit.cover, height: 60, width: 60),
+                fit: BoxFit.cover, height: 55, width: 55),
           ),
           // rightCenter smallImage
           Positioned(
             right: lerpDouble(-10, 80, percent),
             top: size.height * .37,
             child: Image.asset(drink.imageSmall,
-                fit: BoxFit.cover, height: 60, width: 60),
+                fit: BoxFit.cover, height: 45, width: 45),
           ),
           // bottom smallImage
           Positioned(
-            bottom: 20,
-            left: lerpDouble(size.width * .22, size.width * .01, percent),
+            bottom: 25,
+            left: lerpDouble(size.width * .29, size.width * .01, percent),
             child: Image.asset(drink.imageBlur,
-                fit: BoxFit.cover, height: 90, width: 90),
+                fit: BoxFit.cover, height: 80, width: 80),
           ),
         ],
       );
@@ -158,7 +146,8 @@ class DrinkItem extends StatelessWidget {
               'Frappuccino',
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: 23,
+                  letterSpacing: 1.5,
+                  fontSize: 35,
                   fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
@@ -187,59 +176,99 @@ class DrinkItem extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             Container(
-              height: 60,
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(40),
-                gradient: LinearGradient(
-                  colors: [mAppGreen, mToGreen],
-                  stops: const [0.2, 1.0],
+                height: 60,
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40),
+                  gradient: LinearGradient(
+                    colors: [mAppGreen, mToGreen],
+                    stops: const [0.2, 1.0],
+                  ),
                 ),
-              ),
-              child: RichText(
-                overflow: TextOverflow.ellipsis,
-                text: TextSpan(
-                  text: '\$ ',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 27),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextSpan(
-                      text: '${drink.price.toInt()}.',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 24),
+                    RichText(
+                      overflow: TextOverflow.ellipsis,
+                      text: TextSpan(
+                        text: '\$ ',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 27),
+                        children: [
+                          TextSpan(
+                            text: '${drink.price.toInt()}.',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 24),
+                          ),
+                          TextSpan(
+                            text: drink.price.toString().split('.')[1],
+                            style: const TextStyle(fontSize: 13),
+                          ),
+                        ],
+                      ),
                     ),
-                    TextSpan(
-                      text: drink.price.toString().split('.')[1],
-                      style: const TextStyle(fontSize: 13),
-                    ),
+                    const Text(
+                      'Order',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    )
                   ],
-                ),
-              ),
-            ),
+                )),
             const SizedBox(height: 30),
           ],
         ),
       );
-  Widget _title() => Padding(
-        padding: const EdgeInsets.all(20.0),
+  Widget _title() => Container(
+        height: size.height * .1,
+        padding: const EdgeInsets.only(top: 20.0),
         child: Row(
           children: [
             Text(
               drink.name,
               style: TextStyle(
                   color: drink.lightColor,
-                  fontSize: 34,
+                  fontSize: 42,
                   fontWeight: FontWeight.bold),
             ),
             Text(
               drink.conName,
               style: TextStyle(
                   color: drink.darkColor,
-                  fontSize: 35,
+                  fontSize: 45,
                   fontWeight: FontWeight.bold),
             ),
           ],
         ),
       );
+}
+
+class StarbuckAppBar extends StatelessWidget {
+  const StarbuckAppBar({Key? key, required this.height}) : super(key: key);
+  final double height;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      color: Colors.transparent,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Image.asset('assets/starbuck/location.png', height: 30),
+          InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                      transitionDuration: const Duration(seconds: 2),
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          StarbuckHome(animation: animation)),
+                );
+              },
+              child: Image.asset('assets/starbuck/logo.png')),
+          Image.asset('assets/starbuck/drawer.png', height: 30),
+        ],
+      ),
+    );
+  }
 }

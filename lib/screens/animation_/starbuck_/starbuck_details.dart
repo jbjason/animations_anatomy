@@ -55,39 +55,35 @@ class DrinkItemAnimated extends StatelessWidget {
       },
       child: Stack(
         children: [
+          // body
           Positioned.fill(
             child: Container(
-              width: lerpDouble(size.width * .76, size.width, _value),
-              margin: EdgeInsets.only(
-                bottom: lerpDouble(70, 0, _value)!,
-                top: lerpDouble(size.height * .1, 20, _value)!,
-              ),
-              padding: const EdgeInsets.all(20.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.vertical(
-                  top: const Radius.circular(40),
-                  bottom: Radius.circular(lerpDouble(40, 0, _value)!),
+                width: lerpDouble(size.width * .76, size.width, _value),
+                margin: EdgeInsets.only(
+                  bottom: lerpDouble(70, 0, _value)!,
+                  top: lerpDouble(size.height * .1, 20, _value)!,
                 ),
-                image: DecorationImage(
-                    image: AssetImage(drink.backgroundImage),
-                    fit: BoxFit.cover),
-              ),
-              child: Column(
-                children: [
-                  SizedBox(height: lerpDouble(30, size.height * .045, _value)),
-                  Expanded(child: _column(animation.value)),
-                ],
-              ),
-            ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.vertical(
+                    top: const Radius.circular(40),
+                    bottom: Radius.circular(lerpDouble(40, 0, _value)!),
+                  ),
+                  image: DecorationImage(
+                      image: AssetImage(drink.backgroundImage),
+                      fit: BoxFit.cover),
+                ),
+                child: _body(_value)),
           ),
-          _containerBody(_value),
+          // small images
+          _smallImages(_value),
+          // Outside Top title
           Positioned(top: 20, child: _title(_value)),
         ],
       ),
     );
   }
 
-  Widget _containerBody(double _value) {
+  Widget _smallImages(double _value) {
     final _bottomImg = lerpDouble(75, 50, _value);
     return Stack(
       clipBehavior: Clip.none,
@@ -128,84 +124,116 @@ class DrinkItemAnimated extends StatelessWidget {
     );
   }
 
-  Widget _column(double _val) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Frappuccino',
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 35,
-                letterSpacing: 1.5,
-                fontWeight: FontWeight.bold),
+  Widget _body(double _val) => SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: lerpDouble(30, size.height * .071, _val)),
+            const Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: Text(
+                'Frappuccino',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 35,
+                    letterSpacing: 1.5,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(height: lerpDouble(10, size.height * .1, _val)),
+            _brownBody(),
+          ],
+        ),
+      );
+  Widget _brownBody() {
+    return SlideTransition(
+        position: Tween<Offset>(
+                begin: const Offset(0, 1), end: const Offset(0, 0))
+            .animate(
+                CurvedAnimation(parent: animation, curve: Curves.easeInCubic)),
+        child: Container(
+          height: lerpDouble(0, size.height * .65, animation.value),
+          padding: const EdgeInsets.all(40),
+          decoration: BoxDecoration(
+            color: drink.darkColor,
+            //  gradient: LinearGradient(colors: [drink.darkColor]),
           ),
-          SizedBox(height: lerpDouble(10, size.height * .07, _val)),
-          Text(
-            drink.description,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 5,
-            style: TextStyle(color: Colors.white.withOpacity(0.6)),
-          ),
-          const Spacer(),
-          Container(
-            height: 60,
-            padding: const EdgeInsets.only(left: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.end,
+          child: SingleChildScrollView(
+            child: Column(
               children: [
-                const SizedBox(width: 20),
-                Image.asset('assets/starbuck/cup_L.png', height: 40),
-                const SizedBox(width: 7),
-                Image.asset('assets/starbuck/cup_M.png', height: 30),
-                const SizedBox(width: 7),
-                Image.asset('assets/starbuck/cup_s.png', height: 20),
+                Text(
+                  drink.description,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 5,
+                  style: TextStyle(color: Colors.white.withOpacity(0.6)),
+                ),
+                Container(
+                  height: 60,
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      const SizedBox(width: 20),
+                      Image.asset('assets/starbuck/cup_L.png', height: 40),
+                      const SizedBox(width: 7),
+                      Image.asset('assets/starbuck/cup_M.png', height: 30),
+                      const SizedBox(width: 7),
+                      Image.asset('assets/starbuck/cup_s.png', height: 20),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Container(
+                    height: 60,
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40),
+                      gradient: LinearGradient(
+                        colors: [mAppGreen, mToGreen],
+                        stops: const [0.2, 1.0],
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        RichText(
+                          overflow: TextOverflow.ellipsis,
+                          text: TextSpan(
+                            text: '\$ ',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 27),
+                            children: [
+                              TextSpan(
+                                text: '${drink.price.toInt()}.',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 24),
+                              ),
+                              TextSpan(
+                                text: drink.price.toString().split('.')[1],
+                                style: const TextStyle(fontSize: 13),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Text(
+                          'Order',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        )
+                      ],
+                    )),
+                const SizedBox(height: 30),
               ],
             ),
           ),
-          const SizedBox(height: 15),
-          Container(
-              height: 60,
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(40),
-                gradient: LinearGradient(
-                  colors: [mAppGreen, mToGreen],
-                  stops: const [0.2, 1.0],
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  RichText(
-                    overflow: TextOverflow.ellipsis,
-                    text: TextSpan(
-                      text: '\$ ',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 27),
-                      children: [
-                        TextSpan(
-                          text: '${drink.price.toInt()}.',
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 24),
-                        ),
-                        TextSpan(
-                          text: drink.price.toString().split('.')[1],
-                          style: const TextStyle(fontSize: 13),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Text(
-                    'Order',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  )
-                ],
-              )),
-          const SizedBox(height: 30),
-        ],
-      );
+        ));
+  }
+
   Widget _title(double val) {
     final _font = lerpDouble(45, 20, val)!;
     return Container(

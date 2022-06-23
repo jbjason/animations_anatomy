@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Color mBrown = const Color(0xff81554E);
+Color mBrown = const Color.fromARGB(255, 59, 34, 30);
 Color mBrownLight = const Color(0xffC09C88);
 Color greenLight = const Color(0xffA3DB72);
 Color greenDark = const Color(0xff497E19);

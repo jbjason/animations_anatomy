@@ -141,6 +141,7 @@ class DrinkItem extends StatelessWidget {
               image: AssetImage(drink.backgroundImage), fit: BoxFit.cover),
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
               'Frappuccino',
@@ -150,7 +151,7 @@ class DrinkItem extends StatelessWidget {
                   fontSize: 35,
                   fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 10),
             Text(
               drink.description,
               overflow: TextOverflow.ellipsis,

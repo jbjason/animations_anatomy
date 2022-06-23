@@ -57,7 +57,7 @@ class DrinkItemAnimated extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Container(
-              width: lerpDouble(size.width * .78, size.width, _value),
+              width: lerpDouble(size.width * .76, size.width, _value),
               margin: EdgeInsets.only(
                 bottom: lerpDouble(70, 0, _value)!,
                 top: lerpDouble(size.height * .1, 20, _value)!,
@@ -74,53 +74,62 @@ class DrinkItemAnimated extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  SizedBox(height: lerpDouble(30, size.height * .1, _value)),
-                  Expanded(child: _column()),
+                  SizedBox(height: lerpDouble(30, size.height * .045, _value)),
+                  Expanded(child: _column(animation.value)),
                 ],
               ),
             ),
           ),
           _containerBody(_value),
-          Positioned(top: 0, child: _title(_value)),
+          Positioned(top: 20, child: _title(_value)),
         ],
       ),
     );
   }
 
-  Widget _containerBody(double _value) => Stack(
-        clipBehavior: Clip.none,
-        children: [
-          // cup image
-          Positioned(
-            right: -20,
-            bottom: 10,
+  Widget _containerBody(double _value) {
+    final _bottomImg = lerpDouble(75, 50, _value);
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        // cup image
+        Positioned(
+          right: -20,
+          bottom: 10,
+          child: Transform.translate(
+            offset: Offset(
+                -(size.width * 1 / 4) * _value, size.height * .3 * _value),
             child: Image.asset(drink.cupImage,
                 fit: BoxFit.cover, height: size.height * .55),
           ),
-          // top smallImage
-          Positioned(
-            left: lerpDouble(size.width * 0.3, size.width * 0.85, _value),
-            top: 75,
-            child: Image.asset(drink.imageTop,
-                fit: BoxFit.cover, height: 45, width: 45),
-          ),
-          // rightCenter smallImage
-          Positioned(
-            right: lerpDouble(-10, 100, _value),
-            top: lerpDouble(size.height * .45, size.height * .19, _value),
-            child: Image.asset(drink.imageSmall,
-                fit: BoxFit.cover, height: 40, width: 40),
-          ),
-          // bottom smallImage
-          Positioned(
-            bottom: lerpDouble(25, size.height * .7, _value),
-            left: lerpDouble(size.width * .01, 40, _value),
-            child: Image.asset(drink.imageBlur,
-                fit: BoxFit.cover, height: 75, width: 75),
-          ),
-        ],
-      );
-  Widget _column() => Column(
+        ),
+        // top smallImage
+        Positioned(
+          left: lerpDouble(size.width * 0.3, size.width * 0.85, _value),
+          top: 80,
+          child: Image.asset(drink.imageTop,
+              fit: BoxFit.cover, height: 45, width: 45),
+        ),
+        // rightCenter smallImage
+        Positioned(
+          right: lerpDouble(-7, 100, _value),
+          top: lerpDouble(size.height * .45, size.height * .19, _value),
+          child: Image.asset(drink.imageSmall,
+              fit: BoxFit.cover, height: 40, width: 40),
+        ),
+        // bottom smallImage
+        Positioned(
+          bottom: lerpDouble(25, size.height * .65, _value),
+          left: lerpDouble(size.width * .2, 2, _value),
+          child: Image.asset(drink.imageBlur,
+              fit: BoxFit.cover, height: _bottomImg, width: _bottomImg),
+        ),
+      ],
+    );
+  }
+
+  Widget _column(double _val) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
             'Frappuccino',
@@ -130,7 +139,7 @@ class DrinkItemAnimated extends StatelessWidget {
                 letterSpacing: 1.5,
                 fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 30),
+          SizedBox(height: lerpDouble(10, size.height * .07, _val)),
           Text(
             drink.description,
             overflow: TextOverflow.ellipsis,
@@ -202,7 +211,6 @@ class DrinkItemAnimated extends StatelessWidget {
     return Container(
       height: size.height * .1,
       padding: EdgeInsets.only(
-        top: 20.0,
         left: lerpDouble(20 + size.width * .11, 20.0, val)!,
       ),
       child: Row(

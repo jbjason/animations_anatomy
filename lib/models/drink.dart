@@ -45,7 +45,7 @@ final List<Drink> drinkList = [
     imageBlur: 'assets/starbuck/bean_blur.png',
     cupImage: 'assets/starbuck/cup.png',
     description:
-        'then top with whipped cream and mocha drizzle to bring you endless \njava joy',
+        'then top with whipped cream and mocha drizzle to bring you endless java joy',
     lightColor: mBrownLight,
     darkColor: mBrown,
   ),

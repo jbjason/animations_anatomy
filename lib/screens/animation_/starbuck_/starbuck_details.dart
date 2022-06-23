@@ -81,7 +81,7 @@ class DrinkItemAnimated extends StatelessWidget {
             ),
           ),
           _containerBody(_value),
-          Positioned(top: 0, left: 0, child: _title(_value)),
+          Positioned(top: 0, child: _title(_value)),
         ],
       ),
     );
@@ -197,29 +197,32 @@ class DrinkItemAnimated extends StatelessWidget {
           const SizedBox(height: 30),
         ],
       );
-  Widget _title(double val) => Container(
-        height: size.height * .1,
-        padding: EdgeInsets.only(
-          top: 20.0,
-          left: lerpDouble(20 + size.width * .11, 20.0, val)!,
-        ),
-        child: Row(
-          children: [
-            Text(
-              drink.name,
-              style: TextStyle(
-                  color: drink.lightColor,
-                  fontSize: 42,
-                  fontWeight: FontWeight.bold),
-            ),
-            Text(
-              drink.conName,
-              style: TextStyle(
-                  color: drink.darkColor,
-                  fontSize: 45,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      );
+  Widget _title(double val) {
+    final _font = lerpDouble(45, 20, val)!;
+    return Container(
+      height: size.height * .1,
+      padding: EdgeInsets.only(
+        top: 20.0,
+        left: lerpDouble(20 + size.width * .11, 20.0, val)!,
+      ),
+      child: Row(
+        children: [
+          Text(
+            drink.name,
+            style: TextStyle(
+                color: drink.lightColor,
+                fontSize: _font,
+                fontWeight: FontWeight.bold),
+          ),
+          Text(
+            drink.conName,
+            style: TextStyle(
+                color: drink.darkColor,
+                fontSize: _font,
+                fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
+  }
 }

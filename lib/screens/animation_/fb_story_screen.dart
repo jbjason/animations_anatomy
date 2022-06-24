@@ -85,14 +85,14 @@ class StoryItem extends StatelessWidget {
     return Positioned(
       left: 0,
       top: lerpDouble(0, (_containerHeight / 2) - 20, _offset),
-      height: lerpDouble(_containerHeight, 40, _offset),
+      height: lerpDouble(_containerHeight, 50, _offset),
       width: lerpDouble(_containerWidht - 10, 60, _offset),
       child: Container(
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
           color: Colors.white,
-          image: const DecorationImage(
-              image: AssetImage('assets/card_/jb.jpg'), fit: BoxFit.cover),
+          // image: const DecorationImage(
+          //     image: AssetImage('assets/card_/jb.jpg'), fit: BoxFit.cover),
           borderRadius: BorderRadius.horizontal(
             left: Radius.circular(lerpDouble(20, 0, _offset)!),
             right: Radius.circular(lerpDouble(20, 40, _offset)!),
@@ -101,15 +101,29 @@ class StoryItem extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Opacity(
-              opacity: ((120 - offset) / 120).clamp(0.0, 1.0),
-              child: FittedBox(
-                child: Row(children: const [
-                  Text('Add Story', style: TextStyle(color: Colors.white)),
-                  Icon(Icons.add_a_photo_sharp, color: Colors.white)
-                ]),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.elliptical(lerpDouble(10, 22, _offset)!,
+                        lerpDouble(10, 22, _offset)!),
+                    bottom: Radius.elliptical(lerpDouble(10, 22, _offset)!,
+                        lerpDouble(10, 22, _offset)!),
+                  ),
+                  image: const DecorationImage(
+                      image: AssetImage('assets/card_/jb.jpg'),
+                      fit: BoxFit.cover),
+                ),
               ),
             ),
+            _offset > 0.5
+                ? Container()
+                : FittedBox(
+                    child: Row(children: const [
+                      Text('Add Story'),
+                      Icon(Icons.add_a_photo_sharp)
+                    ]),
+                  ),
           ],
         ),
       ),

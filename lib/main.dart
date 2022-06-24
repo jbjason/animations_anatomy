@@ -1,4 +1,4 @@
-import 'package:animations_anatomy/screens/animation_/starbuck_/starbuck_challenge.dart';
+import 'package:animations_anatomy/screens/home_/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const StarbuckChallenge(),
+      home: const HomeScreen(),
     );
   }
 }

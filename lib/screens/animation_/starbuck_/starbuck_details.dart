@@ -55,6 +55,20 @@ class DrinkItemAnimated extends StatelessWidget {
       },
       child: Stack(
         children: [
+          Container(
+            margin: const EdgeInsets.only(top: 20),
+            height:
+                lerpDouble(size.height * .8, size.height * .4, animation.value),
+            width: size.width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.vertical(
+                top: const Radius.circular(40),
+                bottom: Radius.circular(lerpDouble(40, 0, _value)!),
+              ),
+              image: DecorationImage(
+                  image: AssetImage(drink.backgroundImage), fit: BoxFit.cover),
+            ),
+          ),
           // body
           Positioned.fill(
             child: Container(
@@ -68,9 +82,6 @@ class DrinkItemAnimated extends StatelessWidget {
                     top: const Radius.circular(40),
                     bottom: Radius.circular(lerpDouble(40, 0, _value)!),
                   ),
-                  image: DecorationImage(
-                      image: AssetImage(drink.backgroundImage),
-                      fit: BoxFit.cover),
                 ),
                 child: _body(_value)),
           ),
@@ -141,7 +152,7 @@ class DrinkItemAnimated extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
             ),
-            SizedBox(height: lerpDouble(10, size.height * .1, _val)),
+            SizedBox(height: lerpDouble(10, size.height * .05, _val)),
             _brownBody(),
           ],
         ),
@@ -153,35 +164,39 @@ class DrinkItemAnimated extends StatelessWidget {
             .animate(
                 CurvedAnimation(parent: animation, curve: Curves.easeInCubic)),
         child: Container(
-          height: lerpDouble(0, size.height * .65, animation.value),
-          padding: const EdgeInsets.all(40),
+          height: lerpDouble(0, size.height * .7, animation.value),
+          padding: const EdgeInsets.symmetric(horizontal: 40),
           decoration: BoxDecoration(
             color: drink.darkColor,
             //  gradient: LinearGradient(colors: [drink.darkColor]),
           ),
           child: SingleChildScrollView(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                const Center(
+                  child: RotatedBox(
+                      quarterTurns: -1,
+                      child: Icon(Icons.arrow_back_ios_new,
+                          size: 40, color: Colors.white)),
+                ),
+                const SizedBox(height: 20),
                 Text(
                   drink.description,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 5,
                   style: TextStyle(color: Colors.white.withOpacity(0.6)),
                 ),
-                Container(
-                  height: 60,
-                  padding: const EdgeInsets.only(left: 10),
+                const SizedBox(height: 10),
+                SizedBox(
+                  height: 170,
+                  width: size.width,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      const SizedBox(width: 20),
-                      Image.asset('assets/starbuck/cup_L.png', height: 40),
-                      const SizedBox(width: 7),
-                      Image.asset('assets/starbuck/cup_M.png', height: 30),
-                      const SizedBox(width: 7),
-                      Image.asset('assets/starbuck/cup_s.png', height: 20),
-                    ],
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: List.generate(
+                      3,
+                      (index) => _cupContainer(index),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 15),
@@ -232,6 +247,46 @@ class DrinkItemAnimated extends StatelessWidget {
             ),
           ),
         ));
+  }
+
+  Widget _cupContainer(int index) {
+    final val = 1 - animation.value;
+    final image = index == 0
+        ? Image.asset('assets/starbuck/cup_L.png')
+        : index == 1
+            ? Image.asset('assets/starbuck/cup_M.png')
+            : Image.asset('assets/starbuck/cup_s.png');
+    return SizedBox(
+      height: 150,
+      width: 70,
+      child: Column(
+        children: [
+          Container(
+            height: 100,
+            width: 70,
+            decoration: BoxDecoration(
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(40)),
+              border: Border.all(color: Colors.grey, width: 1.5),
+            ),
+            child: Transform.translate(
+              offset: Offset(-150 * val, -150 * val),
+              child: image,
+            ),
+          ),
+          Container(
+            height: 50,
+            width: 70,
+            decoration: BoxDecoration(
+              borderRadius:
+                  const BorderRadius.vertical(bottom: Radius.circular(40)),
+              border: Border.all(color: Colors.white, width: 2),
+            ),
+            child: const Icon(Icons.add, color: Colors.white),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _title(double val) {

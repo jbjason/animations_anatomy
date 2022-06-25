@@ -37,38 +37,35 @@ class _FbStoryScreenState extends State<FbStoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Stack(
-              children: [
-                SizedBox(
-                  height: _containerHeight,
-                  child: ListView.builder(
-                    controller: _controller,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return index == 0
-                          ? Container(
-                              width: _containerWidht, color: Colors.white)
-                          : Container(
-                              width: _containerWidht,
-                              margin: const EdgeInsets.only(right: 10),
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(books[index].image),
-                                    fit: BoxFit.cover),
-                              ),
-                            );
-                    },
-                    itemCount: books.length,
-                  ),
+          Stack(
+            children: [
+              SizedBox(
+                height: _containerHeight,
+                child: ListView.builder(
+                  controller: _controller,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return index == 0
+                        ? Container(width: _containerWidht)
+                        : Container(
+                            width: _containerWidht,
+                            margin: const EdgeInsets.only(right: 10),
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(books[index].image),
+                                  fit: BoxFit.cover),
+                            ),
+                          );
+                  },
+                  itemCount: books.length,
                 ),
-                StoryItem(offset: _offset),
-              ],
-            ),
+              ),
+              StoryItem(offset: _offset),
+            ],
           ),
         ],
       ),
@@ -86,13 +83,12 @@ class StoryItem extends StatelessWidget {
       left: 0,
       top: lerpDouble(0, (_containerHeight / 2) - 20, _offset),
       height: lerpDouble(_containerHeight, 50, _offset),
-      width: lerpDouble(_containerWidht - 10, 60, _offset),
+      width: lerpDouble(_containerWidht - 10, 45, _offset),
       child: Container(
+        padding: const EdgeInsets.all(5),
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
           color: Colors.white,
-          // image: const DecorationImage(
-          //     image: AssetImage('assets/card_/jb.jpg'), fit: BoxFit.cover),
           borderRadius: BorderRadius.horizontal(
             left: Radius.circular(lerpDouble(20, 0, _offset)!),
             right: Radius.circular(lerpDouble(20, 40, _offset)!),
@@ -116,7 +112,7 @@ class StoryItem extends StatelessWidget {
                 ),
               ),
             ),
-            _offset > 0.5
+            _offset > 0.1
                 ? Container()
                 : FittedBox(
                     child: Row(children: const [

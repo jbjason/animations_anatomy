@@ -133,31 +133,29 @@ class BankAppItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(20),
-                    child: Row(
-                      children: [
-                        const CircleAvatar(
-                          radius: 25,
-                          backgroundImage: AssetImage('assets/card_/jb1.jpg'),
-                        ),
-                        Expanded(
-                          child: Text(
-                            book.title,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 17),
-                          ),
-                        ),
-                        const Text(
-                          '+36.00',
-                          style: TextStyle(
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    children: [
+                      const CircleAvatar(
+                        radius: 25,
+                        backgroundImage: AssetImage('assets/card_/jb1.jpg'),
+                      ),
+                      Expanded(
+                        child: Text(
+                          book.title,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 17),
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+                      const Text(
+                        '+36.00',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 17),
+                      )
+                    ],
                   ),
                 ),
               ],

@@ -1,19 +1,16 @@
 import 'dart:ui';
-
 import 'package:animations_anatomy/models/book.dart';
 import 'package:flutter/material.dart';
 
 class BankApp1 extends StatefulWidget {
   const BankApp1({Key? key}) : super(key: key);
-
   @override
   State<BankApp1> createState() => _BankApp1State();
 }
 
 class _BankApp1State extends State<BankApp1> {
   late final PageController _controller;
-  double _value = 1, percent = 0.0;
-  final int _currentIndex = 1;
+  double _value = 1;
   @override
   void initState() {
     _controller = PageController(viewportFraction: 0.8, initialPage: 1);
@@ -60,24 +57,23 @@ class _BankApp1State extends State<BankApp1> {
             child: _container());
   }
 
-  Container _container() =>
-      Container(color: const Color.fromARGB(255, 28, 45, 59));
   Widget _pageView(Size size) => Positioned(
         top: size.height * .3,
         height: size.height * .4,
         width: size.width,
         child: Opacity(
-          opacity: _currentIndex > 0 ? 1 : 1 - percent,
+          opacity: _value >= 1 ? 1 : (_value).clamp(0.0, 1),
           child: PageView.builder(
             controller: _controller,
             itemCount: books.length,
             itemBuilder: (context, index) {
-              percent = (index - _value).clamp(0.0, 1);
               return BankAppItem(book: books[index], index: index);
             },
           ),
         ),
       );
+  Container _container() =>
+      Container(color: const Color.fromARGB(255, 28, 45, 59));
 }
 
 class BankAppItem extends StatelessWidget {

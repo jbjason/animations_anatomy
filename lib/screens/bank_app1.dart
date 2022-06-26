@@ -13,7 +13,7 @@ class BankApp1 extends StatefulWidget {
 class _BankApp1State extends State<BankApp1> {
   late final PageController _controller;
   double _value = 1, percent = 0.0;
-  int _currentIndex = 1;
+  final int _currentIndex = 1;
   @override
   void initState() {
     _controller = PageController(viewportFraction: 0.8, initialPage: 1);
@@ -44,22 +44,24 @@ class _BankApp1State extends State<BankApp1> {
   }
 
   Widget _animatedContainer(Size size) {
-    return _currentIndex == 0 || _currentIndex == 1
-        ? Positioned(
-            top: _currentIndex == 1
-                ? size.height * .32
-                : lerpDouble(size.height * .32, 0, percent),
-            height: _currentIndex == 1
-                ? size.height * .36
-                : lerpDouble(size.height * .36, size.height, percent),
-            //width: lerpDouble(size.width * .7, size.width, percent),
-            left: _currentIndex == 1 ? 20 : lerpDouble(20, 0, percent),
-            right: _currentIndex == 1 ? 100 : lerpDouble(100, 0, percent),
-            child: Container(color: const Color.fromARGB(255, 28, 45, 59)),
-          )
-        : Container();
+    final bool _isOne = _value < 0.98, _isNotOne = _value > 1.38;
+    final percent2 = (1 - _value).clamp(0.0, 1.0);
+    return _isNotOne
+        ? Container()
+        : Positioned(
+            top: _isOne
+                ? lerpDouble(size.height * .32, 0, percent2)
+                : size.height * .32,
+            height: _isOne
+                ? lerpDouble(size.height * .36, size.height, percent2)
+                : size.height * .36,
+            left: _isOne ? lerpDouble(20, 0, percent2) : 20,
+            right: _isOne ? lerpDouble(200, 0, percent2) : 200,
+            child: _container());
   }
 
+  Container _container() =>
+      Container(color: const Color.fromARGB(255, 28, 45, 59));
   Widget _pageView(Size size) => Positioned(
         top: size.height * .3,
         height: size.height * .4,
@@ -69,7 +71,6 @@ class _BankApp1State extends State<BankApp1> {
           child: PageView.builder(
             controller: _controller,
             itemCount: books.length,
-            onPageChanged: (page) => setState(() => _currentIndex = page),
             itemBuilder: (context, index) {
               percent = (index - _value).clamp(0.0, 1);
               return BankAppItem(book: books[index], index: index);

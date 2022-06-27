@@ -8,19 +8,14 @@ class BankApp1 extends StatefulWidget {
   State<BankApp1> createState() => _BankApp1State();
 }
 
-class _BankApp1State extends State<BankApp1>
-    with SingleTickerProviderStateMixin {
+class _BankApp1State extends State<BankApp1> {
   late final PageController _controller;
-  late AnimationController _animationController;
   double _value = 1;
-  final bool _isExpand = false;
 
   @override
   void initState() {
     _controller = PageController(viewportFraction: 0.8, initialPage: 1);
     _controller.addListener(_listener);
-    _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 600));
     super.initState();
   }
 
@@ -28,7 +23,6 @@ class _BankApp1State extends State<BankApp1>
 
   @override
   void dispose() {
-    _animationController.dispose();
     _controller.removeListener(_listener);
     _controller.dispose();
     super.dispose();
@@ -73,7 +67,7 @@ class _BankApp1State extends State<BankApp1>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _titleAnimation(size),
+              const BankAppTitle(),
               SizedBox(
                 height: size.height * .8,
                 child: PageView.builder(
@@ -87,13 +81,6 @@ class _BankApp1State extends State<BankApp1>
           ),
         ),
       );
-
-  Widget _titleAnimation(Size size) {
-    const _updatePercent = 0.0;
-    return GestureDetector(
-        // onTap: () => ,
-        child: BankAppTitle(height: size.height * .2));
-  }
 }
 
 class BankAppItem extends StatelessWidget {
@@ -158,45 +145,78 @@ class BankAppItem extends StatelessWidget {
   }
 }
 
-class BankAppTitle extends StatelessWidget {
-  const BankAppTitle({Key? key, required this.height}) : super(key: key);
-  final double height;
+class BankAppTitle extends StatefulWidget {
+  const BankAppTitle({Key? key}) : super(key: key);
+  @override
+  State<BankAppTitle> createState() => _BankAppTitleState();
+}
+
+class _BankAppTitleState extends State<BankAppTitle>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  bool _isExpand = false;
+  @override
+  void initState() {
+    _animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 600));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      padding: const EdgeInsets.all(20),
-      margin: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30), color: Colors.grey[400]),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Row(
-            children: const [
-              Text(
-                'Hello ',
-                style: TextStyle(fontSize: 20),
+    final size = MediaQuery.of(context).size;
+    final _val = _animationController.value;
+    return AnimatedBuilder(
+      animation: _animationController,
+      builder: (context, _) {
+        return Container(
+          height: lerpDouble(size.height * .2, size.height * .7, _val),
+          padding: const EdgeInsets.all(20),
+          margin: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30), color: Colors.grey[400]),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Row(
+                children: const [
+                  Text('Hello ', style: TextStyle(fontSize: 20)),
+                  Expanded(
+                    child: Text(
+                      'Jb Jason',
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                    ),
+                  ),
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundImage: AssetImage('assets/card_/jb.jpg'),
+                  )
+                ],
               ),
-              Expanded(
-                child: Text(
-                  'Jb Jason',
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-                ),
+              InkWell(
+                onTap: () {
+                  setState(() => _isExpand = !_isExpand);
+                  !_isExpand
+                      ? _animationController.forward()
+                      : _animationController.reverse();
+                },
+                child: Image.asset('assets/extra_/down-arrow.png',
+                    height: 20, width: 40, fit: BoxFit.cover),
               ),
-              CircleAvatar(
-                radius: 25,
-                backgroundImage: AssetImage('assets/card_/jb.jpg'),
-              )
             ],
           ),
-          Image.asset('assets/extra_/down-arrow.png',
-              height: 20, width: 40, fit: BoxFit.cover),
-        ],
-      ),
+        );
+      },
     );
   }
 }

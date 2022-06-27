@@ -1,5 +1,7 @@
 import 'dart:ui';
 import 'package:animations_anatomy/models/book.dart';
+import 'package:animations_anatomy/widgets/bank_app1/bank_app_item.dart';
+import 'package:animations_anatomy/widgets/bank_app1/bank_app_title.dart';
 import 'package:flutter/material.dart';
 
 class BankApp1 extends StatefulWidget {
@@ -8,14 +10,20 @@ class BankApp1 extends StatefulWidget {
   State<BankApp1> createState() => _BankApp1State();
 }
 
-class _BankApp1State extends State<BankApp1> {
+class _BankApp1State extends State<BankApp1>
+    with SingleTickerProviderStateMixin {
   late final PageController _controller;
+  late AnimationController _animationController;
   double _value = 1;
+  bool _isExpand = false;
 
   @override
   void initState() {
     _controller = PageController(viewportFraction: 0.8, initialPage: 1);
     _controller.addListener(_listener);
+    _animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 600));
+
     super.initState();
   }
 
@@ -23,6 +31,7 @@ class _BankApp1State extends State<BankApp1> {
 
   @override
   void dispose() {
+    _animationController.dispose();
     _controller.removeListener(_listener);
     _controller.dispose();
     super.dispose();
@@ -46,7 +55,9 @@ class _BankApp1State extends State<BankApp1> {
         : Positioned(
             top: _isOne
                 ? lerpDouble(size.height * .32, 0, percent2)
-                : size.height * .32,
+                : _isExpand
+                    ? size.height * .82
+                    : size.height * .32,
             height: _isOne
                 ? lerpDouble(size.height * .45, size.height, percent2)
                 : size.height * .45,
@@ -67,156 +78,47 @@ class _BankApp1State extends State<BankApp1> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const BankAppTitle(),
+              _titleAnimation(size),
               SizedBox(
                 height: size.height * .8,
                 child: PageView.builder(
                   controller: _controller,
                   itemCount: books.length,
-                  itemBuilder: (context, index) =>
-                      BankAppItem(book: books[index], index: index),
+                  itemBuilder: (context, index) {
+                    final double percent = (index - _value).clamp(0.0, 1);
+                    return BankAppItem(
+                        book: books[index], index: index, percent: percent);
+                  },
                 ),
               ),
             ],
           ),
         ),
       );
-}
 
-class BankAppItem extends StatelessWidget {
-  const BankAppItem({Key? key, required this.book, required this.index})
-      : super(key: key);
-  final Book book;
-  final int index;
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return index == 0
-        ? Container()
-        : Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  height: size.height * .55,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    image: DecorationImage(
-                        image: AssetImage(book.image), fit: BoxFit.cover),
-                  ),
-                  child: const Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Text(
-                      '\$ 10346 ',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  child: Row(
-                    children: [
-                      const CircleAvatar(
-                        radius: 25,
-                        backgroundImage: AssetImage('assets/card_/jb1.jpg'),
-                      ),
-                      Expanded(
-                        child: Text(
-                          book.author,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 17),
-                        ),
-                      ),
-                      const Text(
-                        '+36.00',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 17),
-                      )
-                    ],
-                  ),
-                ),
-              ],
+  Widget _titleAnimation(Size size) => AnimatedBuilder(
+        animation: _animationController,
+        builder: (context, _) {
+          final val = _animationController.value;
+          return InkWell(
+            onTap: () {
+              setState(() {
+                _isExpand = !_isExpand;
+                _isExpand
+                    ? _animationController.forward(from: 0.0)
+                    : _animationController.reverse();
+              });
+            },
+            child: Container(
+              height: lerpDouble(size.height * .2, size.height * .8, val)!,
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+              margin: EdgeInsets.all(lerpDouble(20, 0, val)!),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.grey[300]),
+              child: const BankAppTitle(),
             ),
           );
-  }
-}
-
-class BankAppTitle extends StatefulWidget {
-  const BankAppTitle({Key? key}) : super(key: key);
-  @override
-  State<BankAppTitle> createState() => _BankAppTitleState();
-}
-
-class _BankAppTitleState extends State<BankAppTitle>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  bool _isExpand = false;
-  @override
-  void initState() {
-    _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 600));
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final _val = _animationController.value;
-    return AnimatedBuilder(
-      animation: _animationController,
-      builder: (context, _) {
-        return Container(
-          height: lerpDouble(size.height * .2, size.height * .7, _val),
-          padding: const EdgeInsets.all(20),
-          margin: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30), color: Colors.grey[400]),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Row(
-                children: const [
-                  Text('Hello ', style: TextStyle(fontSize: 20)),
-                  Expanded(
-                    child: Text(
-                      'Jb Jason',
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.ellipsis,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-                    ),
-                  ),
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundImage: AssetImage('assets/card_/jb.jpg'),
-                  )
-                ],
-              ),
-              InkWell(
-                onTap: () {
-                  setState(() => _isExpand = !_isExpand);
-                  !_isExpand
-                      ? _animationController.forward()
-                      : _animationController.reverse();
-                },
-                child: Image.asset('assets/extra_/down-arrow.png',
-                    height: 20, width: 40, fit: BoxFit.cover),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+        },
+      );
 }

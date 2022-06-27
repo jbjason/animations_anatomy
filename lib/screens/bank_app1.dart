@@ -8,14 +8,19 @@ class BankApp1 extends StatefulWidget {
   State<BankApp1> createState() => _BankApp1State();
 }
 
-class _BankApp1State extends State<BankApp1> {
+class _BankApp1State extends State<BankApp1>
+    with SingleTickerProviderStateMixin {
   late final PageController _controller;
+  late AnimationController _animationController;
   double _value = 1;
+  final bool _isExpand = false;
 
   @override
   void initState() {
     _controller = PageController(viewportFraction: 0.8, initialPage: 1);
     _controller.addListener(_listener);
+    _animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 600));
     super.initState();
   }
 
@@ -23,6 +28,7 @@ class _BankApp1State extends State<BankApp1> {
 
   @override
   void dispose() {
+    _animationController.dispose();
     _controller.removeListener(_listener);
     _controller.dispose();
     super.dispose();
@@ -52,25 +58,42 @@ class _BankApp1State extends State<BankApp1> {
                 : size.height * .45,
             left: _isOne ? lerpDouble(20, 0, percent2) : 20,
             right: _isOne ? lerpDouble(200, 0, percent2) : 200,
-            child: _container(),
+            child: Container(
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 28, 45, 59),
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
           );
   }
 
   Widget _pageView(Size size) => Opacity(
         opacity: _value >= 1 ? 1 : (_value).clamp(0.0, 1),
-        child: PageView.builder(
-          controller: _controller,
-          itemCount: books.length,
-          itemBuilder: (context, index) =>
-              BankAppItem(book: books[index], index: index),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _titleAnimation(size),
+              SizedBox(
+                height: size.height * .8,
+                child: PageView.builder(
+                  controller: _controller,
+                  itemCount: books.length,
+                  itemBuilder: (context, index) =>
+                      BankAppItem(book: books[index], index: index),
+                ),
+              ),
+            ],
+          ),
         ),
       );
-  Container _container() => Container(
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 28, 45, 59),
-          borderRadius: BorderRadius.circular(30),
-        ),
-      );
+
+  Widget _titleAnimation(Size size) {
+    const _updatePercent = 0.0;
+    return GestureDetector(
+        // onTap: () => ,
+        child: BankAppTitle(height: size.height * .2));
+  }
 }
 
 class BankAppItem extends StatelessWidget {
@@ -88,35 +111,6 @@ class BankAppItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Container(
-                  height: size.height * .2,
-                  padding: const EdgeInsets.all(20),
-                  margin: const EdgeInsets.symmetric(vertical: 20),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Colors.grey[400]),
-                  child: Row(
-                    children: [
-                      const Text(
-                        'Hello ',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      Expanded(
-                        child: Text(
-                          book.author,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 24),
-                        ),
-                      ),
-                      const CircleAvatar(
-                        radius: 25,
-                        backgroundImage: AssetImage('assets/card_/jb.jpg'),
-                      )
-                    ],
-                  ),
-                ),
                 Container(
                   height: size.height * .55,
                   decoration: BoxDecoration(
@@ -143,7 +137,7 @@ class BankAppItem extends StatelessWidget {
                       ),
                       Expanded(
                         child: Text(
-                          book.title,
+                          book.author,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
@@ -161,5 +155,48 @@ class BankAppItem extends StatelessWidget {
               ],
             ),
           );
+  }
+}
+
+class BankAppTitle extends StatelessWidget {
+  const BankAppTitle({Key? key, required this.height}) : super(key: key);
+  final double height;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      padding: const EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30), color: Colors.grey[400]),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Row(
+            children: const [
+              Text(
+                'Hello ',
+                style: TextStyle(fontSize: 20),
+              ),
+              Expanded(
+                child: Text(
+                  'Jb Jason',
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                ),
+              ),
+              CircleAvatar(
+                radius: 25,
+                backgroundImage: AssetImage('assets/card_/jb.jpg'),
+              )
+            ],
+          ),
+          Image.asset('assets/extra_/down-arrow.png',
+              height: 20, width: 40, fit: BoxFit.cover),
+        ],
+      ),
+    );
   }
 }

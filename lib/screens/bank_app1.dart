@@ -52,21 +52,23 @@ class _BankApp1State extends State<BankApp1>
     final percent2 = (1 - _value).clamp(0.0, 1.0);
     return _isNotOne
         ? Container()
-        : Positioned(
-            top: _isOne
-                ? lerpDouble(size.height * .32, 0, percent2)
-                : _isExpand
-                    ? size.height * .82
-                    : size.height * .32,
-            height: _isOne
-                ? lerpDouble(size.height * .45, size.height, percent2)
-                : size.height * .45,
-            left: _isOne ? lerpDouble(20, 0, percent2) : 20,
-            right: _isOne ? lerpDouble(200, 0, percent2) : 200,
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 28, 45, 59),
-                borderRadius: BorderRadius.circular(30),
+        : AnimatedBuilder(
+            animation: _animationController,
+            builder: (context, _) => Positioned(
+              top: _isOne
+                  ? lerpDouble(size.height * .32, 0, percent2)
+                  : lerpDouble(size.height * .32, size.height * .85,
+                      _animationController.value),
+              height: _isOne
+                  ? lerpDouble(size.height * .45, size.height, percent2)
+                  : size.height * .45,
+              left: _isOne ? lerpDouble(20, 0, percent2) : 20,
+              right: _isOne ? lerpDouble(200, 0, percent2) : 200,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 28, 45, 59),
+                  borderRadius: BorderRadius.circular(30),
+                ),
               ),
             ),
           );

@@ -40,7 +40,7 @@ class BankAppItem extends StatelessWidget {
                 Opacity(
                   opacity: 1 - percent,
                   child: Transform.translate(
-                    offset: Offset(0, 100 * percent),
+                    offset: Offset(0, 50 * percent),
                     child: Container(
                       padding: const EdgeInsets.all(20),
                       child: Row(

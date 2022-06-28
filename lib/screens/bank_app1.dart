@@ -4,7 +4,7 @@ import 'package:animations_anatomy/widgets/bank_app1/bank_app_item.dart';
 import 'package:animations_anatomy/widgets/bank_app1/bank_app_title.dart';
 import 'package:flutter/material.dart';
 
-const _maxHeightTitle = 600.0;
+const _maxHeightTitle = 650.0;
 
 class BankApp1 extends StatefulWidget {
   const BankApp1({Key? key}) : super(key: key);

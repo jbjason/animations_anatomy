@@ -4,13 +4,13 @@ import 'package:animations_anatomy/widgets/bank_app1/bank_app_item.dart';
 import 'package:animations_anatomy/widgets/bank_app1/bank_app_title.dart';
 import 'package:flutter/material.dart';
 
+const _maxHeightTitle = 600.0;
+
 class BankApp1 extends StatefulWidget {
   const BankApp1({Key? key}) : super(key: key);
   @override
   State<BankApp1> createState() => _BankApp1State();
 }
-
-const _maxHeightTitle = 600.0;
 
 class _BankApp1State extends State<BankApp1>
     with SingleTickerProviderStateMixin {

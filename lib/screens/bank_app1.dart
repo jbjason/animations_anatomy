@@ -69,7 +69,7 @@ class _BankApp1State extends State<BankApp1>
               child: Container(
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 28, 45, 59),
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(60),
                 ),
               ),
             ),
@@ -89,7 +89,7 @@ class _BankApp1State extends State<BankApp1>
                   controller: _controller,
                   itemCount: books.length,
                   itemBuilder: (context, index) {
-                    final double percent = (index - _value).clamp(0.0, 1);
+                    final percent = index - _value;
                     return BankAppItem(
                         book: books[index], index: index, percent: percent);
                   },

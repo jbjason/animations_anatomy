@@ -18,6 +18,7 @@ class _BankApp1State extends State<BankApp1>
   late AnimationController _animationController;
   double _value = 1, _currentHeight = 0.0;
   bool _isExpand = false;
+  final int _currentIndex = 1;
 
   @override
   void initState() {
@@ -79,19 +80,24 @@ class _BankApp1State extends State<BankApp1>
   Widget _pageView(Size size) => Opacity(
         opacity: _value >= 1 ? 1 : (_value).clamp(0.0, 1),
         child: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _titleAnimation(size),
               SizedBox(
-                height: size.height * .8,
+                height: size.height * .77,
                 child: PageView.builder(
+                  // onPageChanged: (val) => setState(() => _currentIndex = val),
                   controller: _controller,
                   itemCount: books.length,
                   itemBuilder: (context, index) {
-                    final percent = index - _value;
+                    final percent = _value - index;
                     return BankAppItem(
-                        book: books[index], index: index, percent: percent);
+                        isSelect: _value == index,
+                        book: books[index],
+                        index: index,
+                        percent: percent);
                   },
                 ),
               ),

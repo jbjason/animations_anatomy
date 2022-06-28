@@ -10,11 +10,13 @@ class BankApp1 extends StatefulWidget {
   State<BankApp1> createState() => _BankApp1State();
 }
 
+const _maxHeightTitle = 600.0;
+
 class _BankApp1State extends State<BankApp1>
     with SingleTickerProviderStateMixin {
   late final PageController _controller;
   late AnimationController _animationController;
-  double _value = 1;
+  double _value = 1, _currentHeight = 0.0;
   bool _isExpand = false;
 
   @override
@@ -98,29 +100,52 @@ class _BankApp1State extends State<BankApp1>
         ),
       );
 
-  Widget _titleAnimation(Size size) => AnimatedBuilder(
+  Widget _titleAnimation(Size size) {
+    final _minHeight = size.height * .2;
+    return GestureDetector(
+      onVerticalDragUpdate: (val) {
+        if (!_isExpand) return;
+        setState(() {
+          // here _currentHeight = maxHeight ,we declared already
+          final newHeight = _currentHeight - val.delta.dy;
+          _currentHeight = newHeight.clamp(_minHeight, _maxHeightTitle);
+          _animationController.value = _currentHeight / _maxHeightTitle;
+        });
+      },
+      onVerticalDragEnd: (val) {
+        if (!_isExpand) return;
+        if (_currentHeight < _maxHeightTitle / 2) {
+          _animationController.reverse();
+          _isExpand = false;
+        } else {
+          _animationController.forward(from: _currentHeight / _maxHeightTitle);
+          _currentHeight = _maxHeightTitle;
+          _isExpand = true;
+        }
+      },
+      child: AnimatedBuilder(
         animation: _animationController,
         builder: (context, _) {
-          final val = _animationController.value;
-          return InkWell(
-            onTap: () {
-              setState(() {
-                _isExpand = !_isExpand;
-                _isExpand
-                    ? _animationController.forward(from: 0.0)
-                    : _animationController.reverse();
-              });
-            },
-            child: Container(
-              height: lerpDouble(size.height * .2, size.height * .8, val)!,
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-              margin: EdgeInsets.all(lerpDouble(20, 0, val)!),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: Colors.grey[300]),
-              child: const BankAppTitle(),
-            ),
+          final value = _animationController.value;
+          return Container(
+            height: lerpDouble(_minHeight, _maxHeightTitle, value)!,
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+            margin: EdgeInsets.all(lerpDouble(20, 0, value)!),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: Colors.grey[200]),
+            child: BankAppTitle(onTap: _startAnimation, isExpand: _isExpand),
           );
         },
-      );
+      ),
+    );
+  }
+
+  void _startAnimation() {
+    setState(() {
+      _isExpand = true;
+      _currentHeight = _maxHeightTitle;
+    });
+    _animationController.forward(from: 0.0);
+  }
 }

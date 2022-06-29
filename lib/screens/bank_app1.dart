@@ -112,7 +112,8 @@ class _BankApp1State extends State<BankApp1>
         if (!_isExpand) return;
         setState(() {
           // here _currentHeight = maxHeight ,we declared already
-          final newHeight = _currentHeight - val.delta.dy;
+          //(-val.delta.dy) gives bottom to top drag value
+          final newHeight = _currentHeight - (-val.delta.dy);
           _currentHeight = newHeight.clamp(_minHeight, _maxHeightTitle);
           _animationController.value = _currentHeight / _maxHeightTitle;
         });

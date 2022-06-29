@@ -73,7 +73,7 @@ class _AnimatedList1State extends State<AnimatedList1> {
                             color: Colors.grey[300]),
                         child: Row(
                           children: [
-                            Image.asset('assets/${trips[index].img}',
+                            Image.asset(trips[index].img,
                                 width: 200, fit: BoxFit.cover),
                             Expanded(
                               child: Center(

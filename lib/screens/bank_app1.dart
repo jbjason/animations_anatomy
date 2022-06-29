@@ -18,7 +18,6 @@ class _BankApp1State extends State<BankApp1>
   late AnimationController _animationController;
   double _value = 1, _currentHeight = 0.0;
   bool _isExpand = false;
-  final int _currentIndex = 1;
 
   @override
   void initState() {

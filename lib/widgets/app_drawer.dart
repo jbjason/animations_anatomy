@@ -25,7 +25,73 @@ class AppDrawer extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const SizedBox(height: 20),
+            const Divider(),
+            Container(
+              height: 50,
+              color: Colors.grey[800],
+              margin: const EdgeInsets.only(bottom: 5),
+              alignment: Alignment.center,
+              child: const Text(
+                'Challenges',
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Starbuck Challenge'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const StarbuckChallenge())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Hero Challenge1'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const HeroChallenge1())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Disk Challenge2'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const DiskChallenge2())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Bank App1'),
+              onTap: () => Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => const BankApp1())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Card Flow1'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const CardFlow1Screen())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Sync TapBar'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const TapBarScreen())),
+            ),
+            const Divider(),
+            // Others Animation
+            Container(
+              height: 50,
+              color: Colors.grey[800],
+              margin: const EdgeInsets.only(bottom: 5),
+              alignment: Alignment.center,
+              child: const Text(
+                'Others',
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+            ),
             ListTile(
               leading: const Icon(Icons.payment),
               title: const Text('Animated List1'),
@@ -61,20 +127,7 @@ class AppDrawer extends StatelessWidget {
                   .push(MaterialPageRoute(builder: (_) => const FlowScreen())),
             ),
             const Divider(),
-            ListTile(
-              leading: const Icon(Icons.payment),
-              title: const Text('Card Flow1'),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const CardFlow1Screen())),
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.payment),
-              title: const Text('Sync TapBar'),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const TapBarScreen())),
-            ),
-            const Divider(),
+
             ListTile(
               leading: const Icon(Icons.payment),
               title: const Text('Book Concept'),
@@ -94,34 +147,6 @@ class AppDrawer extends StatelessWidget {
               title: const Text('Fb Story'),
               onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (_) => const FbStoryScreen())),
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.payment),
-              title: const Text('Hero Challenge1'),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const HeroChallenge1())),
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.payment),
-              title: const Text('Disk Challenge2'),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const DiskChallenge2())),
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.payment),
-              title: const Text('Starbuck Challenge'),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const StarbuckChallenge())),
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.payment),
-              title: const Text('Bank App1'),
-              onTap: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => const BankApp1())),
             ),
             const Divider(),
           ],

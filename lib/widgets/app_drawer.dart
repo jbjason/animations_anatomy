@@ -5,13 +5,13 @@ import 'package:animations_anatomy/screens/animation_/sliver2_screen.dart';
 import 'package:animations_anatomy/screens/animation_/animated_list1.dart';
 import 'package:animations_anatomy/screens/animation_/disk_challenge1.dart';
 import 'package:animations_anatomy/screens/animation_/book_screen.dart';
-import 'package:animations_anatomy/screens/bank_app1.dart';
-import 'package:animations_anatomy/screens/card_flow1/card_flow1_screen.dart';
-import 'package:animations_anatomy/screens/animation_/disk_challenge2.dart';
-import 'package:animations_anatomy/screens/hero_anim/hero_challange1.dart';
-import 'package:animations_anatomy/screens/nav_bar/nav_bar1.dart';
-import 'package:animations_anatomy/screens/animation_/starbuck_/starbuck_challenge.dart';
-import 'package:animations_anatomy/screens/tab_bar/tab_bar_screen.dart';
+import 'package:animations_anatomy/screens/challenges_/bank_app1.dart';
+import 'package:animations_anatomy/screens/challenges_/card_flow1/card_flow1_screen.dart';
+import 'package:animations_anatomy/screens/challenges_/disk_challenge2.dart';
+import 'package:animations_anatomy/screens/challenges_/hero_anim/hero_challange1.dart';
+import 'package:animations_anatomy/screens/challenges_/sync_tabbar/tab_bar_screen.dart';
+import 'package:animations_anatomy/screens/challenges_/nav_bar/nav_bar1.dart';
+import 'package:animations_anatomy/screens/challenges_/starbuck_/starbuck_challenge.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -78,7 +78,7 @@ class AppDrawer extends StatelessWidget {
               leading: const Icon(Icons.payment),
               title: const Text('Sync TapBar'),
               onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const TapBarScreen())),
+                  MaterialPageRoute(builder: (_) => const TabBarScreen())),
             ),
             const Divider(),
             // Others Animation
@@ -127,7 +127,6 @@ class AppDrawer extends StatelessWidget {
                   .push(MaterialPageRoute(builder: (_) => const FlowScreen())),
             ),
             const Divider(),
-
             ListTile(
               leading: const Icon(Icons.payment),
               title: const Text('Book Concept'),

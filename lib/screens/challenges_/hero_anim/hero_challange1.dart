@@ -1,5 +1,5 @@
 import 'package:animations_anatomy/models/trip.dart';
-import 'package:animations_anatomy/screens/hero_anim/hero_details1.dart';
+import 'package:animations_anatomy/screens/challenges_/hero_anim/hero_details1.dart';
 import 'package:flutter/material.dart';
 
 class HeroChallenge1 extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:animations_anatomy/constants/constants.dart';
 import 'package:animations_anatomy/models/card_flow.dart';
-import 'package:animations_anatomy/screens/card_flow1/card_detail_screen.dart';
+import 'package:animations_anatomy/screens/challenges_/card_flow1/card_detail_screen.dart';
 import 'package:animations_anatomy/widgets/card_flow1/card_flow_item_widget.dart';
 import 'package:animations_anatomy/widgets/card_flow1/top_search_container.dart';
 import 'package:flutter/material.dart';

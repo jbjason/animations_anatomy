@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:animations_anatomy/models/drink.dart';
-import 'package:animations_anatomy/screens/animation_/starbuck_/starbuck_challenge.dart';
+import 'package:animations_anatomy/screens/challenges_/starbuck_/starbuck_challenge.dart';
 import 'package:flutter/material.dart';
 
 class StarbuckDetails extends StatelessWidget {

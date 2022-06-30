@@ -12,6 +12,7 @@ import 'package:animations_anatomy/screens/challenges_/hero_anim/hero_challange1
 import 'package:animations_anatomy/screens/challenges_/sync_tabbar/tab_bar_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/nav_bar/nav_bar1.dart';
 import 'package:animations_anatomy/screens/challenges_/starbuck_/starbuck_challenge.dart';
+import 'package:animations_anatomy/screens/loading_screen1.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -62,13 +63,6 @@ class AppDrawer extends StatelessWidget {
             const Divider(),
             ListTile(
               leading: const Icon(Icons.payment),
-              title: const Text('Bank App1'),
-              onTap: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => const BankApp1())),
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.payment),
               title: const Text('Card Flow1'),
               onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (_) => const CardFlow1Screen())),
@@ -79,6 +73,20 @@ class AppDrawer extends StatelessWidget {
               title: const Text('Sync TapBar'),
               onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (_) => const TabBarScreen())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Bank App1'),
+              onTap: () => Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => const BankApp1())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Loading Animation'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const LoadingScreen1())),
             ),
             const Divider(),
             // Others Animation

@@ -29,7 +29,7 @@ class _LoadingScreen1State extends State<LoadingScreen1>
   void initState() {
     super.initState();
     _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 4000));
+        vsync: this, duration: const Duration(milliseconds: 2000));
   }
 
   @override
@@ -46,15 +46,16 @@ class _LoadingScreen1State extends State<LoadingScreen1>
       body: Stack(
         children: [
           Positioned(
-            left: 40,
             bottom: 200,
-            height: 500,
-            width: 300,
-            child: CustomPaint(
-              foregroundPainter: _CloudBubbles(_controller, bubbles),
-              child: Container(
-                decoration: const BoxDecoration(
-                    shape: BoxShape.circle, color: Colors.white),
+            height: 600,
+            width: 400,
+            child: ClipOval(
+              child: CustomPaint(
+                foregroundPainter: _CloudBubbles(_controller, bubbles),
+                child: Container(
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.white),
+                ),
               ),
             ),
           ),
@@ -64,7 +65,9 @@ class _LoadingScreen1State extends State<LoadingScreen1>
             right: 0,
             child: ElevatedButton(
               onPressed: () {
-                _controller.forward(from: 0.0);
+                _controller.status == AnimationStatus.completed
+                    ? _controller.reverse()
+                    : _controller.forward(from: 0.0);
               },
               child: const Text('Start'),
             ),

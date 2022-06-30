@@ -48,7 +48,8 @@ class _LoadingHomeState extends State<LoadingHome> {
                       child: FittedBox(
                         child: Padding(
                             padding: const EdgeInsets.only(bottom: 20),
-                            child: LoadingCounter(widget.progressAnimation)),
+                            child: LoadingCounter(
+                                animation: widget.progressAnimation)),
                       ),
                     ),
                   ],
@@ -134,13 +135,15 @@ class _LoadingHomeState extends State<LoadingHome> {
   }
 }
 
-class LoadingCounter extends AnimatedWidget {
-  const LoadingCounter(Animation<double> animation, {Key? key})
-      : super(key: key, listenable: animation);
-  double get value => (listenable as Animation).value;
+class LoadingCounter extends StatelessWidget {
+  const LoadingCounter({Key? key, required this.animation}) : super(key: key);
+  final Animation<double> animation;
   @override
   Widget build(BuildContext context) {
-    return Text('${(value * 100).truncate()}%',
-        style: const TextStyle(fontSize: 20, color: mainDataBackupColor));
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, _) => Text('${(animation.value * 100).truncate()}%',
+          style: const TextStyle(fontSize: 20, color: mainDataBackupColor)),
+    );
   }
 }

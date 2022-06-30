@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+const mainDataBackupColor = Color(0xFF5113AA);
+const secondaryDataBackupColor = Color(0xFFBC53FA);
+const backgroundColor = Color(0xFFfce7fe);
+
 class LoadingScreen1 extends StatefulWidget {
   const LoadingScreen1({Key? key}) : super(key: key);
   @override

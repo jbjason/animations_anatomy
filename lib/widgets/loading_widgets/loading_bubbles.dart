@@ -3,9 +3,13 @@ import 'dart:math' as math;
 
 class LoadingBubbles extends StatelessWidget {
   LoadingBubbles(
-      {Key? key, required this.cloudAnimation, required this.progressAnimation})
+      {Key? key,
+      required this.cloudAnimation,
+      required this.bubbleAnimation,
+      required this.progressAnimation})
       : super(key: key);
   final Animation<double> progressAnimation;
+  final Animation<double> bubbleAnimation;
   final Animation<double> cloudAnimation;
   final bubbles = List<Bubble>.generate(500, (index) {
     final size = math.Random().nextInt(20) + 5.0;
@@ -34,7 +38,6 @@ class LoadingBubbles extends StatelessWidget {
         final leftContainer = size.width * .3 * (1 - progressAnimation.value);
         final rightContainer = size.width * .4 * (1 - progressAnimation.value);
         final centerMargin = size.width - cirleSize;
-
         return Positioned(
           top: size.height * .45 -
               cirleSize +
@@ -71,8 +74,7 @@ class LoadingBubbles extends StatelessWidget {
                 width: cirleSize,
                 child: ClipOval(
                   child: CustomPaint(
-                    foregroundPainter:
-                        _CloudBubbles(progressAnimation, bubbles),
+                    foregroundPainter: _CloudBubbles(bubbleAnimation, bubbles),
                     child: Container(
                       decoration: const BoxDecoration(
                           color: Colors.white, shape: BoxShape.circle),

@@ -1,4 +1,5 @@
 import 'package:animations_anatomy/widgets/loading_widgets/loading_bubbles.dart';
+import 'package:animations_anatomy/widgets/loading_widgets/loading_ending.dart';
 import 'package:animations_anatomy/widgets/loading_widgets/loading_home.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,8 @@ class _LoadingScreen1State extends State<LoadingScreen1>
   late AnimationController _controller;
   late Animation<double> _progessAnimation;
   late Animation<double> _cloudAnimation;
+  late Animation<double> _bubbleAnimation;
+  late Animation<double> _endingAnimation;
 
   @override
   void initState() {
@@ -24,9 +27,15 @@ class _LoadingScreen1State extends State<LoadingScreen1>
     _controller = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 4000));
     _progessAnimation =
-        CurvedAnimation(parent: _controller, curve: const Interval(0.0, 0.65));
-    _cloudAnimation =
-        CurvedAnimation(parent: _controller, curve: const Interval(0.7, 0.9));
+        CurvedAnimation(parent: _controller, curve: const Interval(0.0, 0.6));
+    _cloudAnimation = CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.65, 0.8, curve: Curves.easeOut));
+    _endingAnimation =
+        CurvedAnimation(parent: _controller, curve: const Interval(.8, 1));
+    _bubbleAnimation = CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.0, 1, curve: Curves.decelerate));
   }
 
   @override
@@ -48,7 +57,9 @@ class _LoadingScreen1State extends State<LoadingScreen1>
             ),
             LoadingBubbles(
                 cloudAnimation: _cloudAnimation,
+                bubbleAnimation: _bubbleAnimation,
                 progressAnimation: _progessAnimation),
+            LoadingEnding(endingAnimation: _endingAnimation),
           ],
         ),
       ),

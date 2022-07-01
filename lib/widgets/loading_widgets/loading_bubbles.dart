@@ -69,9 +69,15 @@ class LoadingBubbles extends StatelessWidget {
                 left: centerMargin / 2,
                 height: cirleSize,
                 width: cirleSize,
-                child: Container(
-                  decoration: const BoxDecoration(
-                      color: Colors.white, shape: BoxShape.circle),
+                child: ClipOval(
+                  child: CustomPaint(
+                    foregroundPainter:
+                        _CloudBubbles(progressAnimation, bubbles),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                          color: Colors.white, shape: BoxShape.circle),
+                    ),
+                  ),
                 ),
               ),
             ],

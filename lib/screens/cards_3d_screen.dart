@@ -36,7 +36,7 @@ class _Cards3dScreenState extends State<Cards3dScreen> {
                         itemCount: books.length,
                         itemBuilder: (context, index) => Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Cards3dItem(card: books[index]),
+                          child: Cards3dImage(card: books[index]),
                         ),
                       ),
                     ),
@@ -65,13 +65,17 @@ class _Cards3dBodyState extends State<Cards3dBody> {
       builder: (context, constraints) {
         return Container(
           height: constraints.maxHeight,
-          width: constraints.maxWidth * .5,
+          width: constraints.maxWidth * .6,
           color: Colors.deepPurple,
           child: Stack(
             children: [
               ...List.generate(
                 books.length,
-                (index) => Cards3dItem(card: books[index]),
+                (index) => Cards3dItem(
+                  card: books[index],
+                  percent: value,
+                  height: constraints.maxHeight / 2,
+                ),
               ).reversed,
               Positioned(
                 bottom: 0,
@@ -90,7 +94,30 @@ class _Cards3dBodyState extends State<Cards3dBody> {
 }
 
 class Cards3dItem extends StatelessWidget {
-  const Cards3dItem({Key? key, required this.card}) : super(key: key);
+  const Cards3dItem(
+      {Key? key,
+      required this.height,
+      required this.percent,
+      required this.card})
+      : super(key: key);
+  final double height, percent;
+  final Book card;
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      left: 0,
+      right: 0,
+      top: height + 30 * percent,
+      child: SizedBox(
+        height: height,
+        child: Cards3dImage(card: card),
+      ),
+    );
+  }
+}
+
+class Cards3dImage extends StatelessWidget {
+  const Cards3dImage({Key? key, required this.card}) : super(key: key);
   final Book card;
   @override
   Widget build(BuildContext context) {

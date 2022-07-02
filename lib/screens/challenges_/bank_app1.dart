@@ -69,7 +69,8 @@ class _BankApp1State extends State<BankApp1>
               child: Container(
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 28, 45, 59),
-                  borderRadius: BorderRadius.circular(60),
+                  borderRadius: BorderRadius.circular(
+                      lerpDouble(60, 0, _animationController.value)!),
                 ),
               ),
             ),

@@ -52,20 +52,14 @@ class LoadingBubbles extends StatelessWidget {
                 left: (size.width * .23),
                 height: leftContainer,
                 width: leftContainer,
-                child: Container(
-                  decoration: const BoxDecoration(
-                      color: Colors.white, shape: BoxShape.circle),
-                ),
+                child: _whiteContainer(),
               ),
               Positioned(
                 bottom: 0,
                 left: size.width * .45,
                 height: rightContainer,
                 width: rightContainer,
-                child: Container(
-                  decoration: const BoxDecoration(
-                      color: Colors.white, shape: BoxShape.circle),
-                ),
+                child: _whiteContainer(),
               ),
               Positioned(
                 bottom: 0,
@@ -75,10 +69,7 @@ class LoadingBubbles extends StatelessWidget {
                 child: ClipOval(
                   child: CustomPaint(
                     foregroundPainter: _CloudBubbles(bubbleAnimation, bubbles),
-                    child: Container(
-                      decoration: const BoxDecoration(
-                          color: Colors.white, shape: BoxShape.circle),
-                    ),
+                    child: _whiteContainer(),
                   ),
                 ),
               ),
@@ -88,6 +79,19 @@ class LoadingBubbles extends StatelessWidget {
       },
     );
   }
+
+  Widget _whiteContainer() => Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(.2),
+                blurRadius: 25,
+                offset: const Offset(0, 25))
+          ],
+        ),
+      );
 }
 
 class _CloudBubbles extends CustomPainter {

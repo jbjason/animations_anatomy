@@ -12,7 +12,7 @@ import 'package:animations_anatomy/screens/challenges_/hero_anim/hero_challange1
 import 'package:animations_anatomy/screens/challenges_/sync_tabbar/tab_bar_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/nav_bar/nav_bar1.dart';
 import 'package:animations_anatomy/screens/challenges_/starbuck_/starbuck_challenge.dart';
-import 'package:animations_anatomy/screens/loading_screen1.dart';
+import 'package:animations_anatomy/screens/challenges_/loading_screen1.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {

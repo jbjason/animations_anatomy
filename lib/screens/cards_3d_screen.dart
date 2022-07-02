@@ -84,10 +84,10 @@ class _Cards3dBodyState extends State<Cards3dBody>
 
   Future _onCardSelected(Book card, int index) async {
     setState(() => _selectedIndex = index);
-    _moveController.forward();
+    await _moveController.forward();
     await Navigator.of(context).push(
       PageRouteBuilder(
-          transitionDuration: const Duration(milliseconds: 500),
+          transitionDuration: const Duration(milliseconds: 1000),
           pageBuilder: ((context, animation, secondaryAnimation) =>
               Cards3dDetails(card: card))),
     );
@@ -97,7 +97,7 @@ class _Cards3dBodyState extends State<Cards3dBody>
   int _verticalUpdate(int index) {
     if (index == _selectedIndex) {
       return 0;
-    } else if (index > _selectedIndex) {
+    } else if (index < _selectedIndex) {
       return 1;
     } else {
       return -1;
@@ -194,7 +194,10 @@ class Cards3dItem extends StatelessWidget {
               ..setEntry(3, 2, .001)
               ..translate(
                   0.0,
-                  verticalUpdate * 0 * MediaQuery.of(context).size.height,
+                  // verticalUpdate value giving the direction of where does unselected cards would go
+                  verticalUpdate *
+                      animation.value *
+                      MediaQuery.of(context).size.height,
                   index * 50.0),
             child: InkWell(
               onTap: () => onSelect(card),

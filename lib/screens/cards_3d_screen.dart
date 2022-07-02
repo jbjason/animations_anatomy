@@ -57,10 +57,11 @@ class Cards3dBody extends StatefulWidget {
 }
 
 class _Cards3dBodyState extends State<Cards3dBody>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late AnimationController _controller;
+  late AnimationController _moveController;
   bool _isSelected = false;
-  late int _selectedCard;
+  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -68,24 +69,39 @@ class _Cards3dBodyState extends State<Cards3dBody>
         vsync: this,
         lowerBound: 0.15,
         upperBound: 0.5,
-        duration: const Duration(milliseconds: 800));
+        duration: const Duration(milliseconds: 500));
+    _moveController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 800));
     super.initState();
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _moveController.dispose();
     super.dispose();
   }
 
   Future _onCardSelected(Book card, int index) async {
-    setState(() => _selectedCard = index);
+    setState(() => _selectedIndex = index);
+    _moveController.forward();
     await Navigator.of(context).push(
       PageRouteBuilder(
           transitionDuration: const Duration(milliseconds: 500),
           pageBuilder: ((context, animation, secondaryAnimation) =>
               Cards3dDetails(card: card))),
     );
+    _moveController.reverse(from: 1);
+  }
+
+  int _verticalUpdate(int index) {
+    if (index == _selectedIndex) {
+      return 0;
+    } else if (index > _selectedIndex) {
+      return 1;
+    } else {
+      return -1;
+    }
   }
 
   @override
@@ -118,6 +134,7 @@ class _Cards3dBodyState extends State<Cards3dBody>
                   width: constraints.maxWidth * .5,
                   color: Colors.white,
                   child: Stack(
+                    clipBehavior: Clip.none,
                     children: [
                       ...List.generate(
                         4,
@@ -126,6 +143,8 @@ class _Cards3dBodyState extends State<Cards3dBody>
                           percent: _controller.value,
                           height: constraints.maxHeight / 2,
                           index: index,
+                          verticalUpdate: _verticalUpdate(index),
+                          animation: _moveController,
                           onSelect: (Book book) {
                             _onCardSelected(book, index);
                           },
@@ -150,11 +169,14 @@ class Cards3dItem extends StatelessWidget {
       required this.index,
       required this.percent,
       required this.onSelect,
-      required this.card})
+      required this.verticalUpdate,
+      required this.card,
+      required this.animation})
       : super(key: key);
   final double height, percent;
   final Book card;
-  final int index;
+  final int index, verticalUpdate;
+  final Animation<double> animation;
   final ValueChanged<Book> onSelect;
   @override
   Widget build(BuildContext context) {
@@ -162,16 +184,25 @@ class Cards3dItem extends StatelessWidget {
       left: 0,
       right: 0,
       top: height + (-index * height / 2) * percent - height / 5,
-      child: Transform(
-        alignment: Alignment.center,
-        transform: Matrix4.identity()
-          ..setEntry(3, 2, .001)
-          ..translate(0.0, 0.0, index * 50.0),
-        child: InkWell(
-          onTap: () => onSelect(card),
-          child: SizedBox(
-            height: height,
-            child: Cards3dImage(card: card),
+      child: Opacity(
+        opacity: 1,
+        child: AnimatedBuilder(
+          animation: animation,
+          builder: (context, _) => Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.identity()
+              ..setEntry(3, 2, .001)
+              ..translate(
+                  0.0,
+                  verticalUpdate * 0 * MediaQuery.of(context).size.height,
+                  index * 50.0),
+            child: InkWell(
+              onTap: () => onSelect(card),
+              child: SizedBox(
+                height: height,
+                child: Cards3dImage(card: card),
+              ),
+            ),
           ),
         ),
       ),

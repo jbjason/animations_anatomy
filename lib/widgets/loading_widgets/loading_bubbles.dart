@@ -35,8 +35,12 @@ class LoadingBubbles extends StatelessWidget {
         final _size = size.width * .5;
         final cirleSize = _size *
             math.pow((progressAnimation.value + cloudAnimation.value + 1), 2);
-        final leftContainer = size.width * .3 * (1 - progressAnimation.value);
+        final leftContainer = (size.width / 2 - (size.width * .3)) /
+            2 *
+            (1 - progressAnimation.value);
         final rightContainer = size.width * .4 * (1 - progressAnimation.value);
+        final rightCMargin = size.width / 2 - (size.width * .5) / 2;
+
         final centerMargin = size.width - cirleSize;
         return Positioned(
           top: size.height * .45 -
@@ -49,7 +53,7 @@ class LoadingBubbles extends StatelessWidget {
             children: [
               Positioned(
                 bottom: 0,
-                left: (size.width * .23),
+                left: rightCMargin,
                 height: leftContainer,
                 width: leftContainer,
                 child: _whiteContainer(),

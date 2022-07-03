@@ -5,6 +5,7 @@ import 'package:animations_anatomy/screens/animation_/sliver2_screen.dart';
 import 'package:animations_anatomy/screens/animation_/animated_list1.dart';
 import 'package:animations_anatomy/screens/animation_/disk_challenge1.dart';
 import 'package:animations_anatomy/screens/animation_/book_screen.dart';
+import 'package:animations_anatomy/screens/cards_3d_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/bank_app1.dart';
 import 'package:animations_anatomy/screens/challenges_/card_flow1/card_flow1_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/disk_challenge2.dart';
@@ -87,6 +88,13 @@ class AppDrawer extends StatelessWidget {
               title: const Text('Loading Animation'),
               onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (_) => const LoadingScreen1())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('3d Cards Animation'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const Cards3dScreen())),
             ),
             const Divider(),
             // Others Animation

@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+import 'dart:ui';
 import 'package:animations_anatomy/models/book.dart';
 import 'package:animations_anatomy/screens/cards_3d_details.dart';
 import 'package:flutter/material.dart';
@@ -72,10 +74,10 @@ class _Cards3dBodyState extends State<Cards3dBody>
     _controller = AnimationController(
         vsync: this,
         lowerBound: 0.15,
-        upperBound: 0.5,
+        upperBound: 0.6,
         duration: const Duration(milliseconds: 500));
     _moveController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 800));
+        vsync: this, duration: const Duration(milliseconds: 400));
     super.initState();
   }
 
@@ -91,9 +93,10 @@ class _Cards3dBodyState extends State<Cards3dBody>
     await _moveController.forward();
     await Navigator.of(context).push(
       PageRouteBuilder(
-          transitionDuration: const Duration(milliseconds: 1000),
+          transitionDuration: const Duration(milliseconds: 800),
           pageBuilder: ((context, animation, secondaryAnimation) =>
-              Cards3dDetails(card: card))),
+              FadeTransition(
+                  opacity: animation, child: Cards3dDetails(card: card)))),
     );
     _moveController.reverse(from: 1);
   }
@@ -193,22 +196,45 @@ class Cards3dItem extends StatelessWidget {
         opacity: verticalUpdate == 0 ? 1 : 1 - animation.value,
         child: AnimatedBuilder(
           animation: animation,
-          builder: (context, _) => Transform(
-            alignment: Alignment.center,
-            transform: Matrix4.identity()
-              ..setEntry(3, 2, .001)
-              ..translate(
-                  0.0,
-                  // verticalUpdate value giving the direction of where does unselected cards would go
-                  verticalUpdate *
-                      animation.value *
-                      MediaQuery.of(context).size.height,
-                  index * 50.0),
-            child: InkWell(
-              onTap: () => onSelect(card),
-              child: SizedBox(
-                height: height,
-                child: Cards3dImage(card: card),
+          builder: (context, _) => Hero(
+            tag: card.author + card.title,
+            flightShuttleBuilder: (context, animation, heroFlightDirection,
+                fromHeroContext, toHeroContext) {
+              Widget _card;
+              if (heroFlightDirection == HeroFlightDirection.push) {
+                _card = fromHeroContext.widget;
+              } else {
+                _card = toHeroContext.widget;
+              }
+              return AnimatedBuilder(
+                animation: animation,
+                builder: (context, _) => Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.identity()
+                    ..setEntry(3, 2, .001)
+                    ..rotateX(lerpDouble(0.0, math.pi * 2, animation.value)!),
+                  child: _card,
+                ),
+              );
+            },
+            child: Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.identity()
+                ..setEntry(3, 2, .001)
+                ..translate(
+                    0.0,
+                    // verticalUpdate value giving the direction of where does unselected cards would go
+                    verticalUpdate *
+                        animation.value *
+                        MediaQuery.of(context).size.height *
+                        .7,
+                    index * 50.0),
+              child: GestureDetector(
+                onTap: () => onSelect(card),
+                child: SizedBox(
+                  height: height,
+                  child: Cards3dImage(card: card),
+                ),
               ),
             ),
           ),

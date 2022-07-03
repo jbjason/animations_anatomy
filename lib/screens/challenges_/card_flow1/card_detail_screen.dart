@@ -21,7 +21,7 @@ class CardDetailScreen extends StatelessWidget {
           Positioned(
             top: 50,
             left: 10,
-            child: InkWell(
+            child: GestureDetector(
                 onTap: () => Navigator.pop(context),
                 child:
                     const Icon(Icons.arrow_back_ios_new, color: Colors.white)),

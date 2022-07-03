@@ -1,4 +1,6 @@
+import 'package:animations_anatomy/models/trip.dart';
 import 'package:animations_anatomy/widgets/challenges_widgets/sliver2_widgets/card_delegate.dart';
+import 'package:animations_anatomy/widgets/challenges_widgets/sliver2_widgets/sliver2_body.dart';
 import 'package:flutter/material.dart';
 
 // image card rotating left & hide
@@ -12,17 +14,16 @@ class Sliver2Screen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverPersistentHeader(
-              pinned: true,
-              delegate: CardDelegate(
-                  size: size,
-                  maxExtend: size.height * .4,
-                  minExtend: kToolbarHeight)),
+            pinned: true,
+            delegate: CardDelegate(
+                size: size,
+                maxExtend: size.height * .4,
+                minExtend: kTextTabBarHeight + 40),
+          ),
+          SliverToBoxAdapter(child: Sliver2Body(size: size, trip: trips[0])),
           const SliverToBoxAdapter(
-              child: Placeholder(color: Colors.transparent)),
-          const SliverToBoxAdapter(
-              child: Placeholder(color: Colors.transparent)),
-          const SliverToBoxAdapter(
-              child: Placeholder(color: Colors.transparent)),
+            child: Placeholder(),
+          ),
         ],
       ),
     );

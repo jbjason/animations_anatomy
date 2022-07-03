@@ -28,8 +28,7 @@ class CardDelegate extends SliverPersistentHeaderDelegate {
     const uploadLimit = 13 / 100.0;
     // breakPoint to rotateBack
     final valueBack = (1 - percent - .77).clamp(0.0, uploadLimit);
-    final _clippedContainer =
-        ClippedContainer(size: size, percent: percent, valueBack: valueBack);
+    final _clippedContainer = ClippedContainer(size: size, percent: percent);
     final _imageCard = ImageCard(
       size: size,
       percent: percent,

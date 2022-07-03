@@ -97,6 +97,7 @@ class _Cards3dBodyState extends State<Cards3dBody>
   int _verticalUpdate(int index) {
     if (index == _selectedIndex) {
       return 0;
+      // these below conditon is reverse cz we declared the listView as reversedList
     } else if (index < _selectedIndex) {
       return 1;
     } else {
@@ -185,7 +186,7 @@ class Cards3dItem extends StatelessWidget {
       right: 0,
       top: height + (-index * height / 2) * percent - height / 5,
       child: Opacity(
-        opacity: 1,
+        opacity: verticalUpdate == 0 ? 1 : 1 - animation.value,
         child: AnimatedBuilder(
           animation: animation,
           builder: (context, _) => Transform(

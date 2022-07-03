@@ -90,12 +90,12 @@ class _BankApp1State extends State<BankApp1>
                 child: PageView.builder(
                   // onPageChanged: (val) => setState(() => _currentIndex = val),
                   controller: _controller,
-                  itemCount: books.length,
+                  itemCount: books.length - 1,
                   itemBuilder: (context, index) {
                     final percent = _value - index;
                     return BankAppItem(
                         isSelect: _value == index,
-                        book: books[index],
+                        book: books[index - 1],
                         index: index,
                         percent: percent);
                   },

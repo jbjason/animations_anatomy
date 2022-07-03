@@ -1,7 +1,7 @@
 import 'package:animations_anatomy/screens/animation_/fb_story_screen.dart';
 import 'package:animations_anatomy/screens/animation_/flow_screen.dart';
 import 'package:animations_anatomy/screens/animation_/sliver1_screen.dart';
-import 'package:animations_anatomy/screens/animation_/sliver2_screen.dart';
+import 'package:animations_anatomy/screens/challenges_/sliver2_screen.dart';
 import 'package:animations_anatomy/screens/animation_/animated_list1.dart';
 import 'package:animations_anatomy/screens/animation_/disk_challenge1.dart';
 import 'package:animations_anatomy/screens/animation_/book_screen.dart';
@@ -78,6 +78,13 @@ class AppDrawer extends StatelessWidget {
             const Divider(),
             ListTile(
               leading: const Icon(Icons.payment),
+              title: const Text('Sliver Animation2'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const Sliver2Screen())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
               title: const Text('Bank App1'),
               onTap: () => Navigator.of(context)
                   .push(MaterialPageRoute(builder: (_) => const BankApp1())),
@@ -127,13 +134,6 @@ class AppDrawer extends StatelessWidget {
               title: const Text('Sliver Animation1'),
               onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (_) => const Sliver1Screen())),
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.payment),
-              title: const Text('Sliver Animation2'),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const Sliver2Screen())),
             ),
             const Divider(),
             ListTile(

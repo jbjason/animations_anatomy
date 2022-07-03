@@ -22,8 +22,7 @@ class Cards3dScreen extends StatelessWidget {
                     style: TextStyle(color: Colors.black)),
                 leading: IconButton(
                     onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.arrow_back_ios_new,
-                        color: Colors.black)),
+                    icon: const Icon(Icons.menu, color: Colors.black)),
               ),
             ),
             const Expanded(flex: 4, child: Cards3dBody()),

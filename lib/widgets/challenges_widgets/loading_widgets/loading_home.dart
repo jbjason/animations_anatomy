@@ -23,13 +23,21 @@ class _LoadingHomeState extends State<LoadingHome> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Expanded(
-            flex: 3,
-            child: Text(
-              'Cloud Storage',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ),
+          Expanded(
+              flex: 3,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                      onTap: () => Navigator.maybePop(context),
+                      child: const Icon(Icons.menu_outlined)),
+                  const SizedBox(width: 65),
+                  const Text(
+                    'Cloud Storage',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              )),
           if (_currentStatus == DataStatus.end)
             Expanded(
               flex: 2,

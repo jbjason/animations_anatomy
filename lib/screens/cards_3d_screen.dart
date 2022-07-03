@@ -8,18 +8,22 @@ class Cards3dScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          centerTitle: true,
-          title:
-              const Text('My Playlist', style: TextStyle(color: Colors.black)),
-          leading: IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black)),
-        ),
         body: Column(
           children: [
+            SizedBox(
+              height: kToolbarHeight + 10,
+              child: AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                centerTitle: true,
+                title: const Text('My Playlist',
+                    style: TextStyle(color: Colors.black)),
+                leading: IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(Icons.arrow_back_ios_new,
+                        color: Colors.black)),
+              ),
+            ),
             const Expanded(flex: 4, child: Cards3dBody()),
             const SizedBox(height: 50),
             Expanded(

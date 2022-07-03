@@ -90,7 +90,7 @@ class _Cards3dBodyState extends State<Cards3dBody>
 
   Future _onCardSelected(Book card, int index) async {
     setState(() => _selectedIndex = index);
-    await _moveController.forward();
+    _moveController.forward();
     await Navigator.of(context).push(
       PageRouteBuilder(
           transitionDuration: const Duration(milliseconds: 800),

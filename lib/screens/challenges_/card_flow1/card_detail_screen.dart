@@ -10,24 +10,20 @@ class CardDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: Stack(
-        children: [
-          const Positioned.fill(
-              child: DecoratedBox(
-                  decoration: BoxDecoration(gradient: backGradient))),
-          _body(context),
-          Positioned(
-            top: 50,
-            left: 10,
-            child: GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child:
-                    const Icon(Icons.arrow_back_ios_new, color: Colors.white)),
-          ),
-        ],
-      ),
+    return Stack(
+      children: [
+        const Positioned.fill(
+            child: DecoratedBox(
+                decoration: BoxDecoration(gradient: backGradient))),
+        _body(context),
+        Positioned(
+          top: 50,
+          left: 10,
+          child: GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: const Icon(Icons.arrow_back_ios_new, color: Colors.white)),
+        ),
+      ],
     );
   }
 

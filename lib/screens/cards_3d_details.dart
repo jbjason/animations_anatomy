@@ -21,7 +21,9 @@ class Cards3dDetails extends StatelessWidget {
             child: SizedBox(
               height: 190,
               width: 190,
-              child: Cards3dImage(card: card),
+              child: Hero(
+                  tag: card.author + card.title,
+                  child: Cards3dImage(card: card)),
             ),
           ),
           const SizedBox(height: 50),

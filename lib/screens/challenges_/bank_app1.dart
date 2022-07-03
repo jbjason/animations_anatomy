@@ -58,19 +58,19 @@ class _BankApp1State extends State<BankApp1>
             animation: _animationController,
             builder: (context, _) => Positioned(
               top: _isOne
-                  ? lerpDouble(size.height * .32, 0, percent2)
-                  : lerpDouble(size.height * .32, size.height * .85,
+                  ? lerpDouble(size.height * .3, 0, percent2)
+                  : lerpDouble(size.height * .3, size.height * .85,
                       _animationController.value),
               height: _isOne
-                  ? lerpDouble(size.height * .45, size.height, percent2)
-                  : size.height * .45,
-              left: _isOne ? lerpDouble(20, 0, percent2) : 20,
+                  ? lerpDouble(size.height * .5, size.height, percent2)
+                  : size.height * .5,
+              left: _isOne ? lerpDouble(15, 0, percent2) : 15,
               right: _isOne ? lerpDouble(200, 0, percent2) : 200,
               child: Container(
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 28, 45, 59),
-                  borderRadius: BorderRadius.circular(
-                      lerpDouble(60, 0, _animationController.value)!),
+                  color: const Color.fromARGB(255, 53, 73, 88),
+                  borderRadius:
+                      BorderRadius.circular(lerpDouble(60, 0, percent2)!),
                 ),
               ),
             ),
@@ -90,12 +90,12 @@ class _BankApp1State extends State<BankApp1>
                 child: PageView.builder(
                   // onPageChanged: (val) => setState(() => _currentIndex = val),
                   controller: _controller,
-                  itemCount: books.length - 1,
+                  itemCount: books.length - 2,
                   itemBuilder: (context, index) {
                     final percent = _value - index;
                     return BankAppItem(
                         isSelect: _value == index,
-                        book: books[index - 1],
+                        book: books[index + 1],
                         index: index,
                         percent: percent);
                   },

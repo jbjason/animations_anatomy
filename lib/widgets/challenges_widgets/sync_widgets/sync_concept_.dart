@@ -1,5 +1,5 @@
-import 'package:animations_anatomy/widgets/tapbar_widgets/sync_category_item.dart';
-import 'package:animations_anatomy/widgets/tapbar_widgets/sync_product_item.dart';
+import 'package:animations_anatomy/widgets/challenges_widgets/sync_widgets/sync_category_item.dart';
+import 'package:animations_anatomy/widgets/challenges_widgets/sync_widgets/sync_product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:animations_anatomy/provider/sync_bloc.dart';
 

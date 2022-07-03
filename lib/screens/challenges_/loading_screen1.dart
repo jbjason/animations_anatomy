@@ -1,6 +1,6 @@
-import 'package:animations_anatomy/widgets/loading_widgets/loading_bubbles.dart';
-import 'package:animations_anatomy/widgets/loading_widgets/loading_ending.dart';
-import 'package:animations_anatomy/widgets/loading_widgets/loading_home.dart';
+import 'package:animations_anatomy/widgets/challenges_widgets/loading_widgets/loading_bubbles.dart';
+import 'package:animations_anatomy/widgets/challenges_widgets/loading_widgets/loading_ending.dart';
+import 'package:animations_anatomy/widgets/challenges_widgets/loading_widgets/loading_home.dart';
 import 'package:flutter/material.dart';
 
 const mainDataBackupColor = Color(0xFF5113AA);

@@ -1,5 +1,5 @@
 import 'package:animations_anatomy/models/travel.dart';
-import 'package:animations_anatomy/widgets/sliver2_widgets/cutting_clipper.dart';
+import 'package:animations_anatomy/widgets/animation_widgets/sliver2_widgets/cutting_clipper.dart';
 import 'package:flutter/material.dart';
 
 // image card rotating left & hide

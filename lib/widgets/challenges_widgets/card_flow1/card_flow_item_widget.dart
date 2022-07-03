@@ -1,7 +1,7 @@
 import 'package:animations_anatomy/models/card_flow.dart';
-import 'package:animations_anatomy/widgets/card_flow1/bottom_flow_widget.dart';
-import 'package:animations_anatomy/widgets/card_flow1/counter_flow_container.dart';
-import 'package:animations_anatomy/widgets/card_flow1/top_flow_widget.dart';
+import 'package:animations_anatomy/widgets/challenges_widgets/card_flow1/bottom_flow_widget.dart';
+import 'package:animations_anatomy/widgets/challenges_widgets/card_flow1/counter_flow_container.dart';
+import 'package:animations_anatomy/widgets/challenges_widgets/card_flow1/top_flow_widget.dart';
 import 'package:flutter/material.dart';
 
 class CardFlowItemWidget extends StatelessWidget {

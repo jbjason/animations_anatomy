@@ -1,5 +1,5 @@
-import 'package:animations_anatomy/widgets/tapbar_widgets/sync_concept_.dart';
-import 'package:animations_anatomy/widgets/tapbar_widgets/top_tap_widget.dart';
+import 'package:animations_anatomy/widgets/challenges_widgets/sync_widgets/sync_concept_.dart';
+import 'package:animations_anatomy/widgets/challenges_widgets/sync_widgets/top_tap_widget.dart';
 import 'package:flutter/material.dart';
 
 class TabBarScreen extends StatelessWidget {

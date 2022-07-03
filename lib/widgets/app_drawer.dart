@@ -5,7 +5,7 @@ import 'package:animations_anatomy/screens/animation_/sliver2_screen.dart';
 import 'package:animations_anatomy/screens/animation_/animated_list1.dart';
 import 'package:animations_anatomy/screens/animation_/disk_challenge1.dart';
 import 'package:animations_anatomy/screens/animation_/book_screen.dart';
-import 'package:animations_anatomy/screens/cards_3d_screen.dart';
+import 'package:animations_anatomy/screens/challenges_/cards_3d/cards_3d_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/bank_app1.dart';
 import 'package:animations_anatomy/screens/challenges_/card_flow1/card_flow1_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/disk_challenge2.dart';

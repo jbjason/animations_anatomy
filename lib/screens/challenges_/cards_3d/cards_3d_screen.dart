@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 import 'dart:ui';
 import 'package:animations_anatomy/models/book.dart';
-import 'package:animations_anatomy/screens/cards_3d_details.dart';
+import 'package:animations_anatomy/screens/challenges_/cards_3d/cards_3d_details.dart';
 import 'package:flutter/material.dart';
 
 class Cards3dScreen extends StatelessWidget {

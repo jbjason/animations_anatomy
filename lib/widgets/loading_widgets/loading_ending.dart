@@ -38,7 +38,7 @@ class LoadingEnding extends StatelessWidget {
                       ),
                     ),
                     OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () => Navigator.maybePop(context),
                       child: const Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 40, vertical: 20),

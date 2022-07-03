@@ -10,7 +10,6 @@ class Sliver2Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.grey[300],
       body: CustomScrollView(
         slivers: [
           SliverPersistentHeader(
@@ -21,9 +20,6 @@ class Sliver2Screen extends StatelessWidget {
                 minExtend: kTextTabBarHeight + 40),
           ),
           SliverToBoxAdapter(child: Sliver2Body(size: size, trip: trips[0])),
-          const SliverToBoxAdapter(
-            child: Placeholder(),
-          ),
         ],
       ),
     );

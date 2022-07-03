@@ -4,7 +4,7 @@ class CuttingClipper extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint();
-    paint.color = Colors.white;
+    paint.color = Colors.grey[200]!;
     paint.style = PaintingStyle.fill;
     paint.strokeWidth = 10;
     final path = Path();

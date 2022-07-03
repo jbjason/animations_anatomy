@@ -1,4 +1,4 @@
-import 'package:animations_anatomy/widgets/animation_widgets/sliver2_widgets/cutting_clipper.dart';
+import 'package:animations_anatomy/widgets/challenges_widgets/sliver2_widgets/cutting_clipper.dart';
 import 'package:flutter/material.dart';
 
 class ClippedContainer extends StatelessWidget {

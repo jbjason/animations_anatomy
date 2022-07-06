@@ -1,6 +1,7 @@
 import 'package:animations_anatomy/models/book.dart';
 import 'package:animations_anatomy/provider/drag_bottom.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DragBottomDetails extends StatefulWidget {
   const DragBottomDetails({Key? key, required this.book}) : super(key: key);
@@ -11,9 +12,9 @@ class DragBottomDetails extends StatefulWidget {
 
 class _DragBottomDetailsState extends State<DragBottomDetails> {
   final String _tag = '';
-  final _bloc = DragBottom();
   @override
   Widget build(BuildContext context) {
+    final _bloc = Provider.of<DragBottom>(context, listen: false);
     return SafeArea(
         child: Scaffold(
       body: Column(

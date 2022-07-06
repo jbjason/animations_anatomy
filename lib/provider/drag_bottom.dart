@@ -5,7 +5,7 @@ enum DragState { normal, cart, details }
 
 class DragBottom with ChangeNotifier {
   DragState _currentState = DragState.normal;
-  final List<Book> _cartItems = [];
+  final List<Book> _cartItems = [books.first, books[1]];
 
   DragState get currentState {
     return _currentState;
@@ -16,8 +16,11 @@ class DragBottom with ChangeNotifier {
   }
 
   void addToCart(Book book) {
-    _cartItems.add(book);
-    notifyListeners();
+    final f = _cartItems.indexWhere((element) => book.image == element.image);
+    if (f == -1) {
+      _cartItems.add(book);
+      notifyListeners();
+    }
   }
 
   void changeToCart() {

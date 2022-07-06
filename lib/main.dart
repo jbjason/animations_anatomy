@@ -1,6 +1,7 @@
+import 'package:animations_anatomy/provider/drag_bottom.dart';
 import 'package:animations_anatomy/screens/drag_bottom_cart.dart';
-import 'package:animations_anatomy/screens/home_/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,13 +13,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ChangeNotifierProvider(
+      create: (_) => DragBottom(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const DragBottomCart(),
       ),
-      home: const DragBottomCart(),
     );
   }
 }

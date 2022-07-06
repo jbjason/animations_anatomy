@@ -11,56 +11,61 @@ class DragBottomDetails extends StatefulWidget {
 }
 
 class _DragBottomDetailsState extends State<DragBottomDetails> {
-  final String _tag = '';
+  String _tag = '';
   @override
   Widget build(BuildContext context) {
-    final _bloc = Provider.of<DragBottom>(context, listen: false);
     return SafeArea(
-        child: Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(
-            height: kToolbarHeight,
-            child: AppBar(
-              centerTitle: true,
-              title: const Text('Item Details'),
-              backgroundColor: Colors.grey[900],
-              leading: IconButton(
-                  onPressed: () => Navigator.maybePop(context),
-                  icon: const Icon(Icons.arrow_back_ios_new)),
+      child: Scaffold(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              height: kToolbarHeight,
+              child: AppBar(
+                centerTitle: true,
+                title: const Text('Item Details'),
+                backgroundColor: Colors.grey[900],
+                leading: IconButton(
+                    onPressed: () => Navigator.maybePop(context),
+                    icon: const Icon(Icons.arrow_back_ios_new)),
+              ),
             ),
-          ),
-          SizedBox(
-            height: 500,
-            child: Hero(
-                tag: widget.book.image + _tag,
-                child: Image.asset(widget.book.image, fit: BoxFit.cover)),
-          ),
-          const SizedBox(height: 100),
-          Text(widget.book.title,
-              style: TextStyle(
-                  color: Colors.grey[900],
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18)),
-          Text(widget.book.author, style: const TextStyle(color: Colors.grey)),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              _bloc.addToCart(widget.book);
-            },
-            child: const Text('Add to Cart'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.purple,
-              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-              textStyle:
-                  const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50)),
+            SizedBox(
+              height: 500,
+              child: Hero(
+                  tag: widget.book.image + _tag,
+                  child: Image.asset(widget.book.image, fit: BoxFit.cover)),
             ),
-          ),
-        ],
+            const SizedBox(height: 100),
+            Text(widget.book.title,
+                style: TextStyle(
+                    color: Colors.grey[900],
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18)),
+            Text(widget.book.author,
+                style: const TextStyle(color: Colors.grey)),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                setState(() => _tag = widget.book.title);
+                Provider.of<DragBottom>(context, listen: false)
+                    .addToCart(widget.book);
+                Navigator.pop(context);
+              },
+              child: const Text('Add to Cart'),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.purple,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                textStyle:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50)),
+              ),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

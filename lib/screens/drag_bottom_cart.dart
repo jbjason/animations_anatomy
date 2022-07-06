@@ -38,68 +38,65 @@ class _DragBottomCartState extends State<DragBottomCart> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return ChangeNotifierProvider(
-      create: (context) => DragBottom(),
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.grey[900],
-          body: AnimatedBuilder(
-            animation: _bloc,
-            builder: (context, _) => Stack(
-              children: [
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: _appBarHeight,
-                  child: AppBar(
-                    centerTitle: true,
-                    title: const Text('Drag Challenge'),
-                    backgroundColor: Colors.grey[900],
-                    leading: IconButton(
-                        onPressed: () => Navigator.maybePop(context),
-                        icon: const Icon(Icons.menu)),
-                  ),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.grey[900],
+        body: AnimatedBuilder(
+          animation: _bloc,
+          builder: (context, _) => Stack(
+            children: [
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                height: _appBarHeight,
+                child: AppBar(
+                  centerTitle: true,
+                  title: const Text('Drag Challenge'),
+                  backgroundColor: Colors.grey[900],
+                  leading: IconButton(
+                      onPressed: () => Navigator.maybePop(context),
+                      icon: const Icon(Icons.menu)),
                 ),
-                AnimatedPositioned(
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.easeInCubic,
-                  top: _getBodyContainerTop(size, _bloc.currentState),
-                  left: 0,
-                  right: 0,
-                  height: size.height - _appBarHeight * 3,
+              ),
+              AnimatedPositioned(
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInCubic,
+                top: _getBodyContainerTop(size, _bloc.currentState),
+                left: 0,
+                right: 0,
+                height: size.height - _appBarHeight * 3,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.vertical(
+                        bottom: Radius.circular(30)),
+                    color: Colors.grey[800],
+                  ),
+                  child: _listView(),
+                ),
+              ),
+              AnimatedPositioned(
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.decelerate,
+                top: _getCartContainerTop(size, _bloc.currentState),
+                left: 0,
+                right: 0,
+                height: size.height,
+                child: GestureDetector(
+                  onVerticalDragUpdate: (val) {
+                    if (-val.delta.dy > 4) {
+                      _bloc.changeToCart();
+                    } else if (val.delta.dy > 7) {
+                      _bloc.changeToNormal();
+                    }
+                  },
                   child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.vertical(
-                          bottom: Radius.circular(30)),
-                      color: Colors.grey[800],
-                    ),
-                    child: _listView(),
+                    color: Colors.grey[900],
+                    child: _cartList(context),
                   ),
                 ),
-                AnimatedPositioned(
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.decelerate,
-                  top: _getCartContainerTop(size, _bloc.currentState),
-                  left: 0,
-                  right: 0,
-                  height: size.height,
-                  child: GestureDetector(
-                    onVerticalDragUpdate: (val) {
-                      if (-val.delta.dy > 4) {
-                        _bloc.changeToCart();
-                      } else if (val.delta.dy > 7) {
-                        _bloc.changeToNormal();
-                      }
-                    },
-                    child: Container(
-                      color: Colors.grey[900],
-                      child: _cartList(context),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -130,14 +127,22 @@ class _DragBottomCartState extends State<DragBottomCart> {
 
   Widget _cartList(BuildContext context) {
     final _books = Provider.of<DragBottom>(context).cartItems;
-    return Row(
-      children: List.generate(
-        _books.length,
-        (index) => Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: CircleAvatar(
-            backgroundImage: AssetImage(_books[index].image),
-            radius: 30,
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: List.generate(
+          _books.length,
+          (index) => Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Hero(
+              tag: _books[index].image + _books[index].title,
+              child: CircleAvatar(
+                backgroundImage: AssetImage(_books[index].image),
+                backgroundColor: Colors.white,
+                radius: 30,
+              ),
+            ),
           ),
         ),
       ),

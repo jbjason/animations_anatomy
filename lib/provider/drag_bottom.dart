@@ -30,18 +30,3 @@ class DragBottom with ChangeNotifier {
     notifyListeners();
   }
 }
-
-class DragBottomProvider extends InheritedWidget {
-  const DragBottomProvider(
-      {Key? key, required Widget child, required this.bloc})
-      : super(child: child, key: key);
-
-  final DragBottom bloc;
-
-  static DragBottomProvider? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<DragBottomProvider>();
-  }
-
-  @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;
-}

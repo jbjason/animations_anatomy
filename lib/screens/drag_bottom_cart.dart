@@ -2,6 +2,7 @@ import 'package:animations_anatomy/models/book.dart';
 import 'package:animations_anatomy/provider/drag_bottom.dart';
 import 'package:animations_anatomy/screens/drag_bottom_details.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 const _appBarHeight = kToolbarHeight;
 
@@ -37,8 +38,8 @@ class _DragBottomCartState extends State<DragBottomCart> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return DragBottomProvider(
-      bloc: _bloc,
+    return ChangeNotifierProvider(
+      create: (context) => DragBottom(),
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.grey[900],
@@ -128,7 +129,7 @@ class _DragBottomCartState extends State<DragBottomCart> {
   }
 
   Widget _cartList(BuildContext context) {
-    final _books = DragBottomProvider.of(context)!.bloc.cartItems;
+    final _books = Provider.of<DragBottom>(context).cartItems;
     return Row(
       children: List.generate(
         _books.length,

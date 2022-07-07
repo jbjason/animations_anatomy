@@ -32,9 +32,13 @@ class _DragBottomDetailsState extends State<DragBottomDetails> {
             ),
             SizedBox(
               height: 500,
-              child: Hero(
-                  tag: widget.book.image + _tag,
-                  child: Image.asset(widget.book.image, fit: BoxFit.cover)),
+              child: ClipRRect(
+                borderRadius:
+                    const BorderRadius.vertical(bottom: Radius.circular(20)),
+                child: Hero(
+                    tag: widget.book.image + _tag,
+                    child: Image.asset(widget.book.image, fit: BoxFit.cover)),
+              ),
             ),
             const SizedBox(height: 100),
             Text(widget.book.title,

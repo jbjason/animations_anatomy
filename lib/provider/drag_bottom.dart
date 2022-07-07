@@ -5,7 +5,7 @@ enum DragState { normal, cart, details }
 
 class DragBottom with ChangeNotifier {
   DragState _currentState = DragState.normal;
-  final List<Book> _cartItems = [books.first, books[1]];
+  final List<Book> _cartItems = [];
 
   DragState get currentState {
     return _currentState;

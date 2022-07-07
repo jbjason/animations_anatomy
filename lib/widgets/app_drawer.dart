@@ -1,6 +1,7 @@
 import 'package:animations_anatomy/screens/animation_/fb_story_screen.dart';
 import 'package:animations_anatomy/screens/animation_/flow_screen.dart';
 import 'package:animations_anatomy/screens/animation_/sliver1_screen.dart';
+import 'package:animations_anatomy/screens/challenges_/drag_bottom/drag_bottom_cart.dart';
 import 'package:animations_anatomy/screens/challenges_/sliver2_screen.dart';
 import 'package:animations_anatomy/screens/animation_/animated_list1.dart';
 import 'package:animations_anatomy/screens/animation_/disk_challenge1.dart';
@@ -102,6 +103,13 @@ class AppDrawer extends StatelessWidget {
               title: const Text('3d Cards Animation'),
               onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (_) => const Cards3dScreen())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Drag Bottom Cart'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const DragBottomCart())),
             ),
             const Divider(),
             // Others Animation

@@ -1,5 +1,5 @@
 import 'package:animations_anatomy/provider/drag_bottom.dart';
-import 'package:animations_anatomy/screens/drag_bottom_cart.dart';
+import 'package:animations_anatomy/screens/fb_chlng1Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const DragBottomCart(),
+        home: const FbChlng1Screen(),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:animations_anatomy/models/book.dart';
 import 'package:animations_anatomy/provider/drag_bottom.dart';
 import 'package:animations_anatomy/screens/drag_bottom_details.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
 const _appBarHeight = kToolbarHeight;
@@ -72,7 +73,7 @@ class _DragBottomCartState extends State<DragBottomCart> {
                         bottom: Radius.circular(30)),
                     color: Colors.grey[800],
                   ),
-                  child: _listView(),
+                  child: const StaggeredViewItem(),
                 ),
               ),
               AnimatedPositioned(
@@ -142,6 +143,70 @@ class _DragBottomCartState extends State<DragBottomCart> {
                 backgroundColor: Colors.white,
                 radius: 30,
               ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class StaggeredViewItem extends StatelessWidget {
+  const StaggeredViewItem({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return GridView.custom(
+      gridDelegate: SliverWovenGridDelegate.count(
+        crossAxisCount: 2,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 8,
+        pattern: [
+          const WovenGridTile(1),
+          const WovenGridTile(5 / 7,
+              crossAxisRatio: 0.9, alignment: AlignmentDirectional.centerEnd),
+        ],
+      ),
+      childrenDelegate: SliverChildBuilderDelegate(
+        (context, index) => Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          elevation: 10,
+          color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Hero(
+                      tag: books[index].image,
+                      child:
+                          Image.asset(books[index].image, fit: BoxFit.cover)),
+                ),
+                const Text(
+                  '\$ 18.45',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontSize: 20),
+                ),
+                const SizedBox(height: 7),
+                Text(
+                  books[index].title,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                      fontSize: 14),
+                ),
+                Text(
+                  books[index].author,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: Colors.grey, fontSize: 15),
+                )
+              ],
             ),
           ),
         ),

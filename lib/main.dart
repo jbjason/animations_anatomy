@@ -1,5 +1,5 @@
 import 'package:animations_anatomy/provider/drag_bottom.dart';
-import 'package:animations_anatomy/screens/fb_chlng1_screen.dart';
+import 'package:animations_anatomy/screens/stacked_card_scren.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const FbChlng1Screen(),
+        home: const StackedCardScreen(),
       ),
     );
   }

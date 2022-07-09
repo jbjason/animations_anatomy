@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:animations_anatomy/models/book.dart';
 import 'package:flutter/material.dart';
 
@@ -146,23 +145,26 @@ class _PerspectiveListItem extends StatelessWidget {
         final height = constraints.maxHeight;
         return Stack(
           fit: StackFit.expand,
-          children: List.generate(generateItems, (index) {
-            final invertedIndex = (generateItems - 2) - index;
-            final indexPlus = index + 1;
-            final positionedPercent = indexPlus / generateItems;
-            final endPositionPercent = index / generateItems;
-            return (currentIndex > invertedIndex)
-                ? _TransformedItem(
-                    child: children[currentIndex - (invertedIndex + 1)],
-                    heightItem: heightItem,
-                    factorChange: pagePercent,
-                    scale: lerpDouble(.5, 1.0, positionedPercent)!,
-                    endScale: lerpDouble(.5, 1.0, endPositionPercent)!,
-                    translateY: (height - heightItem) + positionedPercent,
-                    endTranslateY: (height - heightItem) + endPositionPercent,
-                  )
-                : const SizedBox();
-          }),
+          children: List.generate(
+            generateItems,
+            (index) {
+              final invertedIndex = (generateItems - 2) - index;
+              final indexPlus = index + 1;
+              final positionedPercent = indexPlus / generateItems;
+              final endPositionPercent = index / generateItems;
+              return (currentIndex > invertedIndex)
+                  ? _TransformedItem(
+                      child: children[currentIndex - (invertedIndex + 1)],
+                      heightItem: heightItem,
+                      factorChange: pagePercent,
+                      scale: lerpDouble(.5, 1.0, positionedPercent)!,
+                      endScale: lerpDouble(.5, 1.0, endPositionPercent)!,
+                      translateY: (height - heightItem) + positionedPercent,
+                      endTranslateY: (height - heightItem) + endPositionPercent,
+                    )
+                  : const SizedBox();
+            },
+          ),
         );
       },
     );

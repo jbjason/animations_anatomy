@@ -11,6 +11,7 @@ import 'package:animations_anatomy/screens/challenges_/bank_app1.dart';
 import 'package:animations_anatomy/screens/challenges_/card_flow1/card_flow1_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/disk_challenge2.dart';
 import 'package:animations_anatomy/screens/challenges_/hero_anim/hero_challange1.dart';
+import 'package:animations_anatomy/screens/challenges_/stacked_card_scren.dart';
 import 'package:animations_anatomy/screens/challenges_/sync_tabbar/tab_bar_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/nav_bar/nav_bar1.dart';
 import 'package:animations_anatomy/screens/challenges_/starbuck_/starbuck_challenge.dart';
@@ -110,6 +111,13 @@ class AppDrawer extends StatelessWidget {
               title: const Text('Drag Bottom Cart'),
               onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (_) => const DragBottomCart())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Stacked Card'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const StackedCardScreen())),
             ),
             const Divider(),
             // Others Animation

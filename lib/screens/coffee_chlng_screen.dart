@@ -57,49 +57,51 @@ class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
       body: Stack(
         children: [
           bottomBrownShadow(size),
-          Transform.scale(
-            scale: 1.6,
-            alignment: Alignment.bottomCenter,
-            child: PageView.builder(
-              controller: _imageController,
-              scrollDirection: Axis.vertical,
-              onPageChanged: (_val) {
-                if (_val < coffeeCards.length) {
-                  _textController.animateToPage(_val,
-                      duration: _duration, curve: Curves.easeOut);
-                }
-              },
-              itemCount: coffeeCards.length + 1,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return const SizedBox.shrink();
-                }
-                final coffee = coffeeCards[index - 1];
-                final result = _currentPage - index + 1;
-                final value = -0.4 * result + 1;
-                final opacity = value.clamp(0.0, 1.0);
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 25),
-                  child: Transform(
-                    alignment: Alignment.bottomCenter,
-                    transform: Matrix4.identity()
-                      ..setEntry(3, 2, .001)
-                      ..translate(0.0, size.height / 2.9 * (1 - value).abs())
-                      ..scale(value),
-                    child: Opacity(
-                      opacity: opacity,
-                      child: Image.asset(coffee.image, fit: BoxFit.fitHeight),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
+          coffeImages(size),
           titleAndPrice(),
         ],
       ),
     );
   }
+
+  Widget coffeImages(Size size) => Transform.scale(
+        scale: 1.6,
+        alignment: Alignment.bottomCenter,
+        child: PageView.builder(
+          controller: _imageController,
+          scrollDirection: Axis.vertical,
+          onPageChanged: (_val) {
+            if (_val < coffeeCards.length) {
+              _textController.animateToPage(_val,
+                  duration: _duration, curve: Curves.easeOut);
+            }
+          },
+          itemCount: coffeeCards.length + 1,
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return const SizedBox.shrink();
+            }
+            final coffee = coffeeCards[index - 1];
+            final result = _currentPage - index + 1;
+            final value = -0.4 * result + 1;
+            final opacity = value.clamp(0.0, 1.0);
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 25),
+              child: Transform(
+                alignment: Alignment.bottomCenter,
+                transform: Matrix4.identity()
+                  ..setEntry(3, 2, .001)
+                  ..translate(0.0, size.height / 2.9 * (1 - value).abs())
+                  ..scale(value),
+                child: Opacity(
+                  opacity: opacity,
+                  child: Image.asset(coffee.image, fit: BoxFit.fitHeight),
+                ),
+              ),
+            );
+          },
+        ),
+      );
 
   Widget titleAndPrice() {
     final CoffeeCard _coffee;

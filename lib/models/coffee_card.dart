@@ -10,7 +10,7 @@ class CoffeeCard {
 
 const List<CoffeeCard> coffeeCards = [
   CoffeeCard(
-      image: 'assets/coffee_/7.png', name: 'Caramel Macchiato', price: 4.20),
+      image: 'assets/coffee_/1.png', name: 'Caramel Macchiato', price: 4.20),
   CoffeeCard(
       image: 'assets/coffee_/2.png', name: 'Caramel Cold Drink', price: 5.50),
   CoffeeCard(
@@ -23,7 +23,7 @@ const List<CoffeeCard> coffeeCards = [
       image: 'assets/coffee_/5.png', name: 'Toffee Nut Latte', price: 5.20),
   CoffeeCard(image: 'assets/coffee_/6.png', name: 'Capuchino', price: 8.0),
   CoffeeCard(
-      image: 'assets/coffee_/1.png', name: 'Toffee Nut Iced Latte', price: 9.0),
+      image: 'assets/coffee_/7.png', name: 'Toffee Nut Iced Latte', price: 9.0),
   CoffeeCard(image: 'assets/coffee_/8.png', name: 'Americano', price: 5.5),
   CoffeeCard(
       image: 'assets/coffee_/9.png',

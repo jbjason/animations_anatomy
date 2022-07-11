@@ -7,13 +7,14 @@ class CoffeeChlngScreen extends StatefulWidget {
   State<CoffeeChlngScreen> createState() => _CoffeeChlngScreenState();
 }
 
-const _initialIndex = 0;
+const _initialIndex = 8;
 const _duration = Duration(milliseconds: 250);
 
 class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
   late PageController _imageController;
   late PageController _textController;
-  double _currentPage = 0.0;
+  double _currentPage = _initialIndex.toDouble();
+  double _currentTextPage = _initialIndex.toDouble();
 
   @override
   void initState() {
@@ -21,18 +22,18 @@ class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
         PageController(viewportFraction: 0.35, initialPage: _initialIndex);
     _textController = PageController(initialPage: _initialIndex);
     _imageController.addListener(_listener);
+    _textController.addListener(_textListener);
     super.initState();
   }
 
-  void _listener() {
-    setState(() {
-      _currentPage = _imageController.page!;
-    });
-  }
+  void _listener() => setState(() => _currentPage = _imageController.page!);
+
+  void _textListener() => _currentTextPage = _textController.page!;
 
   @override
   void dispose() {
     _imageController.removeListener(_listener);
+    _textController.removeListener(_textListener);
     _imageController.dispose();
     _textController.dispose();
     super.dispose();
@@ -45,10 +46,7 @@ class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          onPressed: () => Navigator.maybePop(context),
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
-        ),
+        leading: const BackButton(color: Colors.black),
         actions: const [
           Icon(Icons.shopping_basket_sharp, color: Colors.black),
           SizedBox(width: 20)
@@ -58,7 +56,7 @@ class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
         children: [
           bottomBrownShadow(size),
           coffeImages(size),
-          titleAndPrice(),
+          titleAndPrice(size),
         ],
       ),
     );
@@ -95,7 +93,10 @@ class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
                   ..scale(value),
                 child: Opacity(
                   opacity: opacity,
-                  child: Image.asset(coffee.image, fit: BoxFit.fitHeight),
+                  child: Hero(
+                    tag: coffee.name,
+                    child: Image.asset(coffee.image, fit: BoxFit.fitHeight),
+                  ),
                 ),
               ),
             );
@@ -103,62 +104,55 @@ class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
         ),
       );
 
-  Widget titleAndPrice() {
-    final CoffeeCard _coffee;
-    if (coffeeCards.length > _currentPage.toInt()) {
-      _coffee = coffeeCards[_currentPage.toInt()];
-    } else {
-      _coffee = coffeeCards[_currentPage.toInt() - 1];
-    }
-    return Positioned(
-      left: 0,
-      right: 0,
-      top: 0,
-      height: 100,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: PageView.builder(
-              controller: _textController,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: coffeeCards.length,
-              itemBuilder: (context, index) {
-                final _opacity = 1 - (_currentPage - index).clamp(0.0, 1.0);
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
-                  child: Opacity(
-                    opacity: _opacity,
-                    child: Text(
-                      coffeeCards[index].name,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+  Widget titleAndPrice(Size size) => Positioned(
+        left: 0,
+        right: 0,
+        top: 0,
+        height: 100,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: PageView.builder(
+                controller: _textController,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: coffeeCards.length,
+                itemBuilder: (context, index) {
+                  final _opacity =
+                      1 - (_currentTextPage - index).clamp(0.0, 1.0);
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: size.width * .2),
+                    child: Opacity(
+                      opacity: _opacity,
+                      child: Text(
+                        coffeeCards[index].name,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black),
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
-          ),
-          AnimatedSwitcher(
-            duration: _duration,
-            key: Key(_coffee.name),
-            child: Text(
-              '${_coffee.price.toStringAsFixed(2)}€',
-              style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey),
+            AnimatedSwitcher(
+              duration: _duration,
+              key: Key(coffeeCards[_currentTextPage.toInt()].name),
+              child: Text(
+                '${coffeeCards[_currentTextPage.toInt()].price.toStringAsFixed(2)}€',
+                style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey),
+              ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
+          ],
+        ),
+      );
 
   Widget bottomBrownShadow(Size size) => Positioned(
         left: 20,

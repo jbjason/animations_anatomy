@@ -12,7 +12,7 @@ const List<CoffeeCard> coffeeCards = [
   CoffeeCard(
       image: 'assets/coffee_/7.png', name: 'Caramel Macchiato', price: 4.20),
   CoffeeCard(
-      image: 'assets/coffee_/2.png', name: 'Caramel Cold Drink', price: 4.50),
+      image: 'assets/coffee_/2.png', name: 'Caramel Cold Drink', price: 5.50),
   CoffeeCard(
       image: 'assets/coffee_/3.png', name: 'Iced Coffe Mocha', price: 3.0),
   CoffeeCard(

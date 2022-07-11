@@ -8,7 +8,7 @@ class CoffeeChlngScreen extends StatefulWidget {
 }
 
 const _initialIndex = 0;
-const _duration = Duration(milliseconds: 300);
+const _duration = Duration(milliseconds: 250);
 
 class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
   late PageController _imageController;
@@ -19,7 +19,7 @@ class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
   void initState() {
     _imageController =
         PageController(viewportFraction: 0.35, initialPage: _initialIndex);
-    _imageController = PageController(initialPage: _initialIndex);
+    _textController = PageController(initialPage: _initialIndex);
     _imageController.addListener(_listener);
     super.initState();
   }
@@ -34,6 +34,7 @@ class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
   void dispose() {
     _imageController.removeListener(_listener);
     _imageController.dispose();
+    _textController.dispose();
     super.dispose();
   }
 
@@ -64,7 +65,7 @@ class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
               scrollDirection: Axis.vertical,
               onPageChanged: (_val) {
                 if (_val < coffeeCards.length) {
-                  _textController.animateTo(_val.toDouble(),
+                  _textController.animateToPage(_val,
                       duration: _duration, curve: Curves.easeOut);
                 }
               },
@@ -75,16 +76,15 @@ class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
                 }
                 final coffee = coffeeCards[index - 1];
                 final result = _currentPage - index + 1;
-                final value = -0.45 * result + 1;
+                final value = -0.4 * result + 1;
                 final opacity = value.clamp(0.0, 1.0);
-                print((1 - value).abs());
                 return Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
+                  padding: const EdgeInsets.only(bottom: 25),
                   child: Transform(
                     alignment: Alignment.bottomCenter,
                     transform: Matrix4.identity()
                       ..setEntry(3, 2, .001)
-                      ..translate(0.0, (size.height / 1.7) * (1 - value).abs())
+                      ..translate(0.0, size.height / 2.9 * (1 - value).abs())
                       ..scale(value),
                     child: Opacity(
                       opacity: opacity,
@@ -95,46 +95,62 @@ class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
               },
             ),
           ),
-          Positioned(
-            left: 0,
-            right: 0,
-            top: 0,
-            height: size.height * .15,
-            child: Column(
-              children: [
-                Expanded(
-                  child: PageView.builder(
-                    controller: _textController,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: coffeeCards.length,
-                    itemBuilder: (context, index) {
-                      final _opacity =
-                          1.0 - (_currentPage - index).clamp(0.0, 1);
-                      return Opacity(
-                        opacity: _opacity,
-                        child: Text(
-                          coffeeCards[index].name,
-                          maxLines: 2,
-                          style: const TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ),
-                      );
-                    },
+          titleAndPrice(),
+        ],
+      ),
+    );
+  }
+
+  Widget titleAndPrice() {
+    final CoffeeCard _coffee;
+    if (coffeeCards.length > _currentPage.toInt()) {
+      _coffee = coffeeCards[_currentPage.toInt()];
+    } else {
+      _coffee = coffeeCards[_currentPage.toInt() - 1];
+    }
+    return Positioned(
+      left: 0,
+      right: 0,
+      top: 0,
+      height: 100,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: PageView.builder(
+              controller: _textController,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: coffeeCards.length,
+              itemBuilder: (context, index) {
+                final _opacity = 1 - (_currentPage - index).clamp(0.0, 1.0);
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: Opacity(
+                    opacity: _opacity,
+                    child: Text(
+                      coffeeCards[index].name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
                   ),
-                ),
-                AnimatedSwitcher(
-                  duration: _duration,
-                  child: Text(
-                    '${coffeeCards[_currentPage.toInt()].price.toStringAsFixed(2)}€',
-                    style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey),
-                  ),
-                ),
-              ],
+                );
+              },
+            ),
+          ),
+          AnimatedSwitcher(
+            duration: _duration,
+            key: Key(_coffee.name),
+            child: Text(
+              '${_coffee.price.toStringAsFixed(2)}€',
+              style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey),
             ),
           ),
         ],
@@ -145,13 +161,13 @@ class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
   Widget bottomBrownShadow(Size size) => Positioned(
         left: 20,
         right: 20,
-        bottom: -size.height * .22,
+        bottom: -size.height * .2,
         height: size.height * .3,
         child: const DecoratedBox(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             boxShadow: [
-              BoxShadow(color: Colors.brown, blurRadius: 90, spreadRadius: 45)
+              BoxShadow(color: Colors.brown, blurRadius: 90, spreadRadius: 60)
             ],
           ),
         ),

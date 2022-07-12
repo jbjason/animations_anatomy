@@ -2,7 +2,10 @@ import 'package:animations_anatomy/models/coffee_card.dart';
 import 'package:flutter/material.dart';
 
 class CoffeeChlngScreen extends StatefulWidget {
-  const CoffeeChlngScreen({Key? key}) : super(key: key);
+  const CoffeeChlngScreen({Key? key, required Animation<double> animation})
+      : _animation = animation,
+        super(key: key);
+  final Animation<double> _animation;
   @override
   State<CoffeeChlngScreen> createState() => _CoffeeChlngScreenState();
 }
@@ -109,48 +112,56 @@ class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
         right: 0,
         top: 0,
         height: 100,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: PageView.builder(
-                controller: _textController,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: coffeeCards.length,
-                itemBuilder: (context, index) {
-                  final _opacity =
-                      1 - (_currentTextPage - index).clamp(0.0, 1.0);
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: size.width * .2),
-                    child: Opacity(
-                      opacity: _opacity,
-                      child: Text(
-                        coffeeCards[index].name,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
+        child: AnimatedBuilder(
+          animation: widget._animation,
+          builder: (context, cld) => Transform.translate(
+            offset: Offset(0, -130 * widget._animation.value),
+            child: cld,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: PageView.builder(
+                  controller: _textController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: coffeeCards.length,
+                  itemBuilder: (context, index) {
+                    final _opacity =
+                        1 - (_currentTextPage - index).clamp(0.0, 1.0);
+                    return Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: size.width * .2),
+                      child: Opacity(
+                        opacity: _opacity,
+                        child: Text(
+                          coffeeCards[index].name,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black),
+                        ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
-            ),
-            AnimatedSwitcher(
-              duration: _duration,
-              key: Key(coffeeCards[_currentTextPage.toInt()].name),
-              child: Text(
-                '${coffeeCards[_currentTextPage.toInt()].price.toStringAsFixed(2)}€',
-                style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey),
+              AnimatedSwitcher(
+                duration: _duration,
+                key: Key(coffeeCards[_currentTextPage.toInt()].name),
+                child: Text(
+                  '${coffeeCards[_currentTextPage.toInt()].price.toStringAsFixed(2)}€',
+                  style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
 

@@ -10,16 +10,19 @@ class CoffeeChlngHome extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: GestureDetector(
-        onVerticalDragUpdate: (val) {
-          if (val.primaryDelta! < -20) {
-            Navigator.of(context).push(
-              PageRouteBuilder(
-                transitionDuration: const Duration(milliseconds: 600),
-                pageBuilder: (context, animation, _) => FadeTransition(
-                    opacity: animation, child: const CoffeeChlngScreen()),
+        onTap: () {
+          Navigator.of(context).push(
+            PageRouteBuilder(
+              transitionDuration: const Duration(milliseconds: 600),
+              pageBuilder: (context, animation, _) => FadeTransition(
+                opacity: animation,
+                child: CoffeeChlngScreen(
+                    animation: CurvedAnimation(
+                        parent: animation,
+                        curve: const Interval(0.6, 1, curve: Curves.easeIn))),
               ),
-            );
-          }
+            ),
+          );
         },
         child: Stack(
           children: [

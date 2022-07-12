@@ -79,6 +79,8 @@ class CoffeeChlngDetails extends StatelessWidget {
               ),
             ),
           ),
+          CoffeeChlngDetails1(
+              size: size, animation: animation, price: coffee.price),
         ],
       ),
     );
@@ -90,10 +92,10 @@ class CoffeeChlngDetails1 extends StatefulWidget {
       {Key? key,
       required this.size,
       required this.animation,
-      required this.text})
+      required this.price})
       : super(key: key);
   final Size size;
-  final String text;
+  final double price;
   final Animation<double> animation;
   @override
   State<CoffeeChlngDetails1> createState() => _CoffeeChlngDetails1State();
@@ -107,6 +109,7 @@ class _CoffeeChlngDetails1State extends State<CoffeeChlngDetails1> {
       animation: widget.animation,
       builder: (context, _) => Stack(
         children: [
+          // bottom Flat-buttons
           Positioned(
             bottom: 0,
             left: 0,
@@ -125,6 +128,7 @@ class _CoffeeChlngDetails1State extends State<CoffeeChlngDetails1> {
               ),
             ),
           ),
+          // price
           Positioned(
             left: 50,
             top: widget.size.height * .57,
@@ -132,7 +136,7 @@ class _CoffeeChlngDetails1State extends State<CoffeeChlngDetails1> {
               offset: Offset(
                   -100 * widget.animation.value, 240 * widget.animation.value),
               child: Text(
-                widget.text,
+                '${widget.price.toStringAsFixed(2)}€',
                 style: const TextStyle(
                   fontSize: 50,
                   color: Colors.white,
@@ -145,6 +149,7 @@ class _CoffeeChlngDetails1State extends State<CoffeeChlngDetails1> {
               ),
             ),
           ),
+          // top add_icon
           Positioned(
             right: 50,
             top: 120,

@@ -1,5 +1,5 @@
 import 'package:animations_anatomy/models/coffee_card.dart';
-import 'package:animations_anatomy/screens/coffee_chlng_details.dart';
+import 'package:animations_anatomy/screens/challenges_/coffe_chlng/coffee_chlng_details.dart';
 import 'package:flutter/material.dart';
 
 class CoffeeChlngScreen extends StatefulWidget {

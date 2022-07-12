@@ -16,6 +16,7 @@ import 'package:animations_anatomy/screens/challenges_/sync_tabbar/tab_bar_scree
 import 'package:animations_anatomy/screens/challenges_/nav_bar/nav_bar1.dart';
 import 'package:animations_anatomy/screens/challenges_/starbuck_/starbuck_challenge.dart';
 import 'package:animations_anatomy/screens/challenges_/loading_screen1.dart';
+import 'package:animations_anatomy/screens/challenges_/coffe_chlng/coffee_chlng_home.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -120,7 +121,23 @@ class AppDrawer extends StatelessWidget {
                   MaterialPageRoute(builder: (_) => const StackedCardScreen())),
             ),
             const Divider(),
-            // Others Animation
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Stacked Card'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const StackedCardScreen())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Coffee Challenge'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const CoffeeChlngHome())),
+            ),
+            const Divider(),
+            /*
+             Others Animation
+            */
             Container(
               height: 50,
               color: Colors.grey[800],

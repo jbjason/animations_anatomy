@@ -1,4 +1,5 @@
 import 'package:animations_anatomy/models/coffee_card.dart';
+import 'package:animations_anatomy/screens/coffee_chlng_details.dart';
 import 'package:flutter/material.dart';
 
 class CoffeeChlngScreen extends StatefulWidget {
@@ -86,19 +87,38 @@ class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
             final result = _currentPage - index + 1;
             final value = -0.4 * result + 1;
             final opacity = value.clamp(0.0, 1.0);
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 25),
-              child: Transform(
-                alignment: Alignment.bottomCenter,
-                transform: Matrix4.identity()
-                  ..setEntry(3, 2, .001)
-                  ..translate(0.0, size.height / 2.9 * (1 - value).abs())
-                  ..scale(value),
-                child: Opacity(
-                  opacity: opacity,
-                  child: Hero(
-                    tag: coffee.name,
-                    child: Image.asset(coffee.image, fit: BoxFit.fitHeight),
+            return GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                    transitionDuration: const Duration(milliseconds: 600),
+                    pageBuilder: (context, animation, _) => FadeTransition(
+                      opacity: animation,
+                      child: CoffeeChlngDetails(
+                        animation: CurvedAnimation(
+                          parent: animation,
+                          curve: const Interval(0.5, 1, curve: Curves.easeIn),
+                        ),
+                        coffee: coffee,
+                      ),
+                    ),
+                  ),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 25),
+                child: Transform(
+                  alignment: Alignment.bottomCenter,
+                  transform: Matrix4.identity()
+                    ..setEntry(3, 2, .001)
+                    ..translate(0.0, size.height / 2.9 * (1 - value).abs())
+                    ..scale(value),
+                  child: Opacity(
+                    opacity: opacity,
+                    child: Hero(
+                      tag: coffee.name,
+                      child: Image.asset(coffee.image, fit: BoxFit.fitHeight),
+                    ),
                   ),
                 ),
               ),
@@ -134,15 +154,18 @@ class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
                           EdgeInsets.symmetric(horizontal: size.width * .2),
                       child: Opacity(
                         opacity: _opacity,
-                        child: Text(
-                          coffeeCards[index].name,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black),
+                        child: Hero(
+                          tag: 'text${coffeeCards[index].name}',
+                          child: Text(
+                            coffeeCards[index].name,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black),
+                          ),
                         ),
                       ),
                     );

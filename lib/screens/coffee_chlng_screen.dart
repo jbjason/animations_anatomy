@@ -57,6 +57,7 @@ class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
         ],
       ),
       body: Stack(
+        clipBehavior: Clip.none,
         children: [
           bottomBrownShadow(size),
           coffeImages(size),
@@ -97,7 +98,7 @@ class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
                       child: CoffeeChlngDetails(
                         animation: CurvedAnimation(
                           parent: animation,
-                          curve: const Interval(0.5, 1, curve: Curves.easeIn),
+                          curve: const Interval(0.3, 1, curve: Curves.easeIn),
                         ),
                         coffee: coffee,
                       ),
@@ -135,7 +136,7 @@ class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
         child: AnimatedBuilder(
           animation: widget._animation,
           builder: (context, cld) => Transform.translate(
-            offset: Offset(0, -130 * widget._animation.value),
+            offset: Offset(0, -60 * (1 - widget._animation.value)),
             child: cld,
           ),
           child: Column(
@@ -156,15 +157,17 @@ class _CoffeeChlngScreenState extends State<CoffeeChlngScreen> {
                         opacity: _opacity,
                         child: Hero(
                           tag: 'text${coffeeCards[index].name}',
-                          child: Text(
-                            coffeeCards[index].name,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black),
+                          child: Material(
+                            child: Text(
+                              coffeeCards[index].name,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black),
+                            ),
                           ),
                         ),
                       ),

@@ -21,6 +21,7 @@ class CoffeeChlngDetails extends StatelessWidget {
         ],
       ),
       body: Stack(
+        clipBehavior: Clip.none,
         children: [
           Positioned(
             top: 80,
@@ -28,27 +29,26 @@ class CoffeeChlngDetails extends StatelessWidget {
             right: 0,
             height: size.height * .7,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Expanded(
                   child: Hero(
                     tag: coffee.name,
-                    child: Image.asset(coffee.image,
-                        height: size.height * .6, fit: BoxFit.fitHeight),
+                    child: Image.asset(coffee.image, fit: BoxFit.fitHeight),
                   ),
                 ),
-                const SizedBox(height: 80),
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Image.asset('assets/coffee_/taza_s.png',
-                          height: 60, fit: BoxFit.contain),
+                          height: 60, width: 60, fit: BoxFit.contain),
                       Image.asset('assets/coffee_/taza_m.png',
-                          height: 80, fit: BoxFit.contain),
+                          height: 80, width: 60, fit: BoxFit.contain),
                       Image.asset('assets/coffee_/taza_l.png',
-                          height: 110, fit: BoxFit.contain),
+                          height: 110, width: 60, fit: BoxFit.contain),
                     ],
                   ),
                 ),
@@ -107,18 +107,18 @@ class _CoffeeChlngDetails1State extends State<CoffeeChlngDetails1> {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: widget.animation,
-      builder: (context, _) => Stack(
-        children: [
-          // bottom Flat-buttons
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: widget.size.height * .2,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      builder: (context, _) {
+        final _val = 1 - widget.animation.value;
+        return Stack(
+          children: [
+            // bottom Flat-buttons
+            Positioned(
+              bottom: 0,
+              left: 10,
+              right: 10,
+              height: widget.size.height * .15,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   textButton('Hot/Warm', () => setState(() => _isHot = true),
                       _isHot ? 1 : 0),
@@ -127,61 +127,67 @@ class _CoffeeChlngDetails1State extends State<CoffeeChlngDetails1> {
                 ],
               ),
             ),
-          ),
-          // price
-          Positioned(
-            left: 50,
-            top: widget.size.height * .57,
-            child: Transform.translate(
-              offset: Offset(
-                  -100 * widget.animation.value, 240 * widget.animation.value),
-              child: Text(
-                '${widget.price.toStringAsFixed(2)}€',
-                style: const TextStyle(
-                  fontSize: 50,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w900,
-                  shadows: [
-                    BoxShadow(
-                        color: Colors.black45, blurRadius: 10, spreadRadius: 20)
-                  ],
+            // price
+            Positioned(
+              left: 50,
+              top: widget.size.height * .5,
+              child: Transform.translate(
+                offset: Offset(-100 * _val, 100 * _val),
+                child: Text(
+                  '${widget.price.toStringAsFixed(2)}€',
+                  style: const TextStyle(
+                    fontSize: 50,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w900,
+                    shadows: [
+                      BoxShadow(
+                          color: Colors.black45,
+                          blurRadius: 20,
+                          spreadRadius: 30)
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          // top add_icon
-          Positioned(
-            right: 50,
-            top: 120,
-            height: 90,
-            child: Transform.translate(
-              offset: Offset(100 * widget.animation.value, 0),
-              child: Container(
-                padding: const EdgeInsets.all(7),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black45, blurRadius: 10, spreadRadius: 20)
-                  ],
+            // top add_icon
+            Positioned(
+              right: 50,
+              top: 100,
+              height: 60,
+              child: Transform.translate(
+                offset: Offset(100 * _val, 0),
+                child: Container(
+                  padding: const EdgeInsets.all(7),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black45,
+                          blurRadius: 10,
+                          spreadRadius: 2)
+                    ],
+                  ),
+                  child: const Icon(Icons.add, color: Colors.black),
                 ),
-                child: const Icon(Icons.add, color: Colors.black),
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+        );
+      },
     );
   }
 
   Widget textButton(String text, Function _onPress, int i) {
     return TextButton(
-      onPressed: () => _onPress,
+      onPressed: () => _onPress(),
       style: TextButton.styleFrom(
-        primary: i == 1 ? Colors.black : Colors.grey,
-        textStyle: const TextStyle(fontSize: 20),
-        elevation: i == 1 ? 20 : 0,
-      ),
+          primary: i == 1 ? Colors.black : Colors.grey,
+          backgroundColor:
+              i == 1 ? Colors.white.withOpacity(0.5) : Colors.transparent,
+          textStyle: const TextStyle(fontSize: 20),
+          elevation: i == 1 ? 20 : 0,
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20)),
       child: Text(text),
     );
   }

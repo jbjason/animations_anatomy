@@ -19,7 +19,7 @@ class CoffeeChlngHome extends StatelessWidget {
                 child: CoffeeChlngScreen(
                     animation: CurvedAnimation(
                         parent: animation,
-                        curve: const Interval(0.6, 1, curve: Curves.easeIn))),
+                        curve: const Interval(0.3, 1, curve: Curves.easeIn))),
               ),
             ),
           );

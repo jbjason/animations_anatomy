@@ -28,30 +28,32 @@ class TopFlowWidget extends StatelessWidget {
               child: Image.asset(cardItem.image, fit: BoxFit.cover)),
           Padding(
             padding: padding,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(cardItem.title, style: _title),
-                Text(cardItem.price, style: _title),
-                const SizedBox(height: 20),
-                Text(cardItem.place, style: _place),
-                Expanded(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(cardItem.date, style: _place),
-                      const Spacer(),
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white.withOpacity(0.4)),
-                        child: const Text('CheckIn', style: _checkIn),
-                      ),
-                    ],
+            child: Material(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(cardItem.title, style: _title),
+                  Text(cardItem.price, style: _title),
+                  const SizedBox(height: 20),
+                  Text(cardItem.place, style: _place),
+                  Expanded(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(cardItem.date, style: _place),
+                        const Spacer(),
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white.withOpacity(0.4)),
+                          child: const Text('CheckIn', style: _checkIn),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

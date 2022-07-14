@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 
@@ -69,9 +71,8 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
                 child: BatmanImageAnimation(animation: _batmanImageAnimation)),
             // Batman Logo
             Positioned(
-              top: size.height / 2.5,
-              left: 0,
-              right: 0,
+              top: size.height / 2.8,
+              left: size.width / 2 - 100,
               height: 80,
               width: 200,
               child: BatmanLogoAnimation(
@@ -114,7 +115,7 @@ class BatmanLogoAnimation extends StatelessWidget {
     return AnimatedBuilder(
       animation: Listenable.merge([animation1, animation2]),
       builder: (context, _) => Transform.translate(
-        offset: Offset(0, 100 * animation2.value),
+        offset: Offset(0, lerpDouble(100, 0, animation2.value)!),
         child: Transform.scale(
           scale: animation1.value,
           child: Image.asset('assets/batman_/batman_logo.png',
@@ -151,7 +152,7 @@ class BatmanWelcomeText extends StatelessWidget {
     return AnimatedBuilder(
       animation: animation,
       builder: (context, _) {
-        final _val = 1 - animation.value;
+        final _val = animation.value;
         return Opacity(
           opacity: _val,
           child: Column(
@@ -180,11 +181,11 @@ class YellowButtonAnimation extends StatelessWidget {
     return AnimatedBuilder(
       animation: animation,
       builder: (context, _) {
-        final _val = 1 - animation.value;
+        final _val = animation.value;
         return Opacity(
           opacity: _val,
           child: Transform.translate(
-            offset: Offset(0, 100 * _val),
+            offset: Offset(0, lerpDouble(150, 0, _val)!),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 
 class BatmanSignInScreen extends StatefulWidget {
@@ -95,9 +94,8 @@ class YellowButton extends StatelessWidget {
               Text(
                 text,
                 textAlign: TextAlign.center,
-                style: GoogleFonts.vidaloka(
-                    textStyle: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold)),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               if (text == 'LOGIN')
                 Transform.rotate(

@@ -100,13 +100,6 @@ class HotAndIceButtons extends StatefulWidget {
 
 class _HotAndIceButtonsState extends State<HotAndIceButtons> {
   bool _isHot = true;
-  double _rightPosition = 0.0;
-
-  @override
-  void initState() {
-    _rightPosition = widget.size.width / 2.5;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,10 +109,12 @@ class _HotAndIceButtonsState extends State<HotAndIceButtons> {
         AnimatedPositioned(
           duration: const Duration(milliseconds: 350),
           curve: Curves.decelerate,
-          right: _isHot ? _rightPosition : 120,
-          top: widget.size.height * .65,
-          child: Image.asset('assets/coffee_/ice_cubes.png',
-              height: 100, width: 100),
+          right: _isHot ? widget.size.width / 2.5 : -75,
+          bottom: _isHot ? widget.size.height / 2.5 : widget.size.height * .18,
+          height: _isHot ? 100 : 350,
+          width: _isHot ? 100 : 350,
+          child:
+              Image.asset('assets/coffee_/ice_cubes.png', fit: BoxFit.contain),
         ),
         // bottom Flat-buttons
         Positioned(

@@ -14,32 +14,34 @@ const _duration2 = Duration(seconds: 6);
 
 class _BatmanSignInScreenState extends State<BatmanSignInScreen>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+  late AnimationController _controller1;
   late Animation<double> _batLogoAnimation, _batLogoMoveAnimation;
   late Animation<double> _buttonsMoveAnimation, _textOpacityAnimation;
   late Animation<double> _batmanImageAnimation;
 
+  late AnimationController _controller2;
+
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: _duration1);
-    _batLogoAnimation = Tween(begin: 30.0, end: 1.0).animate(
-        CurvedAnimation(parent: _controller, curve: const Interval(0.0, 0.35)));
+    _controller1 = AnimationController(vsync: this, duration: _duration1);
+    _batLogoAnimation = Tween(begin: 30.0, end: 1.0).animate(CurvedAnimation(
+        parent: _controller1, curve: const Interval(0.0, 0.35)));
     _batLogoMoveAnimation =
-        CurvedAnimation(parent: _controller, curve: const Interval(.45, .55));
+        CurvedAnimation(parent: _controller1, curve: const Interval(.45, .55));
     _textOpacityAnimation =
-        CurvedAnimation(parent: _controller, curve: const Interval(.5, .6));
+        CurvedAnimation(parent: _controller1, curve: const Interval(.5, .6));
     _batmanImageAnimation = Tween(begin: 5.0, end: 1.0).animate(
-        CurvedAnimation(parent: _controller, curve: const Interval(.65, 1)));
+        CurvedAnimation(parent: _controller1, curve: const Interval(.65, 1)));
     _buttonsMoveAnimation =
-        CurvedAnimation(parent: _controller, curve: const Interval(.65, 1));
+        CurvedAnimation(parent: _controller1, curve: const Interval(.65, 1));
 
-    _controller.forward(from: 0.0);
+    _controller1.forward(from: 0.0);
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller1.dispose();
     super.dispose();
   }
 

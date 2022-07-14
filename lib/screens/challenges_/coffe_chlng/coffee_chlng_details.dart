@@ -101,6 +101,7 @@ class HotAndIceButtons extends StatefulWidget {
 class _HotAndIceButtonsState extends State<HotAndIceButtons> {
   bool _isHot = true;
   double _rightPosition = 0.0;
+
   @override
   void initState() {
     _rightPosition = widget.size.width / 2.5;

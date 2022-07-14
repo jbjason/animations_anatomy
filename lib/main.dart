@@ -1,6 +1,5 @@
 import 'package:animations_anatomy/provider/drag_bottom.dart';
 import 'package:animations_anatomy/screens/batman_signin_screen.dart';
-import 'package:animations_anatomy/screens/home_/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

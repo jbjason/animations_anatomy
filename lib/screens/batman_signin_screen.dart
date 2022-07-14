@@ -13,10 +13,8 @@ const _duration2 = Duration(seconds: 6);
 class _BatmanSignInScreenState extends State<BatmanSignInScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> _batLogoAnimation;
-  late Animation<double> _batLogoMoveAnimation;
-  late Animation<double> _buttonsMoveAnimation;
-  late Animation<double> _textOpacityAnimation;
+  late Animation<double> _batLogoAnimation, _batLogoMoveAnimation;
+  late Animation<double> _buttonsMoveAnimation, _textOpacityAnimation;
   late Animation<double> _batmanImageAnimation;
 
   @override
@@ -24,8 +22,7 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
     super.initState();
     _controller = AnimationController(vsync: this, duration: _duration1);
     _batLogoAnimation = Tween(begin: 30.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: const Interval(0.0, 0.35)),
-    );
+        CurvedAnimation(parent: _controller, curve: const Interval(0.0, 0.35)));
     _batLogoMoveAnimation =
         CurvedAnimation(parent: _controller, curve: const Interval(.45, .55));
     _textOpacityAnimation =
@@ -34,6 +31,8 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
         CurvedAnimation(parent: _controller, curve: const Interval(.65, 1)));
     _buttonsMoveAnimation =
         CurvedAnimation(parent: _controller, curve: const Interval(.65, 1));
+
+    _controller.forward(from: 0.0);
   }
 
   @override
@@ -60,12 +59,14 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
                 fit: BoxFit.cover,
               ),
             ),
+            // batman Image
             Positioned(
                 left: -10,
                 right: -10,
                 top: 0,
                 height: size.height * .6,
                 child: BatmanImageAnimation(animation: _batmanImageAnimation)),
+            // batman Logo
             Positioned(
               top: size.height / 2.5,
               left: 0,
@@ -76,14 +77,17 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
                   animation1: _batLogoAnimation,
                   animation2: _batLogoMoveAnimation),
             ),
+            // Welcome Text & Buttons
             Positioned(
               left: 0,
               right: 0,
               top: size.height / 2,
               child: Column(
                 children: [
+                  // Welcome Text
                   BatmanWelcomeText(animation: _textOpacityAnimation),
                   const SizedBox(height: 20),
+                  // Buttons
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 38),
                     child:

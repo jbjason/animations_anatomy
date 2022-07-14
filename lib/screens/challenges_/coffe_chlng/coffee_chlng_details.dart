@@ -23,6 +23,8 @@ class CoffeeChlngDetails extends StatelessWidget {
       body: Stack(
         clipBehavior: Clip.none,
         children: [
+          HotAndIceButtons(size: size),
+          // image & sized images
           Positioned(
             top: 80,
             left: 0,
@@ -55,6 +57,7 @@ class CoffeeChlngDetails extends StatelessWidget {
               ],
             ),
           ),
+          // coffee name
           Positioned(
             left: 0,
             right: 0,
@@ -79,6 +82,7 @@ class CoffeeChlngDetails extends StatelessWidget {
               ),
             ),
           ),
+          // price ,ice/hot buttons ,add button
           CoffeeChlngDetails1(
               size: size, animation: animation, price: coffee.price),
         ],
@@ -87,7 +91,71 @@ class CoffeeChlngDetails extends StatelessWidget {
   }
 }
 
-class CoffeeChlngDetails1 extends StatefulWidget {
+class HotAndIceButtons extends StatefulWidget {
+  const HotAndIceButtons({Key? key, required this.size}) : super(key: key);
+  final Size size;
+  @override
+  State<HotAndIceButtons> createState() => _HotAndIceButtonsState();
+}
+
+class _HotAndIceButtonsState extends State<HotAndIceButtons> {
+  bool _isHot = true;
+  double _rightPosition = 0.0;
+  @override
+  void initState() {
+    _rightPosition = widget.size.width / 2.5;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        // ice image
+        AnimatedPositioned(
+          duration: const Duration(milliseconds: 350),
+          curve: Curves.decelerate,
+          right: _isHot ? _rightPosition : 120,
+          top: widget.size.height * .65,
+          child: Image.asset('assets/coffee_/ice_cubes.png',
+              height: 100, width: 100),
+        ),
+        // bottom Flat-buttons
+        Positioned(
+          bottom: 0,
+          left: 10,
+          right: 10,
+          height: widget.size.height * .15,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              textButton('Hot/Warm', () => setState(() => _isHot = true),
+                  _isHot ? 1 : 0),
+              textButton('Cold/Ice', () => setState(() => _isHot = false),
+                  _isHot ? 0 : 1),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget textButton(String text, Function _onPress, int i) {
+    return TextButton(
+      onPressed: () => _onPress(),
+      style: TextButton.styleFrom(
+          primary: i == 1 ? Colors.black : Colors.grey,
+          backgroundColor:
+              i == 1 ? Colors.white.withOpacity(0.5) : Colors.transparent,
+          textStyle: const TextStyle(fontSize: 20),
+          elevation: i == 1 ? 20 : 0,
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20)),
+      child: Text(text),
+    );
+  }
+}
+
+class CoffeeChlngDetails1 extends StatelessWidget {
   const CoffeeChlngDetails1(
       {Key? key,
       required this.size,
@@ -97,44 +165,23 @@ class CoffeeChlngDetails1 extends StatefulWidget {
   final Size size;
   final double price;
   final Animation<double> animation;
-  @override
-  State<CoffeeChlngDetails1> createState() => _CoffeeChlngDetails1State();
-}
 
-class _CoffeeChlngDetails1State extends State<CoffeeChlngDetails1> {
-  bool _isHot = true;
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: widget.animation,
+      animation: animation,
       builder: (context, _) {
-        final _val = 1 - widget.animation.value;
+        final _val = 1 - animation.value;
         return Stack(
           children: [
-            // bottom Flat-buttons
-            Positioned(
-              bottom: 0,
-              left: 10,
-              right: 10,
-              height: widget.size.height * .15,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  textButton('Hot/Warm', () => setState(() => _isHot = true),
-                      _isHot ? 1 : 0),
-                  textButton('Cold/Ice', () => setState(() => _isHot = false),
-                      _isHot ? 0 : 1),
-                ],
-              ),
-            ),
             // price
             Positioned(
               left: 50,
-              top: widget.size.height * .5,
+              top: size.height * .5,
               child: Transform.translate(
                 offset: Offset(-100 * _val, 100 * _val),
                 child: Text(
-                  '${widget.price.toStringAsFixed(2)}€',
+                  '${price.toStringAsFixed(2)}€',
                   style: const TextStyle(
                     fontSize: 50,
                     color: Colors.white,
@@ -175,20 +222,6 @@ class _CoffeeChlngDetails1State extends State<CoffeeChlngDetails1> {
           ],
         );
       },
-    );
-  }
-
-  Widget textButton(String text, Function _onPress, int i) {
-    return TextButton(
-      onPressed: () => _onPress(),
-      style: TextButton.styleFrom(
-          primary: i == 1 ? Colors.black : Colors.grey,
-          backgroundColor:
-              i == 1 ? Colors.white.withOpacity(0.5) : Colors.transparent,
-          textStyle: const TextStyle(fontSize: 20),
-          elevation: i == 1 ? 20 : 0,
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20)),
-      child: Text(text),
     );
   }
 }

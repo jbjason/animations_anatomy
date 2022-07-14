@@ -30,7 +30,9 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
         CurvedAnimation(parent: _controller, curve: const Interval(.45, .55));
     _textOpacityAnimation =
         CurvedAnimation(parent: _controller, curve: const Interval(.5, .6));
-    _batmanImageAnimation =
+    _batmanImageAnimation = Tween(begin: 5.0, end: 1.0).animate(
+        CurvedAnimation(parent: _controller, curve: const Interval(.65, 1)));
+    _buttonsMoveAnimation =
         CurvedAnimation(parent: _controller, curve: const Interval(.65, 1));
   }
 
@@ -59,21 +61,20 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
               ),
             ),
             Positioned(
-              left: -10,
-              right: -10,
-              top: 0,
-              height: size.height * .6,
-              child: Image.asset('assets/batman_/batman_alone.png',
-                  fit: BoxFit.fitHeight),
-            ),
+                left: -10,
+                right: -10,
+                top: 0,
+                height: size.height * .6,
+                child: BatmanImageAnimation(animation: _batmanImageAnimation)),
             Positioned(
               top: size.height / 2.5,
               left: 0,
               right: 0,
               height: 80,
               width: 200,
-              child: Image.asset('assets/batman_/batman_logo.png',
-                  fit: BoxFit.contain),
+              child: BatmanLogoAnimation(
+                  animation1: _batLogoAnimation,
+                  animation2: _batLogoMoveAnimation),
             ),
             Positioned(
               left: 0,
@@ -86,13 +87,51 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 38),
                     child:
-                        YellowButtonAnimation(animation: _batmanImageAnimation),
+                        YellowButtonAnimation(animation: _buttonsMoveAnimation),
                   ),
                 ],
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class BatmanLogoAnimation extends StatelessWidget {
+  const BatmanLogoAnimation(
+      {Key? key, required this.animation1, required this.animation2})
+      : super(key: key);
+  final Animation<double> animation1, animation2;
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: Listenable.merge([animation1, animation2]),
+      builder: (context, _) => Transform.translate(
+        offset: Offset(0, 100 * animation2.value),
+        child: Transform.scale(
+          scale: animation1.value,
+          child: Image.asset('assets/batman_/batman_logo.png',
+              fit: BoxFit.contain),
+        ),
+      ),
+    );
+  }
+}
+
+class BatmanImageAnimation extends StatelessWidget {
+  const BatmanImageAnimation({Key? key, required this.animation})
+      : super(key: key);
+  final Animation<double> animation;
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, _) => Transform.scale(
+        scale: animation.value,
+        child: Image.asset('assets/batman_/batman_alone.png',
+            fit: BoxFit.fitHeight),
       ),
     );
   }

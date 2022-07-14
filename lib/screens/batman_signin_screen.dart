@@ -49,6 +49,7 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
         backgroundColor: const Color(0XFF100F0B),
         body: Stack(
           children: [
+            // Batman Background
             Positioned(
               left: 0,
               right: 0,
@@ -59,14 +60,14 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
                 fit: BoxFit.cover,
               ),
             ),
-            // batman Image
+            // Batman Image
             Positioned(
                 left: -10,
                 right: -10,
                 top: 0,
                 height: size.height * .6,
                 child: BatmanImageAnimation(animation: _batmanImageAnimation)),
-            // batman Logo
+            // Batman Logo
             Positioned(
               top: size.height / 2.5,
               left: 0,

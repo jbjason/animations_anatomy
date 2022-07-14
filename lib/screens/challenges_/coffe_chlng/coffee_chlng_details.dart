@@ -1,4 +1,6 @@
 import 'package:animations_anatomy/models/coffee_card.dart';
+import 'package:animations_anatomy/widgets/challenges_widgets/coffee_widgets/hot_and_ice_buttons.dart';
+import 'package:animations_anatomy/widgets/challenges_widgets/coffee_widgets/price_and_add_button.dart';
 import 'package:flutter/material.dart';
 
 class CoffeeChlngDetails extends StatelessWidget {
@@ -83,141 +85,10 @@ class CoffeeChlngDetails extends StatelessWidget {
             ),
           ),
           // price ,ice/hot buttons ,add button
-          CoffeeChlngDetails1(
+          PriceAndAddButton(
               size: size, animation: animation, price: coffee.price),
         ],
       ),
-    );
-  }
-}
-
-class HotAndIceButtons extends StatefulWidget {
-  const HotAndIceButtons({Key? key, required this.size}) : super(key: key);
-  final Size size;
-  @override
-  State<HotAndIceButtons> createState() => _HotAndIceButtonsState();
-}
-
-class _HotAndIceButtonsState extends State<HotAndIceButtons> {
-  bool _isHot = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        // ice image
-        AnimatedPositioned(
-          duration: const Duration(milliseconds: 350),
-          curve: Curves.decelerate,
-          right: _isHot ? widget.size.width / 2.5 : -75,
-          bottom: _isHot ? widget.size.height / 2.5 : widget.size.height * .18,
-          height: _isHot ? 100 : 350,
-          width: _isHot ? 100 : 350,
-          child:
-              Image.asset('assets/coffee_/ice_cubes.png', fit: BoxFit.contain),
-        ),
-        // bottom Flat-buttons
-        Positioned(
-          bottom: 0,
-          left: 10,
-          right: 10,
-          height: widget.size.height * .15,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              textButton('Hot/Warm', () => setState(() => _isHot = true),
-                  _isHot ? 1 : 0),
-              textButton('Cold/Ice', () => setState(() => _isHot = false),
-                  _isHot ? 0 : 1),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget textButton(String text, Function _onPress, int i) {
-    return TextButton(
-      onPressed: () => _onPress(),
-      style: TextButton.styleFrom(
-          primary: i == 1 ? Colors.black : Colors.grey,
-          backgroundColor:
-              i == 1 ? Colors.white.withOpacity(0.5) : Colors.transparent,
-          textStyle: const TextStyle(fontSize: 20),
-          elevation: i == 1 ? 20 : 0,
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20)),
-      child: Text(text),
-    );
-  }
-}
-
-class CoffeeChlngDetails1 extends StatelessWidget {
-  const CoffeeChlngDetails1(
-      {Key? key,
-      required this.size,
-      required this.animation,
-      required this.price})
-      : super(key: key);
-  final Size size;
-  final double price;
-  final Animation<double> animation;
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: animation,
-      builder: (context, _) {
-        final _val = 1 - animation.value;
-        return Stack(
-          children: [
-            // price
-            Positioned(
-              left: 50,
-              top: size.height * .5,
-              child: Transform.translate(
-                offset: Offset(-100 * _val, 100 * _val),
-                child: Text(
-                  '${price.toStringAsFixed(2)}€',
-                  style: const TextStyle(
-                    fontSize: 50,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w900,
-                    shadows: [
-                      BoxShadow(
-                          color: Colors.black45,
-                          blurRadius: 20,
-                          spreadRadius: 30)
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            // top add_icon
-            Positioned(
-              right: 50,
-              top: 100,
-              height: 60,
-              child: Transform.translate(
-                offset: Offset(100 * _val, 0),
-                child: Container(
-                  padding: const EdgeInsets.all(7),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black45,
-                          blurRadius: 10,
-                          spreadRadius: 2)
-                    ],
-                  ),
-                  child: const Icon(Icons.add, color: Colors.black),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
     );
   }
 }

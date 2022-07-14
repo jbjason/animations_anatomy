@@ -35,8 +35,7 @@ class FbChlngDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final double percent = (shrinkOffset / maxExtend).clamp(0, 1.0);
-    print(percent);
+    // final double percent = (shrinkOffset / maxExtend).clamp(0, 1.0);
     return Container(
       color: Colors.grey[900],
     );

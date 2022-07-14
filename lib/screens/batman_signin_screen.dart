@@ -25,6 +25,8 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const Scaffold(
+      backgroundColor: Color(0XFF100F0B),
+    );
   }
 }

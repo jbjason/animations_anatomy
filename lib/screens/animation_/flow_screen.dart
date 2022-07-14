@@ -93,13 +93,15 @@ class _FloatingDelegate extends FlowDelegate {
     final lastItem = context.childCount - 1;
     final length = context.childCount;
     for (int i = 0; i < length; i++) {
-      final setValue = (val) => i == lastItem ? 0.0 : val * controller.value;
       final theta = i * math.pi * 0.5 / (length - 2);
-      final x = 30.0 + setValue(180 * math.cos(theta));
-      final y = 60.0 + setValue(180 * math.sin(theta));
+      final x = 30.0 + _setValue(180 * math.cos(theta), i, lastItem);
+      final y = 60.0 + _setValue(180 * math.sin(theta), i, lastItem);
       context.paintChild(i, transform: Matrix4.identity()..translate(x, y, 0));
     }
   }
+
+  double _setValue(dynamic val, int i, int lastItem) =>
+      i == lastItem ? 0.0 : val * controller.value;
 
   @override
   bool shouldRepaint(covariant FlowDelegate oldDelegate) => false;

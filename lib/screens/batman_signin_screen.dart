@@ -115,6 +115,7 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
               top: size.height / 2,
               left: 0,
               right: 0,
+              bottom: 0,
               child: SignUpWidgets(animation: _moveUpColumnAnim2),
             ),
             // Batman Logo
@@ -178,22 +179,60 @@ class SignUpWidgets extends StatelessWidget {
           opacity: animation.value,
           child: Transform.translate(
             offset: Offset(0, 150 * (1 - animation.value)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Text(
-                  'GET ACCESS',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 35,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ),
-                YellowButton(onpress: () {}, text: 'SIGNUP'),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Text(
+                    'GET ACCESS',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 35,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 20),
+                  const SignUpInputButton(text: 'FULL NAME'),
+                  const SignUpInputButton(text: 'EMAIL'),
+                  const SignUpInputButton(text: 'PASSWORD', password: true),
+                  YellowButton(onpress: () {}, text: 'SIGNUP'),
+                ],
+              ),
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class SignUpInputButton extends StatelessWidget {
+  const SignUpInputButton({Key? key, required this.text, this.password = false})
+      : super(key: key);
+  final String text;
+  final bool password;
+  @override
+  Widget build(BuildContext context) {
+    final _border = OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.grey[800]!, width: 1.0));
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: TextField(
+        decoration: InputDecoration(
+            labelText: text,
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            labelStyle: TextStyle(color: Colors.grey[600]),
+            enabledBorder: _border,
+            border: _border,
+            suffixIcon: password
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: UnconstrainedBox(
+                      child: Image.asset('assets/batman_/batman_logo.png',
+                          height: 10),
+                    ),
+                  )
+                : null),
       ),
     );
   }

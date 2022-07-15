@@ -11,7 +11,7 @@ const _duration1 = Duration(seconds: 4);
 const _duration2 = Duration(seconds: 6);
 
 class _BatmanSignInScreenState extends State<BatmanSignInScreen>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late AnimationController _controller1;
   late Animation<double> _batLogoAnim, _batLogoMoveAnim;
   late Animation<double> _buttonsMoveInAnim, _textOpacityAnim;
@@ -69,11 +69,11 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return AnimatedBuilder(
-      animation: Listenable.merge([_controller1, _controller2]),
-      builder: (context, _) => Scaffold(
-        backgroundColor: const Color(0XFF100F0B),
-        body: Stack(
+    return Scaffold(
+      backgroundColor: const Color(0XFF100F0B),
+      body: AnimatedBuilder(
+        animation: Listenable.merge([_controller1, _controller2]),
+        builder: (context, _) => Stack(
           children: [
             // Batman Background
             Positioned(
@@ -129,8 +129,9 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 38),
                         child: YellowButtonAnimation(
-                            onPressed: _onPressed,
-                            animation: _buttonsMoveInAnim),
+                          onPressed: _onPressed,
+                          animation: _buttonsMoveInAnim,
+                        ),
                       ),
                     ],
                   ),

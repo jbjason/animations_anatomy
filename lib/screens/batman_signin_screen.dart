@@ -115,7 +115,7 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
               top: size.height / 2,
               left: 0,
               right: 0,
-              child: Container(),
+              child: SignUpWidgets(animation: _moveUpColumnAnim2),
             ),
             // Batman Logo
             Positioned(
@@ -174,20 +174,24 @@ class SignUpWidgets extends StatelessWidget {
       animation: animation,
       builder: (context, _) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Transform.translate(
-          offset: Offset(0, 150 * (1 - animation.value)),
-          child: Column(
-            children: [
-              const Text(
-                'GET ACCESS',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 35,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
-              YellowButton(onpress: () {}, text: 'SIGNUP'),
-            ],
+        child: Opacity(
+          opacity: animation.value,
+          child: Transform.translate(
+            offset: Offset(0, 150 * (1 - animation.value)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Text(
+                  'GET ACCESS',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 35,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+                YellowButton(onpress: () {}, text: 'SIGNUP'),
+              ],
+            ),
           ),
         ),
       ),

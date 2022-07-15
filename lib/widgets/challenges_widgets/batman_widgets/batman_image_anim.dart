@@ -5,13 +5,10 @@ class BatmanImageAnim extends StatelessWidget {
   final Animation<double> animation;
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: animation,
-      builder: (context, _) => Transform.scale(
-        scale: animation.value,
-        child: Image.asset('assets/batman_/batman_alone.png',
-            fit: BoxFit.fitHeight),
-      ),
+    return Transform.scale(
+      scale: animation.value,
+      child:
+          Image.asset('assets/batman_/batman_alone.png', fit: BoxFit.fitHeight),
     );
   }
 }

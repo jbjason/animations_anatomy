@@ -90,18 +90,36 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
             Positioned(
               left: -10,
               right: -10,
-              top: 0,
+              top: -size.height * .1,
               height: size.height * .6,
               child: Transform.translate(
                 offset: Offset(0, 100 * (1 - _batmanMoveUpAnim2.value)),
                 child: Transform.translate(
-                    offset: Offset(0, 100.0 * _moveAllAnim2.value),
+                    offset: Offset(0, 100 * _moveAllAnim2.value),
                     child: BatmanImageAnimation(animation: _batmanImageAnim)),
               ),
             ),
+            // Triangle City-Image
+            Positioned(
+              top: size.height / 3.7,
+              left: 30,
+              right: 30,
+              child: ClipPath(
+                clipper: _BatmanClipper(progress: _triangleImageAnim2.value),
+                child:
+                    Image.asset('assets/batman_/city.png', fit: BoxFit.contain),
+              ),
+            ),
+            // SignUp Widgets
+            Positioned(
+              top: size.height / 2,
+              left: 0,
+              right: 0,
+              child: Container(),
+            ),
             // Batman Logo
             Positioned(
-              top: size.height / 2.8,
+              top: size.height / 3,
               left: size.width / 2 - 100,
               height: 80,
               width: 200,
@@ -145,6 +163,54 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
   }
 
   void _onPressed() => _controller2.forward(from: 0.0);
+}
+
+class SignUpWidgets extends StatelessWidget {
+  const SignUpWidgets({Key? key, required this.animation}) : super(key: key);
+  final Animation<double> animation;
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, _) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Transform.translate(
+          offset: Offset(0, 150 * (1 - animation.value)),
+          child: Column(
+            children: [
+              const Text(
+                'GET ACCESS',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 35,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+              YellowButton(onpress: () {}, text: 'SIGNUP'),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _BatmanClipper extends CustomClipper<Path> {
+  const _BatmanClipper({required this.progress});
+  final double progress;
+
+  @override
+  getClip(Size size) {
+    final path = Path();
+    path.moveTo(0, size.height);
+    path.lineTo(size.width, size.height);
+    path.lineTo(size.width / 2, size.height * (1 - progress));
+    path.lineTo(0, size.height);
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper oldClipper) => true;
 }
 
 class BatmanLogoAnimation extends StatelessWidget {
@@ -202,8 +268,13 @@ class BatmanWelcomeText extends StatelessWidget {
             children: const [
               Text('WELCOME TO',
                   style: TextStyle(fontSize: 22, color: Colors.white)),
-              Text('GOTHAM CITY',
-                  style: TextStyle(fontSize: 35, color: Colors.white)),
+              Text(
+                'GOTHAM CITY',
+                style: TextStyle(
+                    fontSize: 35,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
               Text('YOU NEED ACCESS TO ENTER CITY',
                   style: TextStyle(fontSize: 11, color: Colors.grey)),
             ],

@@ -11,13 +11,16 @@ const _duration1 = Duration(seconds: 4);
 const _duration2 = Duration(seconds: 6);
 
 class _BatmanSignInScreenState extends State<BatmanSignInScreen>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller1;
-  late Animation<double> _batLogoAnimation, _batLogoMoveAnimation;
-  late Animation<double> _buttonsMoveAnimation, _textOpacityAnimation;
-  late Animation<double> _batmanImageAnimation;
+  late Animation<double> _batLogoAnim, _batLogoMoveAnim;
+  late Animation<double> _buttonsMoveInAnim, _textOpacityAnim;
+  late Animation<double> _batmanImageAnim;
 
   late AnimationController _controller2;
+  late Animation<double> _moveAllAnim2;
+  late Animation<double> _batmanMoveUpAnim2, _triangleImageAnim2;
+  late Animation<double> _moveUpColumnAnim2;
 
   @override
   void initState() {
@@ -28,24 +31,30 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
 
   void _setSecondController() {
     _controller2 = AnimationController(vsync: this, duration: _duration2);
-    // batLogoAnimation = Tween(begin: 30.0, end: 1.0).animate(CurvedAnimation(
-    //     parent: _controller1, curve: const Interval(0.0, 0.35)));
-    // _batLogoMoveAnimation =
-    //     CurvedAnimation(parent: _controller1, curve: const Interval(.45, .55));
+    _moveAllAnim2 =
+        CurvedAnimation(parent: _controller2, curve: const Interval(.0, .25));
+    _batmanMoveUpAnim2 =
+        CurvedAnimation(parent: _controller2, curve: const Interval(.35, .55));
+    _triangleImageAnim2 =
+        CurvedAnimation(parent: _controller2, curve: const Interval(.65, .8));
+    _moveUpColumnAnim2 = CurvedAnimation(
+        parent: _controller2,
+        curve: const Interval(.85, 1.0, curve: Curves.easeIn));
   }
 
   void _setFirstController() {
     _controller1 = AnimationController(vsync: this, duration: _duration1);
-    _batLogoAnimation = Tween(begin: 30.0, end: 1.0).animate(CurvedAnimation(
+    _batLogoAnim = Tween(begin: 30.0, end: 1.0).animate(CurvedAnimation(
         parent: _controller1, curve: const Interval(0.0, 0.35)));
-    _batLogoMoveAnimation =
+    _batLogoMoveAnim =
         CurvedAnimation(parent: _controller1, curve: const Interval(.45, .55));
-    _textOpacityAnimation =
+    _textOpacityAnim =
         CurvedAnimation(parent: _controller1, curve: const Interval(.5, .6));
-    _batmanImageAnimation = Tween(begin: 5.0, end: 1.0).animate(
+    _batmanImageAnim = Tween(begin: 5.0, end: 1.0).animate(
         CurvedAnimation(parent: _controller1, curve: const Interval(.65, 1)));
-    _buttonsMoveAnimation =
-        CurvedAnimation(parent: _controller1, curve: const Interval(.65, 1));
+    _buttonsMoveInAnim = CurvedAnimation(
+        parent: _controller1,
+        curve: const Interval(.65, 1, curve: Curves.decelerate));
 
     _controller1.forward(from: 0.0);
   }
@@ -60,67 +69,81 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
+    return AnimatedBuilder(
+      animation: Listenable.merge([_controller1, _controller2]),
+      builder: (context, _) => Scaffold(
         backgroundColor: const Color(0XFF100F0B),
-        body: AnimatedBuilder(
-          animation: Listenable.merge([_controller1, _controller2]),
-          builder: (context, _) => Stack(
-            children: [
-              // Batman Background
-              Positioned(
-                left: 0,
-                right: 0,
-                top: 0,
-                height: size.height * .45,
-                child: Image.asset(
-                  'assets/batman_/batman_background.png',
-                  fit: BoxFit.cover,
-                ),
+        body: Stack(
+          children: [
+            // Batman Background
+            Positioned(
+              left: 0,
+              right: 0,
+              top: 0,
+              height: size.height * .45,
+              child: Image.asset(
+                'assets/batman_/batman_background.png',
+                fit: BoxFit.cover,
               ),
-              // Batman Image
-              Positioned(
-                  left: -10,
-                  right: -10,
-                  top: 0,
-                  height: size.height * .6,
-                  child:
-                      BatmanImageAnimation(animation: _batmanImageAnimation)),
-              // Batman Logo
-              Positioned(
-                top: size.height / 2.8,
-                left: size.width / 2 - 100,
-                height: 80,
-                width: 200,
+            ),
+            // Batman Image
+            Positioned(
+              left: -10,
+              right: -10,
+              top: 0,
+              height: size.height * .6,
+              child: Transform.translate(
+                offset: Offset(0, 100 * (1 - _batmanMoveUpAnim2.value)),
+                child: Transform.translate(
+                    offset: Offset(0, 100.0 * _moveAllAnim2.value),
+                    child: BatmanImageAnimation(animation: _batmanImageAnim)),
+              ),
+            ),
+            // Batman Logo
+            Positioned(
+              top: size.height / 2.8,
+              left: size.width / 2 - 100,
+              height: 80,
+              width: 200,
+              child: Opacity(
+                opacity: (1 - _moveAllAnim2.value),
                 child: BatmanLogoAnimation(
-                    animation1: _batLogoAnimation,
-                    animation2: _batLogoMoveAnimation),
+                    animation1: _batLogoAnim, animation2: _batLogoMoveAnim),
               ),
-              // Welcome Text & Buttons
-              Positioned(
-                left: 0,
-                right: 0,
-                top: size.height / 2,
-                child: Column(
-                  children: [
-                    // Welcome Text
-                    BatmanWelcomeText(animation: _textOpacityAnimation),
-                    const SizedBox(height: 20),
-                    // Buttons
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 38),
-                      child: YellowButtonAnimation(
-                          animation: _buttonsMoveAnimation),
-                    ),
-                  ],
+            ),
+            // Welcome Text & Buttons
+            Positioned(
+              left: 0,
+              right: 0,
+              top: size.height / 2,
+              child: Opacity(
+                opacity: (1 - _moveAllAnim2.value),
+                child: Transform.translate(
+                  offset: Offset(0, 150 * _moveAllAnim2.value),
+                  child: Column(
+                    children: [
+                      // Welcome Text
+                      BatmanWelcomeText(animation: _textOpacityAnim),
+                      const SizedBox(height: 20),
+                      // Buttons
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 38),
+                        child: YellowButtonAnimation(
+                            onPressed: _onPressed,
+                            animation: _buttonsMoveInAnim),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
+
+  void _onPressed() => _controller2.forward(from: 0.0);
 }
 
 class BatmanLogoAnimation extends StatelessWidget {
@@ -191,8 +214,10 @@ class BatmanWelcomeText extends StatelessWidget {
 }
 
 class YellowButtonAnimation extends StatelessWidget {
-  const YellowButtonAnimation({Key? key, required this.animation})
+  const YellowButtonAnimation(
+      {Key? key, required this.animation, required this.onPressed})
       : super(key: key);
+  final VoidCallback onPressed;
   final Animation<double> animation;
   @override
   Widget build(BuildContext context) {
@@ -208,7 +233,7 @@ class YellowButtonAnimation extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 YellowButton(onpress: () {}, text: 'LOGIN'),
-                YellowButton(onpress: () {}, text: 'SIGNUP'),
+                YellowButton(onpress: onPressed, text: 'SIGNUP'),
               ],
             ),
           ),

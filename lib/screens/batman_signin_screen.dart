@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 
@@ -24,6 +23,9 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
   @override
   void initState() {
     super.initState();
+  }
+
+  void _setFirstController() {
     _controller1 = AnimationController(vsync: this, duration: _duration1);
     _batLogoAnimation = Tween(begin: 30.0, end: 1.0).animate(CurvedAnimation(
         parent: _controller1, curve: const Interval(0.0, 0.35)));
@@ -36,11 +38,13 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
     _buttonsMoveAnimation =
         CurvedAnimation(parent: _controller1, curve: const Interval(.65, 1));
 
+    _controller1 = AnimationController(vsync: this, duration: _duration2);
     _controller1.forward(from: 0.0);
   }
 
   @override
   void dispose() {
+    _controller2.dispose();
     _controller1.dispose();
     super.dispose();
   }

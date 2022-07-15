@@ -47,6 +47,48 @@ class AppDrawer extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.payment),
+              title: const Text('Batman SignIn'),
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (_) => const BatmanSignInScreen())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('3d Cards Animation'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const Cards3dScreen())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Drag Bottom Cart'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const DragBottomCart())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Stacked Card'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const StackedCardScreen())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Stacked Card'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const StackedCardScreen())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Coffee Challenge'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const CoffeeChlngHome())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
               title: const Text('Starbuck Challenge'),
               onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (_) => const StarbuckChallenge())),
@@ -101,48 +143,7 @@ class AppDrawer extends StatelessWidget {
                   MaterialPageRoute(builder: (_) => const LoadingScreen1())),
             ),
             const Divider(),
-            ListTile(
-              leading: const Icon(Icons.payment),
-              title: const Text('3d Cards Animation'),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const Cards3dScreen())),
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.payment),
-              title: const Text('Drag Bottom Cart'),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const DragBottomCart())),
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.payment),
-              title: const Text('Stacked Card'),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const StackedCardScreen())),
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.payment),
-              title: const Text('Stacked Card'),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const StackedCardScreen())),
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.payment),
-              title: const Text('Coffee Challenge'),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const CoffeeChlngHome())),
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.payment),
-              title: const Text('Batman SignIn'),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (_) => const BatmanSignInScreen())),
-            ),
-            const Divider(),
+
             /*
              Others Animation
             */

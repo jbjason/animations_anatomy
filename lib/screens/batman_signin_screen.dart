@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 
@@ -12,7 +11,7 @@ const _duration1 = Duration(seconds: 4);
 const _duration2 = Duration(seconds: 6);
 
 class _BatmanSignInScreenState extends State<BatmanSignInScreen>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late AnimationController _controller1;
   late Animation<double> _batLogoAnimation, _batLogoMoveAnimation;
   late Animation<double> _buttonsMoveAnimation, _textOpacityAnimation;
@@ -22,7 +21,17 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
 
   @override
   void initState() {
+    _setFirstController();
+    _setSecondController();
     super.initState();
+  }
+
+  void _setSecondController() {
+    _controller2 = AnimationController(vsync: this, duration: _duration2);
+    // batLogoAnimation = Tween(begin: 30.0, end: 1.0).animate(CurvedAnimation(
+    //     parent: _controller1, curve: const Interval(0.0, 0.35)));
+    // _batLogoMoveAnimation =
+    //     CurvedAnimation(parent: _controller1, curve: const Interval(.45, .55));
   }
 
   void _setFirstController() {
@@ -38,7 +47,6 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
     _buttonsMoveAnimation =
         CurvedAnimation(parent: _controller1, curve: const Interval(.65, 1));
 
-    _controller1 = AnimationController(vsync: this, duration: _duration2);
     _controller1.forward(from: 0.0);
   }
 
@@ -55,56 +63,60 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0XFF100F0B),
-        body: Stack(
-          children: [
-            // Batman Background
-            Positioned(
-              left: 0,
-              right: 0,
-              top: 0,
-              height: size.height * .45,
-              child: Image.asset(
-                'assets/batman_/batman_background.png',
-                fit: BoxFit.cover,
-              ),
-            ),
-            // Batman Image
-            Positioned(
-                left: -10,
-                right: -10,
+        body: AnimatedBuilder(
+          animation: Listenable.merge([_controller1, _controller2]),
+          builder: (context, _) => Stack(
+            children: [
+              // Batman Background
+              Positioned(
+                left: 0,
+                right: 0,
                 top: 0,
-                height: size.height * .6,
-                child: BatmanImageAnimation(animation: _batmanImageAnimation)),
-            // Batman Logo
-            Positioned(
-              top: size.height / 2.8,
-              left: size.width / 2 - 100,
-              height: 80,
-              width: 200,
-              child: BatmanLogoAnimation(
-                  animation1: _batLogoAnimation,
-                  animation2: _batLogoMoveAnimation),
-            ),
-            // Welcome Text & Buttons
-            Positioned(
-              left: 0,
-              right: 0,
-              top: size.height / 2,
-              child: Column(
-                children: [
-                  // Welcome Text
-                  BatmanWelcomeText(animation: _textOpacityAnimation),
-                  const SizedBox(height: 20),
-                  // Buttons
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 38),
-                    child:
-                        YellowButtonAnimation(animation: _buttonsMoveAnimation),
-                  ),
-                ],
+                height: size.height * .45,
+                child: Image.asset(
+                  'assets/batman_/batman_background.png',
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-          ],
+              // Batman Image
+              Positioned(
+                  left: -10,
+                  right: -10,
+                  top: 0,
+                  height: size.height * .6,
+                  child:
+                      BatmanImageAnimation(animation: _batmanImageAnimation)),
+              // Batman Logo
+              Positioned(
+                top: size.height / 2.8,
+                left: size.width / 2 - 100,
+                height: 80,
+                width: 200,
+                child: BatmanLogoAnimation(
+                    animation1: _batLogoAnimation,
+                    animation2: _batLogoMoveAnimation),
+              ),
+              // Welcome Text & Buttons
+              Positioned(
+                left: 0,
+                right: 0,
+                top: size.height / 2,
+                child: Column(
+                  children: [
+                    // Welcome Text
+                    BatmanWelcomeText(animation: _textOpacityAnimation),
+                    const SizedBox(height: 20),
+                    // Buttons
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 38),
+                      child: YellowButtonAnimation(
+                          animation: _buttonsMoveAnimation),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -121,7 +133,7 @@ class BatmanLogoAnimation extends StatelessWidget {
     return AnimatedBuilder(
       animation: Listenable.merge([animation1, animation2]),
       builder: (context, _) => Transform.translate(
-        offset: Offset(0, lerpDouble(100, 0, animation2.value)!),
+        offset: Offset(0, 100 * (1 - animation2.value)),
         child: Transform.scale(
           scale: animation1.value,
           child: Image.asset('assets/batman_/batman_logo.png',
@@ -191,7 +203,7 @@ class YellowButtonAnimation extends StatelessWidget {
         return Opacity(
           opacity: _val,
           child: Transform.translate(
-            offset: Offset(0, lerpDouble(150, 0, _val)!),
+            offset: Offset(0, 150 * (1 - _val)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [

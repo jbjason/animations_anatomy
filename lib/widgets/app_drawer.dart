@@ -1,7 +1,7 @@
 import 'package:animations_anatomy/screens/animation_/fb_story_screen.dart';
 import 'package:animations_anatomy/screens/animation_/flow_screen.dart';
 import 'package:animations_anatomy/screens/animation_/sliver1_screen.dart';
-import 'package:animations_anatomy/screens/batman_signin_screen.dart';
+import 'package:animations_anatomy/screens/challenges_/batman_signin_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/drag_bottom/drag_bottom_cart.dart';
 import 'package:animations_anatomy/screens/challenges_/sliver2_screen.dart';
 import 'package:animations_anatomy/screens/animation_/animated_list1.dart';
@@ -18,6 +18,7 @@ import 'package:animations_anatomy/screens/challenges_/nav_bar/nav_bar1.dart';
 import 'package:animations_anatomy/screens/challenges_/starbuck_/starbuck_challenge.dart';
 import 'package:animations_anatomy/screens/challenges_/loading_screen1.dart';
 import 'package:animations_anatomy/screens/challenges_/coffe_chlng/coffee_chlng_home.dart';
+import 'package:animations_anatomy/screens/pizza_chlng_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -50,6 +51,13 @@ class AppDrawer extends StatelessWidget {
               title: const Text('Batman SignIn'),
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (_) => const BatmanSignInScreen())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Pizza Challenge'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const PizzaChlngScreen())),
             ),
             const Divider(),
             ListTile(

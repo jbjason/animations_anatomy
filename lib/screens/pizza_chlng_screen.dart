@@ -42,7 +42,7 @@ class PizzaChlngScreen extends StatelessWidget {
               child: Column(
                 children: const [
                   Expanded(flex: 5, child: PizzaChlngDetails()),
-                  Expanded(flex: 2, child: PizzaIngradients()),
+                  Expanded(flex: 3, child: PizzaIngradients()),
                 ],
               ),
             ),
@@ -70,7 +70,7 @@ class PizzaChlngDetails extends StatefulWidget {
 class _PizzaChlngDetailsState extends State<PizzaChlngDetails> {
   int _total = 15;
   final List<Ingradient> _listIngredients = [];
-  bool _isFocus = false;
+  final _isFocus = ValueNotifier(false);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -79,43 +79,43 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails> {
           child: DragTarget<Ingradient>(
             onAccept: (ingradient) {
               print('OnAccept');
-              setState(() => _isFocus = false);
+              _onAccept(ingradient);
             },
             onWillAccept: (ingradient) {
               print('onWillAccept');
-              setState(() => _isFocus = true);
-              for (Ingradient i in _listIngredients) {
-                if (i.image == ingradient!.image) {
-                  return false;
-                }
-              }
-              _listIngredients.add(ingradient!);
-              _total++;
-              return true;
+              return _onWillAccept(ingradient!);
             },
             onLeave: (ingradient) {
-              setState(() => _isFocus = false);
+              _isFocus.value = false;
               print('OnLeave');
             },
             builder: (context, candidateData, rejectedData) {
-              return LayoutBuilder(builder: (context, constrain) {
-                return Center(
-                  child: AnimatedContainer(
-                    duration: _duration,
-                    width:
-                        _isFocus ? constrain.maxWidth : constrain.maxWidth - 10,
-                    child: Stack(
-                      children: [
-                        Image.asset('assets/pizza_/dish.png'),
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Image.asset('assets/pizza_/pizza-1.png'),
-                        ),
-                      ],
+              return LayoutBuilder(
+                builder: (context, constrain) {
+                  return Center(
+                    child: ValueListenableBuilder<bool>(
+                      valueListenable: _isFocus,
+                      builder: (context, focused, _) {
+                        return AnimatedContainer(
+                          duration: _duration,
+                          width: focused
+                              ? constrain.maxWidth
+                              : constrain.maxWidth - 10,
+                          child: Stack(
+                            children: [
+                              Image.asset('assets/pizza_/dish.png'),
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Image.asset('assets/pizza_/pizza-1.png'),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                  ),
-                );
-              });
+                  );
+                },
+              );
             },
           ),
         ),
@@ -137,6 +137,23 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails> {
         ),
       ],
     );
+  }
+
+  void _onAccept(Ingradient ingradient) {
+    _isFocus.value = false;
+  }
+
+  bool _onWillAccept(Ingradient ingradient) {
+    _isFocus.value = true;
+    for (Ingradient i in _listIngredients) {
+      if (i.image == ingradient.image) {
+        return false;
+      }
+    }
+    _listIngredients.add(ingradient);
+    _total++;
+    setState(() {});
+    return true;
   }
 }
 
@@ -192,7 +209,13 @@ class _PizzaCartButtonState extends State<PizzaCartButton>
 
   @override
   void initState() {
-    _controller = AnimationController(vsync: this, duration: _duration);
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 150),
+      reverseDuration: const Duration(milliseconds: 200),
+      lowerBound: 1.0,
+      upperBound: 1.5,
+    );
     super.initState();
   }
 
@@ -207,14 +230,13 @@ class _PizzaCartButtonState extends State<PizzaCartButton>
     return GestureDetector(
       onTap: () async {
         widget.onPress();
-        await _controller.forward(from: 0.0);
-        await _controller.reverse(from: 0.6);
+        await _controller.forward();
+        await _controller.reverse();
       },
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
-          return Transform.scale(
-              scale: (1 - _controller.value).clamp(0.6, 1.0), child: child!);
+          return Transform.scale(scale: 2 - _controller.value, child: child!);
         },
         child: Container(
           decoration: BoxDecoration(

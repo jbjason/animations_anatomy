@@ -121,6 +121,7 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
           // last added _list item would have animation only not others
           if (i == _listIngredients.length - 1) {
             double fromX = 0, fromY = 0;
+            // first animated item & second & so on..
             if (j == 0) {
               fromX = -_pizzaConstraints.maxWidth * (1 - animation.value);
             } else if (j == 1) {
@@ -130,7 +131,6 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
             } else {
               fromY = _pizzaConstraints.maxHeight * (1 - animation.value);
             }
-            //if (animation.value > 0) {
             elements.add(
               Transform(
                 transform: Matrix4.identity()
@@ -141,8 +141,8 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
                 child: image,
               ),
             );
-            //}
           } else {
+            // if _list item isn't the last added item then with no animation
             elements.add(
               Transform(
                 transform: Matrix4.identity()

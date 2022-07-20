@@ -78,8 +78,7 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
 
   @override
   void initState() {
-    _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 1000));
+    _controller = AnimationController(vsync: this, duration: _duration);
 
     super.initState();
   }
@@ -94,7 +93,7 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
     _animationList.clear();
     _animationList.add(CurvedAnimation(
         parent: _controller,
-        curve: const Interval(.0, .8, curve: Curves.decelerate)));
+        curve: const Interval(0.0, .8, curve: Curves.decelerate)));
     _animationList.add(CurvedAnimation(
         parent: _controller,
         curve: const Interval(.2, .8, curve: Curves.decelerate)));
@@ -119,8 +118,8 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
           final Animation animation = _animationList[j];
           double positionX = ingradient.positions[j].dx;
           double positionY = ingradient.positions[j].dy;
-          // if animation is complete for this _listIngradienitem then (j == _listIngredients.length - 1)== would be false
-          if (j == _listIngredients.length - 1) {
+          // last added _list item would have animation only not others
+          if (i == _listIngredients.length - 1) {
             double fromX = 0, fromY = 0;
             if (j == 0) {
               fromX = -_pizzaConstraints.maxWidth * (1 - animation.value);
@@ -131,18 +130,18 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
             } else {
               fromY = _pizzaConstraints.maxHeight * (1 - animation.value);
             }
-            if (animation.value > 0) {
-              elements.add(
-                Transform(
-                  transform: Matrix4.identity()
-                    ..translate(
-                      fromX + _pizzaConstraints.maxWidth * positionX,
-                      fromY + _pizzaConstraints.maxHeight * positionY,
-                    ),
-                  child: image,
-                ),
-              );
-            }
+            //if (animation.value > 0) {
+            elements.add(
+              Transform(
+                transform: Matrix4.identity()
+                  ..translate(
+                    fromX + _pizzaConstraints.maxWidth * positionX,
+                    fromY + _pizzaConstraints.maxHeight * positionY,
+                  ),
+                child: image,
+              ),
+            );
+            //}
           } else {
             elements.add(
               Transform(

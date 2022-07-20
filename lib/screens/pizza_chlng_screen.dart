@@ -113,7 +113,7 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
       List<Widget> elements = [];
       for (int i = 0; i < _listIngredients.length; i++) {
         Ingradient ingradient = _listIngredients[i];
-        final image = Image.asset(ingradient.image, height: 25);
+        final image = Image.asset(ingradient.imageUnit, height: 25);
         for (int j = 0; j < ingradient.positions.length; j++) {
           final Animation animation = _animationList[j];
           double positionX = ingradient.positions[j].dx;

@@ -182,30 +182,30 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
+    return Column(
       children: [
-        Column(
-          children: [
-            Expanded(
-              child: DragTarget<Ingradient>(
-                onAccept: (ingradient) {
-                  print('OnAccept');
-                  _onAccept(ingradient);
-                },
-                onWillAccept: (ingradient) {
-                  print('onWillAccept');
-                  return _onWillAccept(ingradient!);
-                },
-                onLeave: (ingradient) {
-                  _isFocus.value = false;
-                  print('OnLeave');
-                },
-                builder: (context, candidateData, rejectedData) {
-                  return LayoutBuilder(
-                    builder: (context, constrain) {
-                      _pizzaConstraints = constrain;
-                      return Center(
+        Expanded(
+          child: DragTarget<Ingradient>(
+            onAccept: (ingradient) {
+              print('OnAccept');
+              _onAccept(ingradient);
+            },
+            onWillAccept: (ingradient) {
+              print('onWillAccept');
+              return _onWillAccept(ingradient!);
+            },
+            onLeave: (ingradient) {
+              _isFocus.value = false;
+              print('OnLeave');
+            },
+            builder: (context, candidateData, rejectedData) {
+              return LayoutBuilder(
+                builder: (context, constrain) {
+                  _pizzaConstraints = constrain;
+                  return Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Center(
                         child: ValueListenableBuilder<bool>(
                           valueListenable: _isFocus,
                           builder: (context, focused, _) {
@@ -227,34 +227,33 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
                             );
                           },
                         ),
-                      );
-                    },
+                      ),
+                      AnimatedBuilder(
+                        animation: _controller,
+                        builder: (context, _) => _buildIngradientsWidget(),
+                      )
+                    ],
                   );
                 },
-              ),
-            ),
-            const SizedBox(height: 5),
-            AnimatedSwitcher(
-              duration: _duration,
-              transitionBuilder: (child, animation) {
-                return SlideTransition(
-                  position: animation.drive(Tween<Offset>(
-                      begin: const Offset(0, 0),
-                      end: Offset(0, animation.value))),
-                  child: child,
-                );
-              },
-              child: Text(
-                '\$$_total',
-                key: UniqueKey(),
-                style: const TextStyle(fontSize: 30, color: Colors.brown),
-              ),
-            ),
-          ],
+              );
+            },
+          ),
         ),
-        AnimatedBuilder(
-          animation: _controller,
-          builder: (context, _) => _buildIngradientsWidget(),
+        const SizedBox(height: 5),
+        AnimatedSwitcher(
+          duration: _duration,
+          transitionBuilder: (child, animation) {
+            return SlideTransition(
+              position: animation.drive(Tween<Offset>(
+                  begin: const Offset(0, 0), end: Offset(0, animation.value))),
+              child: child,
+            );
+          },
+          child: Text(
+            '\$$_total',
+            key: UniqueKey(),
+            style: const TextStyle(fontSize: 30, color: Colors.brown),
+          ),
         ),
       ],
     );

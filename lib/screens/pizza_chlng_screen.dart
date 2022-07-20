@@ -285,8 +285,8 @@ class PizzaIngradientItem extends StatelessWidget {
     final _child = Padding(
       padding: const EdgeInsets.symmetric(horizontal: 7),
       child: Container(
-        height: 45,
-        width: 45,
+        height: 50,
+        width: 50,
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
           color: Color(0xFFF5EED3),

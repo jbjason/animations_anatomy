@@ -141,6 +141,8 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails> {
 
   void _onAccept(Ingradient ingradient) {
     _isFocus.value = false;
+    _total++;
+    setState(() {});
   }
 
   bool _onWillAccept(Ingradient ingradient) {
@@ -151,8 +153,6 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails> {
       }
     }
     _listIngredients.add(ingradient);
-    _total++;
-    setState(() {});
     return true;
   }
 }
@@ -184,7 +184,16 @@ class PizzaIngradientItem extends StatelessWidget {
         height: 45,
         width: 45,
         decoration: const BoxDecoration(
-            shape: BoxShape.circle, color: Color(0xFFF5EED3)),
+          shape: BoxShape.circle,
+          color: Color(0xFFF5EED3),
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 10.0,
+                color: Colors.black26,
+                spreadRadius: 5.0,
+                offset: Offset(0, 5))
+          ],
+        ),
         child: Padding(
           padding: const EdgeInsets.all(5.0),
           child: Image.asset(ingradient.image, fit: BoxFit.contain),

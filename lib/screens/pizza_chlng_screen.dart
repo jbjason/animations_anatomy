@@ -79,7 +79,7 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
   @override
   void initState() {
     _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 500));
+        vsync: this, duration: const Duration(milliseconds: 1000));
 
     super.initState();
   }
@@ -184,6 +184,7 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
   @override
   Widget build(BuildContext context) {
     return Stack(
+      clipBehavior: Clip.none,
       children: [
         Column(
           children: [

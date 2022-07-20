@@ -33,15 +33,15 @@ class PizzaChlngScreen extends StatelessWidget {
         children: [
           Positioned.fill(
             bottom: 50,
-            left: 7,
-            right: 7,
+            left: 10,
+            right: 10,
             child: Card(
               elevation: 10,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               child: Column(
                 children: const [
-                  Expanded(flex: 5, child: PizzaChlngDetails()),
+                  Expanded(flex: 6, child: PizzaChlngDetails()),
                   Expanded(flex: 3, child: PizzaIngradients()),
                 ],
               ),
@@ -67,82 +67,107 @@ class PizzaChlngDetails extends StatefulWidget {
   State<PizzaChlngDetails> createState() => _PizzaChlngDetailsState();
 }
 
-class _PizzaChlngDetailsState extends State<PizzaChlngDetails> {
+class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
   int _total = 15;
   final List<Ingradient> _listIngredients = [];
   final _isFocus = ValueNotifier(false);
+  final List<Animation> _animationList = [];
+  late BoxConstraints _pizzaConstraints;
+
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: DragTarget<Ingradient>(
-            onAccept: (ingradient) {
-              print('OnAccept');
-              _onAccept(ingradient);
-            },
-            onWillAccept: (ingradient) {
-              print('onWillAccept');
-              return _onWillAccept(ingradient!);
-            },
-            onLeave: (ingradient) {
-              _isFocus.value = false;
-              print('OnLeave');
-            },
-            builder: (context, candidateData, rejectedData) {
-              return LayoutBuilder(
-                builder: (context, constrain) {
-                  return Center(
-                    child: ValueListenableBuilder<bool>(
-                      valueListenable: _isFocus,
-                      builder: (context, focused, _) {
-                        return AnimatedContainer(
-                          duration: _duration,
-                          width: focused
-                              ? constrain.maxWidth
-                              : constrain.maxWidth - 10,
-                          child: Stack(
-                            children: [
-                              Image.asset('assets/pizza_/dish.png'),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Image.asset('assets/pizza_/pizza-1.png'),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
+  void initState() {
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 500));
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _buildIngradientAnimation() {
+    _animationList.clear();
+    _animationList.add(CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(.0, .8, curve: Curves.decelerate)));
+    _animationList.add(CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(.2, .8, curve: Curves.decelerate)));
+    _animationList.add(CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(.4, 1, curve: Curves.decelerate)));
+    _animationList.add(CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(.1, .7, curve: Curves.decelerate)));
+    _animationList.add(CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(.3, 1, curve: Curves.decelerate)));
+  }
+
+  Widget _buildIngradientsWidget() {
+    if (_listIngredients.isNotEmpty) {
+      List<Widget> elements = [];
+      for (int i = 0; i < _listIngredients.length; i++) {
+        Ingradient ingradient = _listIngredients[i];
+        final image = Image.asset(ingradient.image, height: 25);
+        for (int j = 0; j < ingradient.positions.length; j++) {
+          final Animation animation = _animationList[j];
+          double positionX = ingradient.positions[j].dx;
+          double positionY = ingradient.positions[j].dy;
+          // if animation is complete for this _listIngradienitem then (j == _listIngredients.length - 1)== would be false
+          if (j == _listIngredients.length - 1) {
+            double fromX = 0, fromY = 0;
+            if (j == 0) {
+              fromX = -_pizzaConstraints.maxWidth * (1 - animation.value);
+            } else if (j == 1) {
+              fromX = _pizzaConstraints.maxWidth * (1 - animation.value);
+            } else if (j == 2) {
+              fromY = -_pizzaConstraints.maxHeight * (1 - animation.value);
+            } else {
+              fromY = _pizzaConstraints.maxHeight * (1 - animation.value);
+            }
+            if (animation.value > 0) {
+              elements.add(
+                Transform(
+                  transform: Matrix4.identity()
+                    ..translate(
+                      fromX + _pizzaConstraints.maxWidth * positionX,
+                      fromY + _pizzaConstraints.maxHeight * positionY,
                     ),
-                  );
-                },
+                  child: image,
+                ),
               );
-            },
-          ),
-        ),
-        const SizedBox(height: 5),
-        AnimatedSwitcher(
-          duration: _duration,
-          transitionBuilder: (child, animation) {
-            return SlideTransition(
-              position: animation.drive(Tween<Offset>(
-                  begin: const Offset(0, 0), end: Offset(0, animation.value))),
-              child: child,
+            }
+          } else {
+            elements.add(
+              Transform(
+                transform: Matrix4.identity()
+                  ..translate(
+                    _pizzaConstraints.maxWidth * positionX,
+                    _pizzaConstraints.maxHeight * positionY,
+                  ),
+                child: image,
+              ),
             );
-          },
-          child: Text(
-            '\$$_total',
-            key: UniqueKey(),
-            style: const TextStyle(fontSize: 30, color: Colors.brown),
-          ),
-        ),
-      ],
-    );
+          }
+        }
+      }
+      return Stack(children: elements);
+    }
+    return SizedBox.fromSize();
   }
 
   void _onAccept(Ingradient ingradient) {
     _isFocus.value = false;
     _total++;
     setState(() {});
+    _buildIngradientAnimation();
+    _controller.forward(from: 0.0);
   }
 
   bool _onWillAccept(Ingradient ingradient) {
@@ -154,6 +179,85 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails> {
     }
     _listIngredients.add(ingradient);
     return true;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Column(
+          children: [
+            Expanded(
+              child: DragTarget<Ingradient>(
+                onAccept: (ingradient) {
+                  print('OnAccept');
+                  _onAccept(ingradient);
+                },
+                onWillAccept: (ingradient) {
+                  print('onWillAccept');
+                  return _onWillAccept(ingradient!);
+                },
+                onLeave: (ingradient) {
+                  _isFocus.value = false;
+                  print('OnLeave');
+                },
+                builder: (context, candidateData, rejectedData) {
+                  return LayoutBuilder(
+                    builder: (context, constrain) {
+                      _pizzaConstraints = constrain;
+                      return Center(
+                        child: ValueListenableBuilder<bool>(
+                          valueListenable: _isFocus,
+                          builder: (context, focused, _) {
+                            return AnimatedContainer(
+                              duration: _duration,
+                              width: focused
+                                  ? constrain.maxWidth - 30
+                                  : constrain.maxWidth - 40,
+                              child: Stack(
+                                children: [
+                                  Image.asset('assets/pizza_/dish.png'),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Image.asset(
+                                        'assets/pizza_/pizza-1.png'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 5),
+            AnimatedSwitcher(
+              duration: _duration,
+              transitionBuilder: (child, animation) {
+                return SlideTransition(
+                  position: animation.drive(Tween<Offset>(
+                      begin: const Offset(0, 0),
+                      end: Offset(0, animation.value))),
+                  child: child,
+                );
+              },
+              child: Text(
+                '\$$_total',
+                key: UniqueKey(),
+                style: const TextStyle(fontSize: 30, color: Colors.brown),
+              ),
+            ),
+          ],
+        ),
+        AnimatedBuilder(
+          animation: _controller,
+          builder: (context, _) => _buildIngradientsWidget(),
+        ),
+      ],
+    );
   }
 }
 

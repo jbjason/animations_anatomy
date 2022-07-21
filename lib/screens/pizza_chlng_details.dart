@@ -193,15 +193,16 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
           duration: _duration,
           transitionBuilder: (child, animation) {
             return SlideTransition(
-              position: animation.drive(Tween<Offset>(
-                  begin: const Offset(0, 0), end: Offset(0, animation.value))),
-              child: Text(
-                '\$$_total',
-                key: UniqueKey(),
-                style: const TextStyle(fontSize: 30, color: Colors.brown),
-              ),
-            );
+                position: animation.drive(Tween<Offset>(
+                    begin: const Offset(0, 0),
+                    end: Offset(0, animation.value))),
+                child: child);
           },
+          child: Text(
+            '\$$_total',
+            key: UniqueKey(),
+            style: const TextStyle(fontSize: 30, color: Colors.brown),
+          ),
         ),
         const SizedBox(height: 10),
         ValueListenableBuilder(

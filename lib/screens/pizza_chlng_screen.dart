@@ -20,7 +20,7 @@ class PizzaChlngScreen extends StatelessWidget {
           style: TextStyle(color: Colors.brown, fontSize: 24),
         ),
         leading: IconButton(
-            onPressed: () {},
+            onPressed: () => Navigator.maybePop(context),
             icon: const Icon(Icons.arrow_back_ios_new, color: Colors.brown)),
         actions: [
           IconButton(

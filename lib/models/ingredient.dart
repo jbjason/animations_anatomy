@@ -13,8 +13,8 @@ const ingradients = [
       image: 'assets/pizza_/chili.png',
       imageUnit: 'assets/pizza_/chili_unit.png',
       positions: [
-        Offset(.2, .2),
-        Offset(.6, .2),
+        Offset(.3, .5),
+        Offset(.23, .2),
         Offset(.4, .25),
         Offset(.5, .3),
         Offset(.4, .65),
@@ -67,13 +67,13 @@ const ingradients = [
         Offset(.65, .3),
         Offset(.25, .25),
         Offset(.45, .35),
-        Offset(.4, .65),
+        Offset(.65, .6),
       ]),
   Ingradient(
       image: 'assets/pizza_/potato.png',
       imageUnit: 'assets/pizza_/potato_unit.png',
       positions: [
-        Offset(.2, .2),
+        Offset(.55, .5),
         Offset(.6, .2),
         Offset(.4, .25),
         Offset(.5, .3),

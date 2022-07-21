@@ -216,7 +216,21 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
                                   : constrain.maxWidth - 40,
                               child: Stack(
                                 children: [
-                                  Image.asset('assets/pizza_/dish.png'),
+                                  DecoratedBox(
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black26,
+                                          blurRadius: 15,
+                                          spreadRadius: 3,
+                                          offset: Offset(0, 5),
+                                        ),
+                                      ],
+                                    ),
+                                    child:
+                                        Image.asset('assets/pizza_/dish.png'),
+                                  ),
                                   Padding(
                                     padding: const EdgeInsets.all(10),
                                     child: Image.asset(

@@ -1,7 +1,5 @@
 import 'package:animations_anatomy/models/ingredient.dart';
-import 'package:animations_anatomy/provider/pizza_order_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 const _duration = Duration(milliseconds: 300);
 
@@ -17,9 +15,10 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
   final _isFocus = ValueNotifier(false);
   final List<Animation> _animationList = [];
   late BoxConstraints _pizzaConstraints;
+  final List<Ingredient> _listIngredients = [];
+  int _total = 15;
   final _notifierPizzaSize =
       ValueNotifier<PizzaSizeState>(PizzaSizeState(value: PizzaSizeValue.M));
-
   @override
   void initState() {
     _controller = AnimationController(vsync: this, duration: _duration);
@@ -53,8 +52,6 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
   }
 
   Widget _buildIngredientsWidget() {
-    final _listIngredients =
-        Provider.of<PizzaOrderBloc>(context).listIngredients;
     if (_listIngredients.isNotEmpty) {
       List<Widget> elements = [];
       for (int i = 0; i < _listIngredients.length; i++) {
@@ -109,14 +106,21 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
 
   void _onAccept(Ingredient ingredient) {
     _isFocus.value = false;
-    Provider.of<PizzaOrderBloc>(context).addIngredient(ingredient);
+    _listIngredients.add(ingredient);
+    _total++;
+    setState(() {});
     _buildIngredientAnimation();
     _controller.forward(from: 0.0);
   }
 
   bool _onWillAccept(Ingredient ingredient) {
     _isFocus.value = true;
-    return Provider.of<PizzaOrderBloc>(context).containsIngredient(ingredient);
+    for (Ingredient i in _listIngredients) {
+      if (i.image == ingredient.image) {
+        return false;
+      }
+    }
+    return true;
   }
 
   @override
@@ -188,7 +192,6 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
         AnimatedSwitcher(
           duration: _duration,
           transitionBuilder: (child, animation) {
-            final _total = Provider.of<PizzaOrderBloc>(context).total;
             return SlideTransition(
               position: animation.drive(Tween<Offset>(
                   begin: const Offset(0, 0), end: Offset(0, animation.value))),

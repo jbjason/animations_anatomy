@@ -1,5 +1,7 @@
 import 'package:animations_anatomy/models/ingredient.dart';
+import 'package:animations_anatomy/provider/pizza_order_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 const _duration = Duration(milliseconds: 300);
 
@@ -12,8 +14,6 @@ class PizzaChlngDetails extends StatefulWidget {
 class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  int _total = 15;
-  final List<Ingredient> _listIngredients = [];
   final _isFocus = ValueNotifier(false);
   final List<Animation> _animationList = [];
   late BoxConstraints _pizzaConstraints;
@@ -53,6 +53,8 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
   }
 
   Widget _buildIngredientsWidget() {
+    final _listIngredients =
+        Provider.of<PizzaOrderBloc>(context).listIngredients;
     if (_listIngredients.isNotEmpty) {
       List<Widget> elements = [];
       for (int i = 0; i < _listIngredients.length; i++) {
@@ -107,21 +109,14 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
 
   void _onAccept(Ingredient ingredient) {
     _isFocus.value = false;
-    _listIngredients.add(ingredient);
-    _total++;
-    setState(() {});
+    Provider.of<PizzaOrderBloc>(context).addIngredient(ingredient);
     _buildIngredientAnimation();
     _controller.forward(from: 0.0);
   }
 
   bool _onWillAccept(Ingredient ingredient) {
     _isFocus.value = true;
-    for (Ingredient i in _listIngredients) {
-      if (i.image == ingredient.image) {
-        return false;
-      }
-    }
-    return true;
+    return Provider.of<PizzaOrderBloc>(context).containsIngredient(ingredient);
   }
 
   @override
@@ -193,17 +188,17 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
         AnimatedSwitcher(
           duration: _duration,
           transitionBuilder: (child, animation) {
+            final _total = Provider.of<PizzaOrderBloc>(context).total;
             return SlideTransition(
               position: animation.drive(Tween<Offset>(
                   begin: const Offset(0, 0), end: Offset(0, animation.value))),
-              child: child,
+              child: Text(
+                '\$$_total',
+                key: UniqueKey(),
+                style: const TextStyle(fontSize: 30, color: Colors.brown),
+              ),
             );
           },
-          child: Text(
-            '\$$_total',
-            key: UniqueKey(),
-            style: const TextStyle(fontSize: 30, color: Colors.brown),
-          ),
         ),
         const SizedBox(height: 10),
         ValueListenableBuilder(

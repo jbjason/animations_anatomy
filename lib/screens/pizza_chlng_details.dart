@@ -121,7 +121,6 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
         return false;
       }
     }
-
     return true;
   }
 

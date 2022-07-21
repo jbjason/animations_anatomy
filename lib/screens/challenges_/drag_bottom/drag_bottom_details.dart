@@ -1,5 +1,5 @@
 import 'package:animations_anatomy/models/book.dart';
-import 'package:animations_anatomy/provider/drag_bottom.dart';
+import 'package:animations_anatomy/provider/drag_bottom_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -52,7 +52,7 @@ class _DragBottomDetailsState extends State<DragBottomDetails> {
             ElevatedButton(
               onPressed: () {
                 setState(() => _tag = widget.book.title);
-                Provider.of<DragBottom>(context, listen: false)
+                Provider.of<DragBottomBloc>(context, listen: false)
                     .addToCart(widget.book);
                 Navigator.pop(context);
               },

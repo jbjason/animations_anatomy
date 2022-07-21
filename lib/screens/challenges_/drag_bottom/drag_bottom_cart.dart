@@ -1,5 +1,5 @@
 import 'package:animations_anatomy/models/book.dart';
-import 'package:animations_anatomy/provider/drag_bottom.dart';
+import 'package:animations_anatomy/provider/drag_bottom_bloc.dart';
 import 'package:animations_anatomy/screens/challenges_/drag_bottom/drag_bottom_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -14,7 +14,7 @@ class DragBottomCart extends StatefulWidget {
 }
 
 class _DragBottomCartState extends State<DragBottomCart> {
-  final _bloc = DragBottom();
+  final _bloc = DragBottomBloc();
 
   double _getBodyContainerTop(Size size, DragState _state) {
     if (_state == DragState.normal) {
@@ -126,7 +126,7 @@ class _DragBottomCartState extends State<DragBottomCart> {
   }
 
   Widget _cartList(BuildContext context) {
-    final _books = Provider.of<DragBottom>(context).cartItems;
+    final _books = Provider.of<DragBottomBloc>(context).cartItems;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [

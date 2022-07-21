@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 enum DragState { normal, cart, details }
 
-class DragBottom with ChangeNotifier {
+class DragBottomBloc with ChangeNotifier {
   DragState _currentState = DragState.normal;
   final List<Book> _cartItems = [];
 

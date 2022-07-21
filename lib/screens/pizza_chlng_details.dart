@@ -13,7 +13,7 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   int _total = 15;
-  final List<Ingradient> _listIngredients = [];
+  final List<Ingredient> _listIngredients = [];
   final _isFocus = ValueNotifier(false);
   final List<Animation> _animationList = [];
   late BoxConstraints _pizzaConstraints;
@@ -33,7 +33,7 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
     super.dispose();
   }
 
-  void _buildIngradientAnimation() {
+  void _buildIngredientAnimation() {
     _animationList.clear();
     _animationList.add(CurvedAnimation(
         parent: _controller,
@@ -52,16 +52,16 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
         curve: const Interval(.3, 1, curve: Curves.decelerate)));
   }
 
-  Widget _buildIngradientsWidget() {
+  Widget _buildIngredientsWidget() {
     if (_listIngredients.isNotEmpty) {
       List<Widget> elements = [];
       for (int i = 0; i < _listIngredients.length; i++) {
-        Ingradient ingradient = _listIngredients[i];
-        final image = Image.asset(ingradient.imageUnit, height: 25);
-        for (int j = 0; j < ingradient.positions.length; j++) {
+        Ingredient ingredient = _listIngredients[i];
+        final image = Image.asset(ingredient.imageUnit, height: 25);
+        for (int j = 0; j < ingredient.positions.length; j++) {
           final Animation animation = _animationList[j];
-          double positionX = ingradient.positions[j].dx;
-          double positionY = ingradient.positions[j].dy;
+          double positionX = ingredient.positions[j].dx;
+          double positionY = ingredient.positions[j].dy;
           // last added _list item would have animation only not others
           if (i == _listIngredients.length - 1) {
             double fromX = 0, fromY = 0;
@@ -105,19 +105,19 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
     return SizedBox.fromSize();
   }
 
-  void _onAccept(Ingradient ingradient) {
+  void _onAccept(Ingredient ingredient) {
     _isFocus.value = false;
-    _listIngredients.add(ingradient);
+    _listIngredients.add(ingredient);
     _total++;
     setState(() {});
-    _buildIngradientAnimation();
+    _buildIngredientAnimation();
     _controller.forward(from: 0.0);
   }
 
-  bool _onWillAccept(Ingradient ingradient) {
+  bool _onWillAccept(Ingredient ingredient) {
     _isFocus.value = true;
-    for (Ingradient i in _listIngredients) {
-      if (i.image == ingradient.image) {
+    for (Ingredient i in _listIngredients) {
+      if (i.image == ingredient.image) {
         return false;
       }
     }
@@ -129,10 +129,10 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
     return Column(
       children: [
         Expanded(
-          child: DragTarget<Ingradient>(
-            onAccept: (ingradient) => _onAccept(ingradient),
-            onWillAccept: (ingradient) => _onWillAccept(ingradient!),
-            onLeave: (ingradient) => _isFocus.value = false,
+          child: DragTarget<Ingredient>(
+            onAccept: (ingredient) => _onAccept(ingredient),
+            onWillAccept: (ingredient) => _onWillAccept(ingredient!),
+            onLeave: (ingredient) => _isFocus.value = false,
             builder: (context, candidateData, rejectedData) => LayoutBuilder(
               builder: (context, constrain) {
                 _pizzaConstraints = constrain;
@@ -180,7 +180,7 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
                       ),
                       AnimatedBuilder(
                         animation: _controller,
-                        builder: (context, _) => _buildIngradientsWidget(),
+                        builder: (context, _) => _buildIngredientsWidget(),
                       )
                     ],
                   ),

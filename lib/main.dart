@@ -1,4 +1,4 @@
-import 'package:animations_anatomy/provider/drag_bottom.dart';
+import 'package:animations_anatomy/provider/drag_bottom_bloc.dart';
 import 'package:animations_anatomy/screens/home_/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,8 +13,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => DragBottom(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => DragBottomBloc()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',

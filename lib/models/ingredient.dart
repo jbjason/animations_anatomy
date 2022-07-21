@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 
-class Ingradient {
+class Ingredient {
   final String image, imageUnit;
   final List<Offset> positions;
 
-  const Ingradient(
+  const Ingredient(
       {required this.image, required this.imageUnit, required this.positions});
 }
 
-const ingradients = [
-  Ingradient(
+const ingredients = [
+  Ingredient(
       image: 'assets/pizza_/chili.png',
       imageUnit: 'assets/pizza_/chili_unit.png',
       positions: [
@@ -19,7 +19,7 @@ const ingradients = [
         Offset(.5, .3),
         Offset(.4, .65),
       ]),
-  Ingradient(
+  Ingredient(
       image: 'assets/pizza_/garlic.png',
       imageUnit: 'assets/pizza_/garlic_unit.png',
       positions: [
@@ -29,7 +29,7 @@ const ingradients = [
         Offset(.5, .2),
         Offset(.3, .5),
       ]),
-  Ingradient(
+  Ingredient(
       image: 'assets/pizza_/olive.png',
       imageUnit: 'assets/pizza_/olive_unit.png',
       positions: [
@@ -39,7 +39,7 @@ const ingradients = [
         Offset(.4, .2),
         Offset(.2, .6),
       ]),
-  Ingradient(
+  Ingredient(
       image: 'assets/pizza_/pea.png',
       imageUnit: 'assets/pizza_/pea_unit.png',
       positions: [
@@ -49,7 +49,7 @@ const ingradients = [
         Offset(.45, .35),
         Offset(.4, .65),
       ]),
-  Ingradient(
+  Ingredient(
       image: 'assets/pizza_/pickle.png',
       imageUnit: 'assets/pizza_/pickle_unit.png',
       positions: [
@@ -59,7 +59,7 @@ const ingradients = [
         Offset(.5, .2),
         Offset(.3, .5),
       ]),
-  Ingradient(
+  Ingredient(
       image: 'assets/pizza_/onion.png',
       imageUnit: 'assets/pizza_/onion.png',
       positions: [
@@ -69,7 +69,7 @@ const ingradients = [
         Offset(.45, .35),
         Offset(.65, .6),
       ]),
-  Ingradient(
+  Ingredient(
       image: 'assets/pizza_/potato.png',
       imageUnit: 'assets/pizza_/potato_unit.png',
       positions: [

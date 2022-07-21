@@ -1,24 +1,24 @@
 import 'package:animations_anatomy/models/ingredient.dart';
 import 'package:flutter/material.dart';
 
-class PizzaIngradients extends StatelessWidget {
-  const PizzaIngradients({Key? key}) : super(key: key);
+class PizzaIngredients extends StatelessWidget {
+  const PizzaIngredients({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: ingradients.length,
+      itemCount: ingredients.length,
       itemBuilder: (context, index) =>
-          PizzaIngradientItem(ingradient: ingradients[index]),
+          PizzaIngredientItem(ingredient: ingredients[index]),
     );
   }
 }
 
-class PizzaIngradientItem extends StatelessWidget {
-  const PizzaIngradientItem({Key? key, required this.ingradient})
+class PizzaIngredientItem extends StatelessWidget {
+  const PizzaIngredientItem({Key? key, required this.ingredient})
       : super(key: key);
-  final Ingradient ingradient;
+  final Ingredient ingredient;
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +40,11 @@ class PizzaIngradientItem extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(5.0),
-          child: Image.asset(ingradient.image, fit: BoxFit.contain),
+          child: Image.asset(ingredient.image, fit: BoxFit.contain),
         ),
       ),
     );
     return Center(
-        child: Draggable(feedback: _child, data: ingradient, child: _child));
+        child: Draggable(feedback: _child, data: ingredient, child: _child));
   }
 }

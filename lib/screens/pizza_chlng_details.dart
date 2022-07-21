@@ -107,6 +107,7 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
 
   void _onAccept(Ingradient ingradient) {
     _isFocus.value = false;
+    _listIngredients.add(ingradient);
     _total++;
     setState(() {});
     _buildIngradientAnimation();
@@ -120,7 +121,7 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
         return false;
       }
     }
-    _listIngredients.add(ingradient);
+
     return true;
   }
 
@@ -284,15 +285,15 @@ class PizzaSizedButton extends StatelessWidget {
           shape: BoxShape.circle,
           color: Colors.white,
           boxShadow: selected
-              ? []
-              : [
+              ? [
                   const BoxShadow(
                     spreadRadius: 2.0,
                     color: Colors.black12,
                     offset: Offset(0, 4),
                     blurRadius: 10,
                   ),
-                ],
+                ]
+              : [],
         ),
         child: Padding(
           padding: const EdgeInsets.all(10),

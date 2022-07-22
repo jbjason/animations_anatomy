@@ -1,6 +1,6 @@
 import 'package:animations_anatomy/provider/drag_bottom_bloc.dart';
 import 'package:animations_anatomy/screens/home_/home_screen.dart';
-import 'package:animations_anatomy/screens/pizza_order_bloc.dart';
+import 'package:animations_anatomy/screens/pizza_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => DragBottomBloc()),
-        ChangeNotifierProvider(create: (_) => PizzaOrderBloc()),
+        ChangeNotifierProvider(create: (_) => PizzaBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

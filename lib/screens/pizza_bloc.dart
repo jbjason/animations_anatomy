@@ -1,7 +1,7 @@
 import 'package:animations_anatomy/models/ingredient.dart';
 import 'package:flutter/cupertino.dart' show ChangeNotifier;
 
-class PizzaOrderBloc with ChangeNotifier {
+class PizzaBloc with ChangeNotifier {
   int total = 15;
   final List<Ingredient> listIngredients = [];
 

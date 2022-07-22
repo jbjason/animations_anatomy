@@ -52,8 +52,12 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
         curve: const Interval(.3, 1, curve: Curves.decelerate)));
   }
 
-  Widget _buildIngredientsWidget() {
-    final _listIngredients = Provider.of<PizzaBloc>(context).listIngredients;
+  Widget _buildIngredientsWidget(List<Ingredient> _deleteIngredient) {
+    final _listIngredients =
+        Provider.of<PizzaBloc>(context, listen: false).listIngredients;
+    if (_deleteIngredient.isNotEmpty) {
+      _listIngredients.add(_deleteIngredient[0]);
+    }
     if (_listIngredients.isNotEmpty) {
       List<Widget> elements = [];
       for (int i = 0; i < _listIngredients.length; i++) {
@@ -64,28 +68,31 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
           double positionX = ingredient.positions[j].dx;
           double positionY = ingredient.positions[j].dy;
           // last added _list item would have animation only not others
-          if (i == _listIngredients.length - 1) {
+          if (i == _listIngredients.length - 1 && _controller.isAnimating) {
             double fromX = 0, fromY = 0;
+            final height = MediaQuery.of(context).size.height;
             // first animated item & second & so on..
             if (j == 0) {
               fromX = -_pizzaConstraints.maxWidth * (1 - animation.value);
             } else if (j == 1) {
               fromX = _pizzaConstraints.maxWidth * (1 - animation.value);
             } else if (j == 2) {
-              fromY = -_pizzaConstraints.maxHeight * (1 - animation.value);
+              fromY = -height * (1 - animation.value);
             } else {
-              fromY = _pizzaConstraints.maxHeight * (1 - animation.value);
+              fromY = height * (1 - animation.value);
             }
-            elements.add(
-              Transform(
-                transform: Matrix4.identity()
-                  ..translate(
-                    fromX + _pizzaConstraints.maxWidth * positionX,
-                    fromY + _pizzaConstraints.maxHeight * positionY,
-                  ),
-                child: image,
-              ),
-            );
+            if (animation.value > 0) {
+              elements.add(
+                Transform(
+                  transform: Matrix4.identity()
+                    ..translate(
+                      fromX + _pizzaConstraints.maxWidth * positionX,
+                      fromY + _pizzaConstraints.maxHeight * positionY,
+                    ),
+                  child: image,
+                ),
+              );
+            }
           } else {
             // if _list item isn't the last added item then with no animation
             elements.add(
@@ -121,7 +128,9 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
 
   @override
   Widget build(BuildContext context) {
-    final _total = Provider.of<PizzaBloc>(context).total;
+    final _bloc = Provider.of<PizzaBloc>(context);
+    final _total = _bloc.total;
+    final _deleteIngredient = _bloc.deleteIngredient;
     return Column(
       children: [
         Expanded(
@@ -135,7 +144,6 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
                 return ValueListenableBuilder(
                   valueListenable: _notifierPizzaSize,
                   builder: (context, PizzaSizeState pizzaSize, _) => Stack(
-                    clipBehavior: Clip.none,
                     children: [
                       Center(
                         child: ValueListenableBuilder<bool>(
@@ -174,10 +182,7 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
                           },
                         ),
                       ),
-                      AnimatedBuilder(
-                        animation: _controller,
-                        builder: (context, _) => _buildIngredientsWidget(),
-                      )
+                      _buiildIngredientAndDelete(_deleteIngredient),
                     ],
                   ),
                 );
@@ -238,6 +243,25 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
         ),
       ],
     );
+  }
+
+  Widget _buiildIngredientAndDelete(List<Ingredient> delIngre) {
+    if (delIngre.isNotEmpty) {
+      print('delete');
+      _refresh(delIngre[0]);
+    }
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, _) {
+        return _buildIngredientsWidget(delIngre);
+      },
+    );
+  }
+
+  Future<void> _refresh(Ingredient ingredient) async {
+    await _controller.reverse(from: 1);
+    Provider.of<PizzaBloc>(context, listen: false)
+        .refreshIngredientList(ingredient);
   }
 }
 

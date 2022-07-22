@@ -9,17 +9,20 @@ class PizzaIngredients extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<PizzaBloc>(context);
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: ingredients.length,
-      itemBuilder: (context, index) {
-        final ingredient = ingredients[index];
-        return PizzaIngredientItem(
-          ingredient: ingredient,
-          exist: bloc.containsIngredient(ingredient),
-          onTap: () => bloc.removeIngredient(ingredient),
-        );
-      },
+    return AnimatedBuilder(
+      animation: bloc,
+      builder: (context, _) => ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: ingredients.length,
+        itemBuilder: (context, index) {
+          final ingredient = ingredients[index];
+          return PizzaIngredientItem(
+            ingredient: ingredient,
+            exist: bloc.containsIngredient(ingredient),
+            onTap: () => bloc.removeIngredient(ingredient),
+          );
+        },
+      ),
     );
   }
 }

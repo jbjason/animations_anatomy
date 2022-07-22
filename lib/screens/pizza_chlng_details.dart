@@ -1,5 +1,7 @@
 import 'package:animations_anatomy/models/ingredient.dart';
+import 'package:animations_anatomy/screens/pizza_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 const _duration = Duration(milliseconds: 300);
 
@@ -15,14 +17,13 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
   final _isFocus = ValueNotifier(false);
   final List<Animation> _animationList = [];
   late BoxConstraints _pizzaConstraints;
-  final List<Ingredient> _listIngredients = [];
-  int _total = 15;
   final _notifierPizzaSize =
       ValueNotifier<PizzaSizeState>(PizzaSizeState(value: PizzaSizeValue.M));
+
   @override
   void initState() {
+    Provider.of<PizzaBloc>(context, listen: false).setInitialList();
     _controller = AnimationController(vsync: this, duration: _duration);
-
     super.initState();
   }
 
@@ -52,6 +53,7 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
   }
 
   Widget _buildIngredientsWidget() {
+    final _listIngredients = Provider.of<PizzaBloc>(context).listIngredients;
     if (_listIngredients.isNotEmpty) {
       List<Widget> elements = [];
       for (int i = 0; i < _listIngredients.length; i++) {
@@ -106,25 +108,20 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
 
   void _onAccept(Ingredient ingredient) {
     _isFocus.value = false;
-    _listIngredients.add(ingredient);
-    _total++;
-    setState(() {});
+    Provider.of<PizzaBloc>(context, listen: false).addIngredient(ingredient);
     _buildIngredientAnimation();
     _controller.forward(from: 0.0);
   }
 
   bool _onWillAccept(Ingredient ingredient) {
     _isFocus.value = true;
-    for (Ingredient i in _listIngredients) {
-      if (i.image == ingredient.image) {
-        return false;
-      }
-    }
-    return true;
+    return Provider.of<PizzaBloc>(context, listen: false)
+        .containsIngredient(ingredient);
   }
 
   @override
   Widget build(BuildContext context) {
+    final _total = Provider.of<PizzaBloc>(context).total;
     return Column(
       children: [
         Expanded(

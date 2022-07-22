@@ -53,11 +53,11 @@ const ingredients = [
       image: 'assets/pizza_/pickle.png',
       imageUnit: 'assets/pizza_/pickle_unit.png',
       positions: [
-        Offset(.2, .35),
-        Offset(.65, .35),
-        Offset(.3, .23),
-        Offset(.5, .2),
-        Offset(.3, .5),
+        Offset(.35, .2),
+        Offset(.35, .65),
+        Offset(.23, .3),
+        Offset(.53, .2),
+        Offset(.4, .5),
       ]),
   Ingredient(
       image: 'assets/pizza_/onion.png',

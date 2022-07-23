@@ -54,12 +54,10 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
 
   Widget _buildIngredientsWidget(List<Ingredient> _deleteIngredient) {
     List<Widget> elements = [];
-    final _listIngredients =
-        Provider.of<PizzaBloc>(context, listen: false).listIngredients;
+    final _listIngredients = List.from(
+        Provider.of<PizzaBloc>(context, listen: false).listIngredients);
     if (_deleteIngredient.isNotEmpty) {
-      if (!_listIngredients.contains(_deleteIngredient[0])) {
-        _listIngredients.add(_deleteIngredient[0]);
-      }
+      _listIngredients.add(_deleteIngredient[0]);
     }
     if (_listIngredients.isNotEmpty) {
       for (int i = 0; i < _listIngredients.length; i++) {

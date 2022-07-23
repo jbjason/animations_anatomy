@@ -53,13 +53,15 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
   }
 
   Widget _buildIngredientsWidget(List<Ingredient> _deleteIngredient) {
+    List<Widget> elements = [];
     final _listIngredients =
         Provider.of<PizzaBloc>(context, listen: false).listIngredients;
     if (_deleteIngredient.isNotEmpty) {
-      _listIngredients.add(_deleteIngredient[0]);
+      if (!_listIngredients.contains(_deleteIngredient[0])) {
+        _listIngredients.add(_deleteIngredient[0]);
+      }
     }
     if (_listIngredients.isNotEmpty) {
-      List<Widget> elements = [];
       for (int i = 0; i < _listIngredients.length; i++) {
         Ingredient ingredient = _listIngredients[i];
         final image = Image.asset(ingredient.imageUnit, height: 25);
@@ -128,9 +130,7 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
 
   @override
   Widget build(BuildContext context) {
-    final _bloc = Provider.of<PizzaBloc>(context);
-    final _total = _bloc.total;
-    final _deleteIngredient = _bloc.deleteIngredient;
+    final _total = Provider.of<PizzaBloc>(context).total;
     return Column(
       children: [
         Expanded(
@@ -182,7 +182,7 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
                           },
                         ),
                       ),
-                      _buiildIngredientAndDelete(_deleteIngredient),
+                      _buiildIngredientAndDelete(),
                     ],
                   ),
                 );
@@ -245,15 +245,15 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
     );
   }
 
-  Widget _buiildIngredientAndDelete(List<Ingredient> delIngre) {
-    if (delIngre.isNotEmpty) {
-      print('delete');
-      _refresh(delIngre[0]);
+  Widget _buiildIngredientAndDelete() {
+    final _delIngre = Provider.of<PizzaBloc>(context).deleteIngredient;
+    if (_delIngre.isNotEmpty) {
+      _refresh(_delIngre[0]);
     }
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, _) {
-        return _buildIngredientsWidget(delIngre);
+        return _buildIngredientsWidget(_delIngre);
       },
     );
   }

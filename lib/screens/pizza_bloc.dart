@@ -3,13 +3,13 @@ import 'package:flutter/cupertino.dart' show ChangeNotifier;
 
 class PizzaBloc with ChangeNotifier {
   int total = 15;
-  final List<Ingredient> listIngredients = [];
-  final List<Ingredient> deleteIngredient = [];
+  List<Ingredient> listIngredients = [];
+  List<Ingredient> deleteIngredient = [];
 
   void setInitialList() {
-    listIngredients.clear();
+    listIngredients = [];
     total = 15;
-    deleteIngredient.clear();
+    deleteIngredient = [];
   }
 
   void addIngredient(Ingredient ingredient) {
@@ -20,19 +20,15 @@ class PizzaBloc with ChangeNotifier {
 
   void removeIngredient(Ingredient ingredient) {
     listIngredients.remove(ingredient);
-    print('1st');
-    print(listIngredients);
     total--;
     deleteIngredient.add(ingredient);
     notifyListeners();
   }
 
   void refreshIngredientList(Ingredient ingredient) {
-    print('refresh');
     deleteIngredient.clear();
-    listIngredients.clear();
-    print(deleteIngredient);
-    print(listIngredients);
+    // for doing reverse animation its creating
+    listIngredients.remove(ingredient);
 
     notifyListeners();
   }

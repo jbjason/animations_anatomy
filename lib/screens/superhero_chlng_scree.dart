@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animations_anatomy/models/superhero.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +35,6 @@ class _SuperHeroChlngScreenState extends State<SuperHeroChlngScreen> {
     _percent = (_controller.page! - _index).abs();
     _auxPercent = 1.0 - _percent;
     setState(() {});
-    print(_index);
   }
 
   // percent 1 to 0
@@ -56,9 +57,19 @@ class _SuperHeroChlngScreenState extends State<SuperHeroChlngScreen> {
         children: [
           Stack(
             children: [
-              SuperHeroCard(
-                  superhero: heroes[_auxIndex], factorChange: _auxPercent),
-              SuperHeroCard(superhero: heroes[_index], factorChange: _percent),
+              Transform.translate(
+                offset: Offset(0, 100 * _auxPercent),
+                child: SuperHeroCard(
+                    superhero: heroes[_auxIndex], factorChange: _auxPercent),
+              ),
+              Transform.rotate(
+                angle: (-pi * .5) * _percent,
+                child: Transform.translate(
+                  offset: Offset(-800 * _percent, -50 * _percent),
+                  child: SuperHeroCard(
+                      superhero: heroes[_index], factorChange: _percent),
+                ),
+              ),
             ],
           ),
           PageView.builder(

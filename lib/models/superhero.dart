@@ -25,7 +25,7 @@ class Superhero {
           ' also has a “spider sense,” that warns him of '
           'impending danger. Spider-Man has supplemented his powers with t'
           'echnology',
-      pathImage: 'assets/img/superheroes/spiderman-a.png',
+      pathImage: 'assets/superhero_/spiderman-a.png',
       movies: HeroMovie.spidermanMovies,
       rawColor: 0xffA41209,
     ),
@@ -39,7 +39,7 @@ class Superhero {
           'lar arc reactor-powered Iron Man armor, '
           'granting superhuman strength & durability, the ability to fly &'
           ' project Repulsor blasts',
-      pathImage: 'assets/img/superheroes/ironman-a.png',
+      pathImage: 'assets/superhero_/ironman-a.png',
       movies: HeroMovie.ironManMovies,
       rawColor: 0xffB3790F,
     ),
@@ -53,7 +53,7 @@ class Superhero {
           'his homeworld and subsequently became well '
           'known for his actions on Earth, which included acting as a found'
           'ing member of the Avengers.',
-      pathImage: 'assets/img/superheroes/thor-c.png',
+      pathImage: 'assets/superhero_/thor-c.png',
       movies: HeroMovie.thorMovies,
       rawColor: 0xff3E4953,
     ),
@@ -66,7 +66,7 @@ class Superhero {
           'his inner-hero and help his mentor, Dr. Hank Pym, protect the se'
           'cret behind his spectacular Ant-Man suit '
           'from a new generation of towering threats.',
-      pathImage: 'assets/img/superheroes/antman-a.png',
+      pathImage: 'assets/superhero_/antman-a.png',
       movies: HeroMovie.antmanMovies,
       rawColor: 0xff98142B,
     ),
@@ -80,7 +80,7 @@ class Superhero {
           ' pair of wrist-mounted energy weapons '
           'dubbed her "Widow\'s Bite". She wears no costume during her firs'
           't few appearances but simply evening wear and a veil.',
-      pathImage: 'assets/img/superheroes/blackwidow-a.png',
+      pathImage: 'assets/superhero_/blackwidow-a.png',
       movies: HeroMovie.blackWidowMovies,
       rawColor: 0xff011535,
     ),
@@ -94,7 +94,7 @@ class Superhero {
           ' efforts in World War II. Near the end of the war, '
           'he was trapped in ice and survived in suspended animation until'
           ' he was revived in modern times.',
-      pathImage: 'assets/img/superheroes/captain-b.png',
+      pathImage: 'assets/superhero_/captain-b.png',
       movies: HeroMovie.captainAmericaMovies,
       rawColor: 0xff0232CB,
     ),
@@ -107,7 +107,7 @@ class Superhero {
           ' as a special agent. The archer known as Hawkeye also boasts a '
           'strong moral compass that at times leads '
           'him astray from his direct orders',
-      pathImage: 'assets/img/superheroes/hawkeye.png',
+      pathImage: 'assets/superhero_/hawkeye.png',
       movies: [],
       rawColor: 0xff380142,
     ),
@@ -121,9 +121,17 @@ class Superhero {
           'alter ego Dr. Robert Bruce Banner, a '
           'physically weak, socially withdrawn, and emotionally reserved '
           'physicist',
-      pathImage: 'assets/img/superheroes/hulk-b.png',
+      pathImage: 'assets/superhero_/hulk-b.png',
       movies: HeroMovie.hulkMovies,
       rawColor: 0xff047A3B,
+    ),
+    Superhero(
+      heroName: '12',
+      name: 'Bruce Banner',
+      description: '',
+      pathImage: 'assets/superhero_/hulk-b.png',
+      movies: [],
+      rawColor: 0xFFFFFFFF,
     ),
   ];
 }

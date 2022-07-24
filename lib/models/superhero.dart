@@ -16,7 +16,7 @@ class Superhero {
 
   static const marvelHeroes = [
     Superhero(
-      heroName: 'Spider Man',
+      heroName: 'Spider\nMan',
       name: 'Peter Parker',
       description:
           'Spider-Man has spider-like abilities including superhuman streng'
@@ -30,7 +30,7 @@ class Superhero {
       rawColor: 0xffA41209,
     ),
     Superhero(
-      heroName: 'Iron Man',
+      heroName: 'Iron\nMan',
       name: 'Tony Stark',
       description:
           'He is the Armored Avenger - driven by a heart that is part machin'
@@ -58,7 +58,7 @@ class Superhero {
       rawColor: 0xff3E4953,
     ),
     Superhero(
-      heroName: 'Ant Man',
+      heroName: 'Ant\nMan',
       name: 'Scott Lang',
       description:
           'Armed with the astonishing ability to shrink in scale but increas'
@@ -71,7 +71,7 @@ class Superhero {
       rawColor: 0xff98142B,
     ),
     Superhero(
-      heroName: 'Black Widow',
+      heroName: 'Black\nWidow',
       name: 'Natasha Romanova',
       description:
           'The first and best-known Black Widow is a Russian agent trained'
@@ -85,7 +85,7 @@ class Superhero {
       rawColor: 0xff011535,
     ),
     Superhero(
-      heroName: 'Captain America',
+      heroName: 'Captain\nAmerica',
       name: 'Steve Rogers',
       description:
           'Captain America is the alter ego of Steve Rogers, a frail young '
@@ -99,7 +99,7 @@ class Superhero {
       rawColor: 0xff0232CB,
     ),
     Superhero(
-      heroName: 'Hawk eye',
+      heroName: 'Hawk\neye',
       name: 'Clint Barton',
       description:
           'An expert marksman and fighter, Clint Barton puts his talents to '

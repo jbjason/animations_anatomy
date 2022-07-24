@@ -5,21 +5,39 @@ import 'package:flutter/material.dart';
 
 class SuperHeroChlngScreen extends StatefulWidget {
   const SuperHeroChlngScreen({Key? key}) : super(key: key);
-
   @override
   State<SuperHeroChlngScreen> createState() => _SuperHeroChlngScreenState();
 }
 
-class _SuperHeroChlngScreenState extends State<SuperHeroChlngScreen> {
+const _duration = Duration(seconds: 2);
+
+class _SuperHeroChlngScreenState extends State<SuperHeroChlngScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
   late PageController _controller;
+  late Animation<double> _backCardToTopAnim, _backCardRemoveAnim;
+  late Animation<double> _imageTitleAnim, _detailColumnAnim;
   int _index = 0, _auxIndex = 1;
   double _percent = 0.0, _auxPercent = 1.0;
 
   @override
   void initState() {
+    _animationController =
+        AnimationController(vsync: this, duration: _duration);
+    _setAnimation();
     _controller = PageController(initialPage: 0);
     _controller.addListener(_pageListener);
     super.initState();
+  }
+
+  void _setAnimation() {
+    _backCardToTopAnim = CurvedAnimation(
+        parent: _animationController, curve: const Interval(0, .3));
+    _imageTitleAnim = CurvedAnimation(
+        parent: _animationController,
+        curve: const Interval(.15, .5, curve: Curves.bounceIn));
+    _backCardRemoveAnim = CurvedAnimation(
+        parent: _animationController, curve: const Interval(.55, .8));
   }
 
   @override
@@ -42,36 +60,16 @@ class _SuperHeroChlngScreenState extends State<SuperHeroChlngScreen> {
   @override
   Widget build(BuildContext context) {
     const heroes = Superhero.marvelHeroes;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        title: const Text('Movies', style: TextStyle(color: Colors.black)),
-        leading: IconButton(
-          onPressed: () => Navigator.maybePop(context),
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
-        ),
-      ),
       body: Stack(
         children: [
-          Stack(
-            children: [
-              Transform.translate(
-                offset: Offset(0, 100 * _auxPercent),
-                child: SuperHeroCard(
-                    superhero: heroes[_auxIndex], factorChange: _auxPercent),
-              ),
-              Transform.rotate(
-                angle: (-pi * .5) * _percent,
-                child: Transform.translate(
-                  offset: Offset(-800 * _percent, -50 * _percent),
-                  child: SuperHeroCard(
-                      superhero: heroes[_index], factorChange: _percent),
-                ),
-              ),
-            ],
-          ),
+          SuperHeroHomeBody(
+              auxPercent: _auxPercent,
+              heroes: heroes,
+              auxIndex: _auxIndex,
+              percent: _percent,
+              index: _index),
           PageView.builder(
             controller: _controller,
             // -1  Cz Aux value will be always 1+ than currentIndex so last Position may occurs error so -1
@@ -79,9 +77,155 @@ class _SuperHeroChlngScreenState extends State<SuperHeroChlngScreen> {
             itemBuilder: (context, index) {
               return const SizedBox();
             },
-          )
+          ),
+          Positioned(
+            bottom: 0,
+            left: 30,
+            right: 30,
+            height: size.height * .5,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 30,
+                    alignment: Alignment.centerRight,
+                    child: Image.asset('assets/superhero_/marvel_logo.jpg'),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    heroes[_index].description,
+                    maxLines: 4,
+                    style: const TextStyle(color: Colors.grey, fontSize: 11),
+                  ),
+                  const SizedBox(height: 20),
+                  const Text('movies',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    height: 300,
+                    child: PageView.builder(
+                      itemCount: heroes[_index].movies.length,
+                      itemBuilder: (context, index) {
+                        final heroMovie = heroes[_index].movies[index];
+                        return Container(
+                          height: 150,
+                          width: 150,
+                          margin: const EdgeInsets.only(right: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            image: DecorationImage(
+                                image: NetworkImage(heroMovie.urlImage)),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: AppBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              centerTitle: true,
+              title: Transform.translate(
+                offset: Offset(0, -100 * _percent),
+                child:
+                    const Text('Movies', style: TextStyle(color: Colors.black)),
+              ),
+              leading: IconButton(
+                onPressed: () => Navigator.maybePop(context),
+                icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
+              ),
+            ),
+          ),
         ],
       ),
+    );
+  }
+}
+
+class SuperHeroHomeBody extends StatelessWidget {
+  const SuperHeroHomeBody({
+    Key? key,
+    required double auxPercent,
+    required this.heroes,
+    required int auxIndex,
+    required double percent,
+    required int index,
+  })  : _auxPercent = auxPercent,
+        _auxIndex = auxIndex,
+        _percent = percent,
+        _index = index,
+        super(key: key);
+
+  final double _auxPercent;
+  final List<Superhero> heroes;
+  final int _auxIndex;
+  final double _percent;
+  final int _index;
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Stack(
+      children: [
+        // backImage
+        Transform.translate(
+          offset: Offset(0, 100 * _auxPercent),
+          child: SuperHeroCard(
+              superhero: heroes[_auxIndex], factorChange: _auxPercent),
+        ),
+        // Front Image
+        Transform.rotate(
+          angle: (-pi * .5) * _percent,
+          child: Transform.translate(
+            offset: Offset(-800 * _percent, -50 * _percent),
+            child: SuperHeroCard(
+                superhero: heroes[_index], factorChange: _percent),
+          ),
+        ),
+        // title ,name ,learn More button
+        Positioned(
+          bottom: size.height * .15,
+          left: 30,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                heroes[_index].heroName,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 45,
+                    letterSpacing: 1.7),
+              ),
+              Text(
+                heroes[_index].name,
+                style: const TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              const SizedBox(height: 20),
+              const Text.rich(
+                TextSpan(
+                  text: 'learn more',
+                  style: TextStyle(color: Colors.yellow),
+                  children: [
+                    WidgetSpan(
+                        alignment: PlaceholderAlignment.middle,
+                        child:
+                            Icon(Icons.arrow_right_alt, color: Colors.yellow))
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -95,7 +239,7 @@ class SuperHeroCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final separation = size.height * .24;
+    final separation = size.height * .35;
     return OverflowBox(
       maxHeight: size.height,
       alignment: Alignment.topCenter,
@@ -106,7 +250,8 @@ class SuperHeroCard extends StatelessWidget {
             child: DecoratedBox(
               decoration: BoxDecoration(
                 color: Color(superhero.rawColor),
-                borderRadius: BorderRadius.circular(40),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(50)),
               ),
             ),
           ),
@@ -114,7 +259,7 @@ class SuperHeroCard extends StatelessWidget {
             top: separation * factorChange,
             left: 20,
             right: 20,
-            bottom: size.height * .35,
+            bottom: size.height * .2,
             child: Opacity(
               opacity: 1 - factorChange,
               child: Image.asset(superhero.pathImage),

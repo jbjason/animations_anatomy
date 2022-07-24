@@ -74,6 +74,7 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: const Color(0XFF100F0B),
       body: AnimatedBuilder(
@@ -121,7 +122,10 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
               left: 0,
               right: 0,
               bottom: 0,
-              child: SignUpWidgets(animation: _moveUpColumnAnim2),
+              child: SignUpWidgets(
+                animation: _moveUpColumnAnim2,
+                onTap: _reverseSignUpAnimation,
+              ),
             ),
             // Batman Logo
             Positioned(
@@ -153,7 +157,7 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 38),
                         child: YellowButtonAnimation(
-                          onPressed: _onPressed,
+                          onPressed: _startSignUpAnimation,
                           animation: _buttonsMoveInAnim,
                         ),
                       ),
@@ -168,5 +172,6 @@ class _BatmanSignInScreenState extends State<BatmanSignInScreen>
     );
   }
 
-  void _onPressed() => _controller2.forward(from: 0.0);
+  void _reverseSignUpAnimation() => _controller2.reverse(from: 1.0);
+  void _startSignUpAnimation() => _controller2.forward(from: 0.0);
 }

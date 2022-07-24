@@ -3,8 +3,11 @@ import 'package:animations_anatomy/widgets/challenges_widgets/batman_widgets/yel
 import 'package:flutter/material.dart';
 
 class SignUpWidgets extends StatelessWidget {
-  const SignUpWidgets({Key? key, required this.animation}) : super(key: key);
+  const SignUpWidgets({Key? key, required this.onTap, required this.animation})
+      : super(key: key);
   final Animation<double> animation;
+  final VoidCallback onTap;
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -34,7 +37,7 @@ class SignUpWidgets extends StatelessWidget {
                   const SignUpInputButton(text: 'FULL NAME'),
                   const SignUpInputButton(text: 'EMAIL'),
                   const SignUpInputButton(text: 'PASSWORD', password: true),
-                  YellowButton(onpress: () {}, text: 'SIGNUP'),
+                  YellowButton(onpress: onTap, text: 'SIGNUP'),
                 ],
               ),
             ),

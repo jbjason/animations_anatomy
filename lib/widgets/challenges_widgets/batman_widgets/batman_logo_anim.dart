@@ -15,13 +15,14 @@ class BatmanLogoAnim extends StatelessWidget {
           scale: animation1.value,
           child: DecoratedBox(
             decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
+              shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                    color: Colors.white.withOpacity(0.5),
-                    blurRadius: 15,
-                    spreadRadius: 5,
-                    offset: const Offset(1, 1))
+                  color: Colors.white.withOpacity(0.2),
+                  blurRadius: 50,
+                  spreadRadius: 40,
+                  //  offset: const Offset(20, -10),
+                )
               ],
             ),
             child: Image.asset('assets/batman_/batman_logo.png',

@@ -28,7 +28,9 @@ class TopFlowWidget extends StatelessWidget {
               child: Image.asset(cardItem.image, fit: BoxFit.cover)),
           Padding(
             padding: padding,
-            child: Material(
+            child: Card(
+              color: Colors.transparent,
+              elevation: 0,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -46,7 +48,7 @@ class TopFlowWidget extends StatelessWidget {
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: Colors.white.withOpacity(0.4)),
+                              color: Colors.white.withOpacity(0.6)),
                           child: const Text('CheckIn', style: _checkIn),
                         ),
                       ],

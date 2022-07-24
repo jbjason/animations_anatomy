@@ -1,7 +1,6 @@
 import 'package:animations_anatomy/provider/drag_bottom_bloc.dart';
 import 'package:animations_anatomy/screens/home_/home_screen.dart';
 import 'package:animations_anatomy/provider/pizza_bloc.dart';
-import 'package:animations_anatomy/screens/superhero_chlng_scree.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,14 +23,13 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
-          appBarTheme: AppBarTheme(
-              toolbarTextStyle: const TextTheme(
-            titleLarge: TextStyle(
+          primarySwatch: Colors.deepPurple,
+          appBarTheme: const AppBarTheme(
+            toolbarTextStyle: TextStyle(
                 fontSize: 22, fontWeight: FontWeight.w600, color: Colors.black),
-          ).headline6),
+          ),
         ),
-        home: const SuperHeroChlngScreen(),
+        home: HomeScreen(),
       ),
     );
   }

@@ -13,8 +13,20 @@ class BatmanLogoAnim extends StatelessWidget {
         offset: Offset(0, 100 * (1 - animation2.value)),
         child: Transform.scale(
           scale: animation1.value,
-          child: Image.asset('assets/batman_/batman_logo.png',
-              fit: BoxFit.contain),
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.white.withOpacity(0.5),
+                    blurRadius: 15,
+                    spreadRadius: 5,
+                    offset: const Offset(1, 1))
+              ],
+            ),
+            child: Image.asset('assets/batman_/batman_logo.png',
+                fit: BoxFit.contain),
+          ),
         ),
       ),
     );

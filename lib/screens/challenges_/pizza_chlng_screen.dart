@@ -1,6 +1,6 @@
-import 'package:animations_anatomy/screens/pizza_cart_button.dart';
-import 'package:animations_anatomy/screens/pizza_chlng_details.dart';
-import 'package:animations_anatomy/screens/pizza_ingredient.dart';
+import 'package:animations_anatomy/widgets/challenges_widgets/pizza_widgets/pizza_cart_button.dart';
+import 'package:animations_anatomy/widgets/challenges_widgets/pizza_widgets/pizza_chlng_details.dart';
+import 'package:animations_anatomy/widgets/challenges_widgets/pizza_widgets/pizza_ingredient.dart';
 import 'package:flutter/material.dart';
 
 const _pizzaCartSize = 55.0;

@@ -54,6 +54,7 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
 
   Widget _buildIngredientsWidget(List<Ingredient> _deleteIngredient) {
     List<Widget> elements = [];
+    // List.from() it returns a fixed-length list cz _controller.reverse() call this funtion multiple(7) times
     final _listIngredients = List.from(
         Provider.of<PizzaBloc>(context, listen: false).listIngredients);
     if (_deleteIngredient.isNotEmpty) {

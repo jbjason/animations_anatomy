@@ -151,94 +151,119 @@ class HeroMovie {
     HeroMovie(
       'Ant-Man',
       7.6,
-      "https://upload.wikimedia.org/wikipedia/en/7/75/Ant-Man_poster.jpg",
+      "assets/card_/12.jpg",
     ),
     HeroMovie(
       'Ant-Man and the Wasp',
       8.2,
-      "https://upload.wikimedia.org/wikipedia/en/2/2c/Ant-Man_and_the_Wasp_poster.jpg",
+      "assets/card_/10.jpg",
+    ),
+    HeroMovie(
+      "Black Widow",
+      10,
+      "assets/card_/11.jpg",
     )
   ];
   static const blackWidowMovies = [
     HeroMovie(
-      "Black Widow",
+      'Ant-Man1',
+      7.6,
+      "assets/card_/1.jpg",
+    ),
+    HeroMovie(
+      'Ant-Man and the Wasp1',
+      8.2,
+      "assets/card_/2.jpg",
+    ),
+    HeroMovie(
+      "Black Widow1",
       10,
-      'https://upload.wikimedia.org/wikipedia/en/7/74/Black_Widow_poster.jpg',
+      "assets/card_/3.jpg",
     )
   ];
   static const captainAmericaMovies = [
     HeroMovie(
-      'Captain America: The First Avenger',
-      7.8,
-      'https://upload.wikimedia.org/wikipedia/en/3/37/Captain_America_The_First_Avenger_poster.jpg',
+      'Ant-Man',
+      7.6,
+      "assets/card_/4.jpg",
     ),
     HeroMovie(
-      'Captain America: The Winter Soldier',
-      9.3,
-      'https://upload.wikimedia.org/wikipedia/en/9/9e/Captain_America_The_Winter_Soldier_poster.jpg',
+      'Ant-Man and the Wasp',
+      8.2,
+      "assets/card_/5.jpg",
     ),
     HeroMovie(
-      'Captain America: Civil War',
-      8.7,
-      'https://upload.wikimedia.org/wikipedia/en/5/53/Captain_America_Civil_War_poster.jpg',
-    ),
+      "Black Widow",
+      10,
+      "assets/card_/6.jpg",
+    )
   ];
   static const hulkMovies = [
     HeroMovie(
-      'Hulk',
-      6.5,
-      'https://upload.wikimedia.org/wikipedia/en/5/59/Hulk_movie.jpg',
+      'Ant-Man2',
+      7.6,
+      "assets/card_/7.jpg",
     ),
     HeroMovie(
-      'The Incredible Hulk',
-      7.5,
-      'https://upload.wikimedia.org/wikipedia/en/8/88/The_Incredible_Hulk_poster.jpg',
+      'Ant-Man and the Wasp2',
+      8.2,
+      "assets/card_/8.jpg",
     ),
+    HeroMovie(
+      "Black Widow2",
+      10,
+      "assets/card_/9.jpg",
+    )
   ];
   static const ironManMovies = [
     HeroMovie(
-      'Iron Man',
-      8,
-      'https://upload.wikimedia.org/wikipedia/en/0/00/Iron_Man_poster.jpg',
+      'Ant-Man3',
+      7.6,
+      "assets/card_/13.jpg",
     ),
     HeroMovie(
-      'Iron Man 2',
-      8,
-      'https://upload.wikimedia.org/wikipedia/en/e/ed/Iron_Man_2_poster.jpg',
+      'Ant-Man and the Wasp3',
+      8.2,
+      "assets/card_/14.jpg",
     ),
     HeroMovie(
-      'Iron Man 3',
-      5,
-      'https://upload.wikimedia.org/wikipedia/en/1/19/Iron_Man_3_poster.jpg',
-    ),
+      "Black Widow3",
+      10,
+      "assets/card_/15.png",
+    )
   ];
   static const spidermanMovies = [
     HeroMovie(
-      'Spider-Man: Homecoming',
-      7.1,
-      'https://upload.wikimedia.org/wikipedia/en/f/f9/Spider-Man_Homecoming_poster.jpg',
+      'Ant-Man4',
+      7.6,
+      "assets/card_/16.jpg",
     ),
     HeroMovie(
-      'Spider-Man: Far From Home',
-      7.8,
-      'https://upload.wikimedia.org/wikipedia/en/b/bd/Spider-Man_Far_From_Home_poster.jpg',
+      'Ant-Man and the Wasp4',
+      8.2,
+      "assets/card_/17.jpg",
     ),
+    HeroMovie(
+      "Black Widow4",
+      10,
+      "assets/card_/18.jpg",
+    )
   ];
   static const thorMovies = [
     HeroMovie(
-      "Thor",
+      'Ant-Man6',
       7.6,
-      'https://upload.wikimedia.org/wikipedia/en/f/fc/Thor_poster.jpg',
+      "assets/card_/3.jpg",
     ),
     HeroMovie(
-      "Thor: The Dark World",
-      7.6,
-      'https://upload.wikimedia.org/wikipedia/en/7/7f/Thor_The_Dark_World_poster.jpg',
+      'Ant-Man and the Wasp6',
+      8.2,
+      "assets/card_/10.jpg",
     ),
     HeroMovie(
-      "Thor: Ragnarok",
-      6.8,
-      'https://upload.wikimedia.org/wikipedia/en/7/7d/Thor_Ragnarok_poster.jpg',
-    ),
+      "Black Widow6",
+      10,
+      "assets/card_/6.jpg",
+    )
   ];
 }

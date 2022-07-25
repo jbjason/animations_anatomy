@@ -8,13 +8,13 @@ class SuperHeroChlngScreen extends StatefulWidget {
   State<SuperHeroChlngScreen> createState() => _SuperHeroChlngScreenState();
 }
 
-const _duration = Duration(milliseconds: 1500);
+const _duration = Duration(milliseconds: 2500);
 
 class _SuperHeroChlngScreenState extends State<SuperHeroChlngScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late PageController _controller;
-  late Animation<double> _backCardToTopAnim, _backCardRemoveAnim;
+  late Animation<double> _cardToTopAnim, _cardRemoveAnim;
   late Animation<double> _titleAnim, _detailColumnAnim;
   int _index = 0, _auxIndex = 1;
   double _percent = 0.0, auxPercent = 1.0;
@@ -30,12 +30,12 @@ class _SuperHeroChlngScreenState extends State<SuperHeroChlngScreen>
   }
 
   void _setAnimation() {
-    _backCardToTopAnim = CurvedAnimation(
-        parent: _animationController, curve: const Interval(0, .3));
+    _cardToTopAnim = CurvedAnimation(
+        parent: _animationController, curve: const Interval(0, .2));
     _titleAnim = CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(.15, .4, curve: Curves.bounceOut));
-    _backCardRemoveAnim = CurvedAnimation(
+        curve: const Interval(.25, .4, curve: Curves.easeInOutBack));
+    _cardRemoveAnim = CurvedAnimation(
         parent: _animationController, curve: const Interval(.45, .8));
     _detailColumnAnim = CurvedAnimation(
         parent: _animationController, curve: const Interval(.8, 1));
@@ -71,8 +71,9 @@ class _SuperHeroChlngScreenState extends State<SuperHeroChlngScreen>
             auxIndex: _auxIndex,
             percent: _percent,
             index: _index,
-            firstAnim: _backCardToTopAnim,
-            secondAnim: _backCardRemoveAnim,
+            firstAnim: _cardToTopAnim,
+            secondAnim: _titleAnim,
+            thirdAnim: _cardRemoveAnim,
           ),
           // title ,name ,learn More button
           SuperHeroTitleAndText(animation: _titleAnim, hero: heroes[_index]),
@@ -86,20 +87,20 @@ class _SuperHeroChlngScreenState extends State<SuperHeroChlngScreen>
             },
           ),
           // Details COlumn 2nd page
-          // Positioned(
-          //   bottom: 0,
-          //   left: 30,
-          //   right: 30,
-          //   child: SuperHeroDetailsColumn(
-          //       heroes: heroes, index: _index, animation: _detailColumnAnim),
-          // ),
+          Positioned(
+            bottom: 0,
+            left: 30,
+            right: 30,
+            child: SuperHeroDetailsColumn(
+                heroes: heroes, index: _index, animation: _detailColumnAnim),
+          ),
           // AppBar
           Positioned(
             top: 0,
             left: 0,
             right: 0,
             child: SuperHeroAppbar(
-                animation: _backCardToTopAnim, onTap: _startAnimation),
+                animation: _cardToTopAnim, onTap: _startAnimation),
           ),
         ],
       ),
@@ -117,6 +118,7 @@ class SuperHeroHomeBody extends StatelessWidget {
       required this.auxIndex,
       required this.percent,
       required this.index,
+      required this.thirdAnim,
       required this.firstAnim,
       required this.secondAnim})
       : super(key: key);
@@ -126,7 +128,7 @@ class SuperHeroHomeBody extends StatelessWidget {
   final int auxIndex;
   final double percent;
   final int index;
-  final Animation<double> firstAnim, secondAnim;
+  final Animation<double> firstAnim, secondAnim, thirdAnim;
 
   @override
   Widget build(BuildContext context) {
@@ -135,11 +137,12 @@ class SuperHeroHomeBody extends StatelessWidget {
         // backImage
         Transform.translate(
           offset: Offset(0, 100 * auxPercent),
-          child: SuperHeroCard(
+          child: SuperHeroCardAndImages(
             superhero: heroes[auxIndex],
             factorChange: auxPercent,
             firstAnim: firstAnim,
             secondAnim: secondAnim,
+            thirdAnim: thirdAnim,
           ),
         ),
         // Front Image
@@ -147,11 +150,12 @@ class SuperHeroHomeBody extends StatelessWidget {
           angle: (-pi * .5) * percent,
           child: Transform.translate(
             offset: Offset(-800 * percent, -50 * percent),
-            child: SuperHeroCard(
+            child: SuperHeroCardAndImages(
               superhero: heroes[index],
               factorChange: percent,
               firstAnim: firstAnim,
               secondAnim: secondAnim,
+              thirdAnim: thirdAnim,
             ),
           ),
         ),
@@ -214,23 +218,24 @@ class SuperHeroTitleAndText extends StatelessWidget {
   }
 }
 
-class SuperHeroCard extends StatelessWidget {
-  const SuperHeroCard(
+class SuperHeroCardAndImages extends StatelessWidget {
+  const SuperHeroCardAndImages(
       {Key? key,
       required this.superhero,
       required this.firstAnim,
       required this.secondAnim,
+      required this.thirdAnim,
       required this.factorChange})
       : super(key: key);
   final Superhero superhero;
   final double factorChange;
-  final Animation<double> firstAnim, secondAnim;
+  final Animation<double> firstAnim, secondAnim, thirdAnim;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final separation = size.height * .35;
     return AnimatedBuilder(
-      animation: Listenable.merge([firstAnim, secondAnim]),
+      animation: Listenable.merge([firstAnim, secondAnim, thirdAnim]),
       builder: (context, _) {
         return OverflowBox(
           maxHeight: size.height,
@@ -239,15 +244,16 @@ class SuperHeroCard extends StatelessWidget {
             children: [
               // Background Card
               Positioned(
-                top: separation * (1 - firstAnim.value),
+                top: separation * (1 - firstAnim.value) -
+                    (size.height * thirdAnim.value),
                 left: 0,
                 right: 0,
                 height: size.height,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     color: Color(superhero.rawColor),
-                    borderRadius:
-                        const BorderRadius.vertical(top: Radius.circular(50)),
+                    borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(50 * (1 - firstAnim.value))),
                   ),
                 ),
               ),
@@ -310,12 +316,11 @@ class SuperHeroDetailsColumn extends StatelessWidget {
     Key? key,
     required this.heroes,
     required this.animation,
-    required int index,
-  })  : _index = index,
-        super(key: key);
+    required this.index,
+  }) : super(key: key);
 
   final List<Superhero> heroes;
-  final int _index;
+  final int index;
   final Animation<double> animation;
 
   @override
@@ -324,47 +329,53 @@ class SuperHeroDetailsColumn extends StatelessWidget {
     return AnimatedBuilder(
       animation: animation,
       builder: (context, _) {
-        return SizedBox(
-          height: size.height * .5,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: 30,
-                  alignment: Alignment.centerRight,
-                  child: Image.asset('assets/superhero_/marvel_logo.jpg'),
+        return Opacity(
+          opacity: animation.value,
+          child: Transform.translate(
+            offset: Offset(0, -200 * (1 - animation.value)),
+            child: SizedBox(
+              height: size.height * .5,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 30,
+                      alignment: Alignment.centerRight,
+                      child: Image.asset('assets/superhero_/marvel_logo.jpg'),
+                    ),
+                    const SizedBox(height: 40),
+                    Text(
+                      heroes[index].description,
+                      maxLines: 4,
+                      style: const TextStyle(color: Colors.grey, fontSize: 11),
+                    ),
+                    const SizedBox(height: 40),
+                    const Text('movies',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      height: 200,
+                      child: PageView.builder(
+                        controller: PageController(viewportFraction: 0.4),
+                        itemCount: heroes[index].movies.length,
+                        itemBuilder: (context, index) {
+                          final heroMovie = heroes[index].movies[index];
+                          return Container(
+                            margin: const EdgeInsets.only(right: 10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                  image: AssetImage(heroMovie.urlImage),
+                                  fit: BoxFit.cover),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 20),
-                Text(
-                  heroes[_index].description,
-                  maxLines: 4,
-                  style: const TextStyle(color: Colors.grey, fontSize: 11),
-                ),
-                const SizedBox(height: 20),
-                const Text('movies',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  height: 300,
-                  child: PageView.builder(
-                    itemCount: heroes[_index].movies.length,
-                    itemBuilder: (context, index) {
-                      final heroMovie = heroes[_index].movies[index];
-                      return Container(
-                        height: 150,
-                        width: 150,
-                        margin: const EdgeInsets.only(right: 10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          image: DecorationImage(
-                              image: AssetImage(heroMovie.urlImage)),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         );

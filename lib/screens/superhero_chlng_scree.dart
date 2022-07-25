@@ -134,18 +134,21 @@ class SuperHeroHomeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // backImage
-        Transform.translate(
-          offset: Offset(0, 100 * auxPercent),
-          child: SuperHeroCardAndImages(
-            superhero: heroes[auxIndex],
-            factorChange: auxPercent,
-            firstAnim: firstAnim,
-            secondAnim: secondAnim,
-            thirdAnim: thirdAnim,
+        // next SuperHero
+        AnimatedBuilder(
+          animation: firstAnim,
+          builder: (context, _) => Transform.translate(
+            offset: Offset(0, 100 * auxPercent * (1 - firstAnim.value)),
+            child: SuperHeroCardAndImages(
+              superhero: heroes[auxIndex],
+              factorChange: auxPercent,
+              firstAnim: firstAnim,
+              secondAnim: secondAnim,
+              thirdAnim: thirdAnim,
+            ),
           ),
         ),
-        // Front Image
+        // Front SuperHero
         Transform.rotate(
           angle: (-pi * .5) * percent,
           child: Transform.translate(
@@ -332,7 +335,7 @@ class SuperHeroDetailsColumn extends StatelessWidget {
         return Opacity(
           opacity: animation.value,
           child: Transform.translate(
-            offset: Offset(0, -200 * (1 - animation.value)),
+            offset: Offset(0, 200 * (1 - animation.value)),
             child: SizedBox(
               height: size.height * .5,
               child: SingleChildScrollView(

@@ -19,7 +19,8 @@ import 'package:animations_anatomy/screens/challenges_/starbuck_/starbuck_challe
 import 'package:animations_anatomy/screens/challenges_/loading_screen1.dart';
 import 'package:animations_anatomy/screens/challenges_/coffe_chlng/coffee_chlng_home.dart';
 import 'package:animations_anatomy/screens/challenges_/pizza_chlng_screen.dart';
-import 'package:animations_anatomy/screens/superhero_chlng_scree.dart';
+import 'package:animations_anatomy/screens/challenges_/superhero_chlng_scree.dart';
+import 'package:animations_anatomy/screens/flip_card_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -52,6 +53,13 @@ class AppDrawer extends StatelessWidget {
               title: const Text('Batman SignIn'),
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (_) => const BatmanSignInScreen())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Testing Screen'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const FlipCardScreen())),
             ),
             const Divider(),
             ListTile(

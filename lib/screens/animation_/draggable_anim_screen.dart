@@ -14,8 +14,10 @@ class _DraggableAnimScreenState extends State<DraggableAnimScreen> {
     return Scaffold(
       body: Stack(
         children: [
+          // back Image
           Positioned.fill(
               child: Image.asset('assets/card_/5.jpg', fit: BoxFit.cover)),
+          // Draggable Sheet
           Positioned.fill(
             bottom: 0,
             child: NotificationListener<DraggableScrollableNotification>(
@@ -77,6 +79,7 @@ class _DraggableAnimScreenState extends State<DraggableAnimScreen> {
               ),
             ),
           ),
+          // Animated appBar
           Positioned(
             top: -size.height * .25 * (1 - _percent),
             left: 0,

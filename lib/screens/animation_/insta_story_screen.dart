@@ -1,14 +1,13 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 
-class FlipCardScreen extends StatefulWidget {
-  const FlipCardScreen({Key? key}) : super(key: key);
+class InstaStoryScreen extends StatefulWidget {
+  const InstaStoryScreen({Key? key}) : super(key: key);
   @override
-  State<FlipCardScreen> createState() => _FlipCardScreenState();
+  State<InstaStoryScreen> createState() => _InstaStoryScreenState();
 }
 
-class _FlipCardScreenState extends State<FlipCardScreen>
+class _InstaStoryScreenState extends State<InstaStoryScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 

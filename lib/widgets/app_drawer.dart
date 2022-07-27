@@ -20,7 +20,8 @@ import 'package:animations_anatomy/screens/challenges_/loading_screen1.dart';
 import 'package:animations_anatomy/screens/challenges_/coffe_chlng/coffee_chlng_home.dart';
 import 'package:animations_anatomy/screens/challenges_/pizza_chlng_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/superhero_chlng_scree.dart';
-import 'package:animations_anatomy/screens/flip_card_screen.dart';
+import 'package:animations_anatomy/screens/draggable_anim_screen.dart';
+import 'package:animations_anatomy/screens/animation_/insta_story_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -57,9 +58,9 @@ class AppDrawer extends StatelessWidget {
             const Divider(),
             ListTile(
               leading: const Icon(Icons.payment),
-              title: const Text('Testing Screen'),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const FlipCardScreen())),
+              title: const Text('Draggable Sheet'),
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (_) => const DraggableAnimScreen())),
             ),
             const Divider(),
             ListTile(
@@ -181,6 +182,13 @@ class AppDrawer extends StatelessWidget {
                 style: TextStyle(fontSize: 20, color: Colors.white),
               ),
             ),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Instagram Story'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const InstaStoryScreen())),
+            ),
+            const Divider(),
             ListTile(
               leading: const Icon(Icons.payment),
               title: const Text('Animated List1'),

@@ -1,5 +1,6 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
 class FlipCardScreen extends StatefulWidget {
   const FlipCardScreen({Key? key}) : super(key: key);
@@ -23,58 +24,60 @@ class _FlipCardScreenState extends State<FlipCardScreen>
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FlipCard Screen'),
-        centerTitle: true,
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.g_translate))
-        ],
-      ),
+          title: const Text('FlipCard Screen'),
+          centerTitle: true,
+          actions: [
+            IconButton(onPressed: () {}, icon: const Icon(Icons.g_translate))
+          ]),
       body: AnimatedBuilder(
         animation: _controller,
         builder: (context, _) {
           final _val = _controller.value;
           return Stack(
             children: [
-              Positioned.fill(child: Container(color: Colors.white)),
-              Stack(
-                children: [
-                  Positioned.fill(child: Container(color: Colors.blueGrey)),
-                  Positioned(
-                    top: 60,
-                    left: 0,
-                    right: 0,
-                    child: Transform.translate(
-                      offset: Offset(size.width * .7, 0),
-                      child: Transform(
-                        alignment: Alignment.centerLeft,
-                        transform: Matrix4.identity()
-                          ..setEntry(3, 2, .002)
-                          ..rotateY(-math.pi * (_val / 2)),
-                        child: Image.asset('asets/card_/7.jpg',
+              Positioned.fill(
+                right: size.width * .3,
+                child: Transform.translate(
+                  offset: Offset(-size.width * .7 * (1 - _val), 0),
+                  child: Transform(
+                    alignment: Alignment.centerRight,
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, .001)
+                      ..rotateY(pi / 2 * (1 - _val)),
+                    child: Container(color: Colors.pinkAccent),
+                  ),
+                ),
+              ),
+              Transform.translate(
+                offset: Offset(size.width * .7 * _val, 0),
+                child: Transform(
+                  alignment: Alignment.centerLeft,
+                  transform: Matrix4.identity()
+                    ..setEntry(3, 2, .001)
+                    ..rotateY(pi / 2 * _val),
+                  child: Stack(
+                    children: [
+                      Positioned.fill(child: Container(color: Colors.blueGrey)),
+                      Positioned(
+                        top: 60,
+                        left: 0,
+                        right: 0,
+                        child: Image.asset('assets/card_/7.jpg',
                             height: 300, fit: BoxFit.cover),
                       ),
-                    ),
+                    ],
                   ),
-                  Positioned(
-                    bottom: 50,
-                    left: 150,
-                    child: ElevatedButton(
-                      onPressed: () => _val < 1
-                          ? _controller.forward(from: 0.0)
-                          : _controller.reverse(),
-                      child: const Text('TextButton'),
-                    ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    child: AppBar(
-                      title: const Text('Testing Screen'),
-                      centerTitle: true,
-                    ),
-                  )
-                ],
+                ),
+              ),
+              Positioned(
+                bottom: 50,
+                left: 150,
+                child: ElevatedButton(
+                  onPressed: () => _val < 1
+                      ? _controller.forward(from: 0.0)
+                      : _controller.reverse(),
+                  child: const Text('TextButton'),
+                ),
               ),
             ],
           );

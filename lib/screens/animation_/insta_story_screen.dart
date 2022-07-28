@@ -22,12 +22,7 @@ class _InstaStoryScreenState extends State<InstaStoryScreen>
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-          title: const Text('FlipCard Screen'),
-          centerTitle: true,
-          actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.g_translate))
-          ]),
+      appBar: AppBar(title: const Text('Instragram'), centerTitle: true),
       body: AnimatedBuilder(
         animation: _controller,
         builder: (context, _) {
@@ -43,7 +38,8 @@ class _InstaStoryScreenState extends State<InstaStoryScreen>
                     transform: Matrix4.identity()
                       ..setEntry(3, 2, .001)
                       ..rotateY(pi / 2 * (1 - _val)),
-                    child: Container(color: Colors.pinkAccent),
+                    child: Container(
+                        color: const Color.fromARGB(255, 35, 138, 185)),
                   ),
                 ),
               ),
@@ -53,16 +49,12 @@ class _InstaStoryScreenState extends State<InstaStoryScreen>
                   alignment: Alignment.centerLeft,
                   transform: Matrix4.identity()
                     ..setEntry(3, 2, .001)
-                    ..rotateY(pi / 2 * _val),
+                    ..rotateY(-pi / 2 * _val),
                   child: Stack(
                     children: [
-                      Positioned.fill(child: Container(color: Colors.blueGrey)),
-                      Positioned(
-                        top: 60,
-                        left: 0,
-                        right: 0,
+                      Positioned.fill(
                         child: Image.asset('assets/card_/7.jpg',
-                            height: 300, fit: BoxFit.cover),
+                            fit: BoxFit.cover),
                       ),
                     ],
                   ),
@@ -75,7 +67,7 @@ class _InstaStoryScreenState extends State<InstaStoryScreen>
                   onPressed: () => _val < 1
                       ? _controller.forward(from: 0.0)
                       : _controller.reverse(),
-                  child: const Text('TextButton'),
+                  child: const Text('Start Animation'),
                 ),
               ),
             ],

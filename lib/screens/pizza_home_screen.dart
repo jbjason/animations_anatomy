@@ -69,6 +69,8 @@ class _PizzaHomeScreenState extends State<PizzaHomeScreen> {
                     animation: _controller2,
                     builder: (context, _) {
                       double value = 0;
+                      // this .haveDimensions condition needed cz aniamtion isn't possible wihout
+                      // changing a page but initially all value is 0 so we got error for previous & next pageItem
                       if (_controller2.position.haveDimensions) {
                         value = index - _controller2.page!;
                         value = (value * .9).clamp(-1, 1);

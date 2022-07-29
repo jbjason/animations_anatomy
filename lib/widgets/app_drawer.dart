@@ -69,6 +69,7 @@ class AppDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 20, color: Colors.white),
             ),
           ),
+          // Batman
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('Batman SignIn'),
@@ -76,6 +77,7 @@ class AppDrawer extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => const BatmanSignInScreen())),
           ),
           const Divider(),
+          // Card Flow1
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('Card Flow1'),
@@ -83,6 +85,7 @@ class AppDrawer extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => const CardFlow1Screen())),
           ),
           const Divider(),
+          // Sync TapBar
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('Sync TapBar'),
@@ -90,6 +93,7 @@ class AppDrawer extends StatelessWidget {
                 .push(MaterialPageRoute(builder: (_) => const TabBarScreen())),
           ),
           const Divider(),
+          // Bank App1
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('Bank App1'),
@@ -97,6 +101,7 @@ class AppDrawer extends StatelessWidget {
                 .push(MaterialPageRoute(builder: (_) => const BankApp1())),
           ),
           const Divider(),
+          // Loading Animation
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('Loading Animation'),
@@ -104,13 +109,7 @@ class AppDrawer extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => const LoadingScreen1())),
           ),
           const Divider(),
-          ListTile(
-            leading: const Icon(Icons.payment),
-            title: const Text('Stacked Card'),
-            onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const StackedCardScreen())),
-          ),
-          const Divider(),
+          // SuperHero Animation
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('SuperHero Animation'),
@@ -118,6 +117,7 @@ class AppDrawer extends StatelessWidget {
                 builder: (_) => const SuperHeroChlngScreen())),
           ),
           const Divider(),
+          // Pizza Challenge
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('Pizza Challenge'),
@@ -125,6 +125,7 @@ class AppDrawer extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => const PizzaChlngScreen())),
           ),
           const Divider(),
+          // 3d Cards Animation
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('3d Cards Animation'),
@@ -132,6 +133,7 @@ class AppDrawer extends StatelessWidget {
                 .push(MaterialPageRoute(builder: (_) => const Cards3dScreen())),
           ),
           const Divider(),
+          // Drag Bottom Cart
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('Drag Bottom Cart'),
@@ -139,6 +141,7 @@ class AppDrawer extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => const DragBottomCart())),
           ),
           const Divider(),
+          // Stacked Card'
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('Stacked Card'),
@@ -146,6 +149,7 @@ class AppDrawer extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => const StackedCardScreen())),
           ),
           const Divider(),
+          // Coffee Challenge
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('Coffee Challenge'),
@@ -153,6 +157,7 @@ class AppDrawer extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => const CoffeeChlngHome())),
           ),
           const Divider(),
+          // Starbuck Challenge
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('Starbuck Challenge'),
@@ -160,6 +165,7 @@ class AppDrawer extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => const StarbuckChallenge())),
           ),
           const Divider(),
+          // Animated NavBar1
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('Animated NavBar1'),
@@ -167,6 +173,7 @@ class AppDrawer extends StatelessWidget {
                 .push(MaterialPageRoute(builder: (_) => const NavBar1())),
           ),
           const Divider(),
+          // Hero Challenge1
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('Hero Challenge1'),
@@ -174,6 +181,7 @@ class AppDrawer extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => const HeroChallenge1())),
           ),
           const Divider(),
+          // Disk Challenge2
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('Disk Challenge2'),
@@ -181,6 +189,7 @@ class AppDrawer extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => const DiskChallenge2())),
           ),
           const Divider(),
+          // Sliver Animation2
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('Sliver Animation2'),

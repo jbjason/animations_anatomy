@@ -108,12 +108,13 @@ class _SuperHeroChlngScreenState extends State<SuperHeroChlngScreen>
               left: 0,
               right: 0,
               child: SuperHeroAppbar(
-                  animation: _cardToTopAnim, onTap: _reverseAnimation)),
+                  animation: _cardToTopAnim, onTap: _startAnimation)),
         ],
       ),
     );
   }
 
-  void _startAnimation() => _animationController.forward(from: 0.0);
-  void _reverseAnimation() => _animationController.reverse();
+  void _startAnimation() => _animationController.isDismissed
+      ? _animationController.forward(from: 0.0)
+      : _animationController.reverse();
 }

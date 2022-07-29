@@ -73,7 +73,7 @@ class _PizzaHomeScreenState extends State<PizzaHomeScreen> {
                       // changing a page but initially all value is 0 so we got error for previous & next pageItem
                       if (_controller2.position.haveDimensions) {
                         value = index - _controller2.page!;
-                        value = (value * .9).clamp(-1, 1);
+                        value = (value * .9).clamp(-1, 0);
                         // to reverse transition to topRightCorner to bottomLeft Corner transition
                         // if (value < 0) {
                         //   value = value.abs();
@@ -84,7 +84,7 @@ class _PizzaHomeScreenState extends State<PizzaHomeScreen> {
                       // like topLefCorner to bottomRightCorner (korner er moto) behave korbe
                       return Transform.translate(
                         // 18 to ...... will increase the previousItem to more on Top & nextItem to more on bottom
-                        offset: Offset(0, 18 * math.pi * value),
+                        offset: Offset(0, 20 * math.pi * value),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child: Image.asset('assets/card_/${index + 1}.jpg',

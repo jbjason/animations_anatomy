@@ -25,38 +25,7 @@ class _PizzaHomeScreenState extends State<PizzaHomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(height: 20),
-            SizedBox(
-              height: 250,
-              child: PageView.builder(
-                controller: _controller1,
-                itemCount: 8,
-                physics: const ClampingScrollPhysics(),
-                //  onPageChanged: (value) => setState(() => _currentIndex = value),
-                itemBuilder: (context, index) {
-                  return AnimatedBuilder(
-                    animation: _controller1,
-                    builder: (context, _) {
-                      double value = 0;
-                      if (_controller1.position.haveDimensions) {
-                        value = index - _controller1.page!;
-                        //  (value * .1) .1 means both side will start rotaing
-                        //| *.5 means both 90 angle e ghure jabe | *.9 means almost 180 angle for both sides
-                        //| *1 means 180 degree angle for both sides . will rotate according to while changing page
-                        value = (value * .4).clamp(-1, 1);
-                      }
-                      return Transform.rotate(
-                        angle: math.pi * value,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Image.asset('assets/card_/${5 + index}.jpg',
-                              fit: BoxFit.cover),
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
+            _rotateTransition(),
             const SizedBox(height: 30),
             SizedBox(
               height: 250,
@@ -73,13 +42,10 @@ class _PizzaHomeScreenState extends State<PizzaHomeScreen> {
                       // changing a page but initially all value is 0 so we got error for previous & next pageItem
                       if (_controller2.position.haveDimensions) {
                         value = index - _controller2.page!;
-                        value = (value * .9).clamp(-1, 0);
-                        // to reverse transition to topRightCorner to bottomLeft Corner transition
-                        // if (value < 0) {
-                        //   value = value.abs();
-                        // } else {
-                        //   value = -value;
-                        // }
+                        // 1. clamp(-1, 0) is fixed for left pageItem
+                        // 2. clamp(0, 0) for current pageItem 3. clamp(0, 1) for next pageItem
+                        // if we set 1st option then only left pageItem will follow Transform Animation & vice varsa to 2nd & 3rd
+                        value = (value * .9).clamp(-1, 1);
                       }
                       // like topLefCorner to bottomRightCorner (korner er moto) behave korbe
                       return Transform.translate(
@@ -101,4 +67,37 @@ class _PizzaHomeScreenState extends State<PizzaHomeScreen> {
       ),
     );
   }
+
+  Widget _rotateTransition() => SizedBox(
+        height: 250,
+        child: PageView.builder(
+          controller: _controller1,
+          itemCount: 8,
+          physics: const ClampingScrollPhysics(),
+          //  onPageChanged: (value) => setState(() => _currentIndex = value),
+          itemBuilder: (context, index) {
+            return AnimatedBuilder(
+              animation: _controller1,
+              builder: (context, _) {
+                double value = 0;
+                if (_controller1.position.haveDimensions) {
+                  value = index - _controller1.page!;
+                  //  (value * .1) .1 means both side will start rotaing
+                  //| *.5 means both 90 angle e ghure jabe | *.9 means almost 180 angle for both sides
+                  //| *1 means 180 degree angle for both sides . will rotate according to while changing page
+                  value = (value * .4).clamp(-1, 1);
+                }
+                return Transform.rotate(
+                  angle: math.pi * value,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Image.asset('assets/card_/${5 + index}.jpg',
+                        fit: BoxFit.cover),
+                  ),
+                );
+              },
+            );
+          },
+        ),
+      );
 }

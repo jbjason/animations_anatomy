@@ -1,105 +1,139 @@
+import 'package:animations_anatomy/models/ingredient.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
-class PizzaHomeScreen extends StatefulWidget {
+const _color = Color.fromARGB(255, 190, 164, 154);
+
+class PizzaHomeScreen extends StatelessWidget {
   const PizzaHomeScreen({Key? key}) : super(key: key);
-  @override
-  State<PizzaHomeScreen> createState() => _PizzaHomeScreenState();
-}
-
-class _PizzaHomeScreenState extends State<PizzaHomeScreen> {
-  final _controller1 = PageController(viewportFraction: 0.5, initialPage: 0);
-  final _controller2 = PageController(viewportFraction: 0.5, initialPage: 0);
-  @override
-  void dispose() {
-    _controller1.dispose();
-    _controller2.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(height: 20),
-            _rotateTransition(),
-            const SizedBox(height: 30),
-            _translateTransition(),
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 241, 236, 238),
+      body: SafeArea(
+        child: Column(
+          children: const [
+            PizzaTitleAndCart(),
+            Expanded(child: PizzaHomeDetails()),
+            SizedBox(height: 30),
           ],
         ),
       ),
     );
   }
+}
 
-  Widget _translateTransition() => SizedBox(
-        height: 250,
-        child: PageView.builder(
-          controller: _controller2,
-          itemCount: 8,
-          physics: const ClampingScrollPhysics(),
-          itemBuilder: (context, index) {
-            return AnimatedBuilder(
-              animation: _controller2,
-              builder: (context, _) {
-                double value = 0;
-                // this .haveDimensions condition needed cz aniamtion isn't possible wihout
-                // changing a page but initially all value is 0 so we got error for previous & next pageItem
-                if (_controller2.position.haveDimensions) {
-                  value = index - _controller2.page!;
-                  // 1. clamp(-1, 0) is fixed for left pageItem
-                  // 2. clamp(0, 0) for current pageItem 3. clamp(0, 1) for next pageItem
-                  // if we set 1st option then only left pageItem will follow Transform Animation & vice varsa to 2nd & 3rd
-                  value = (value * .9).clamp(-1, 1);
-                }
-                // like topLefCorner to bottomRightCorner (korner er moto) behave korbe
-                return Transform.translate(
-                  // 18 to ...... will increase the previousItem to more on Top & nextItem to more on bottom
-                  offset: Offset(0, 20 * math.pi * value),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Image.asset('assets/card_/${index + 1}.jpg',
-                        fit: BoxFit.cover),
-                  ),
+class PizzaHomeDetails extends StatefulWidget {
+  const PizzaHomeDetails({Key? key}) : super(key: key);
+  @override
+  State<PizzaHomeDetails> createState() => _PizzaHomeDetailsState();
+}
+
+class _PizzaHomeDetailsState extends State<PizzaHomeDetails> {
+  final _controller = PageController(viewportFraction: .7);
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Stack(
+      children: [
+        // background COntainer
+        Positioned(
+          top: 0,
+          width: size.width * .4,
+          left: size.width * .3,
+          bottom: 0,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(
+                  bottom: Radius.elliptical(size.width * .2, 100)),
+              boxShadow: const [
+                BoxShadow(
+                    color: Colors.black12, spreadRadius: 2, blurRadius: 80)
+              ],
+            ),
+          ),
+        ),
+        Positioned.fill(
+          child: SafeArea(
+            child: PageView.builder(
+              controller: _controller,
+              itemCount: pizzaList.length,
+              itemBuilder: (context, index) {
+                final _pizza = pizzaList[index];
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(child: Image.asset(_pizza.image)),
+                    Text(_pizza.name, style: const TextStyle(color: _color)),
+                    const Text('★★★★★'),
+                    const SizedBox(height: 10),
+                    Text(
+                      '\$ ${_pizza.price}',
+                      style: const TextStyle(
+                          color: Colors.brown,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w800),
+                    ),
+                  ],
                 );
               },
-            );
-          },
+            ),
+          ),
         ),
-      );
+      ],
+    );
+  }
+}
 
-  Widget _rotateTransition() => SizedBox(
-        height: 250,
-        child: PageView.builder(
-          controller: _controller1,
-          itemCount: 8,
-          physics: const ClampingScrollPhysics(),
-          //  onPageChanged: (value) => setState(() => _currentIndex = value),
-          itemBuilder: (context, index) {
-            return AnimatedBuilder(
-              animation: _controller1,
-              builder: (context, _) {
-                double value = 0;
-                if (_controller1.position.haveDimensions) {
-                  value = index - _controller1.page!;
-                  //  (value * .1) .1 means both side will start rotaing
-                  //| *.5 means both 90 angle e ghure jabe | *.9 means almost 180 angle for both sides
-                  //| *1 means 180 degree angle for both sides . will rotate according to while changing page
-                  value = (value * .4).clamp(-1, 1);
-                }
-                return Transform.rotate(
-                  angle: math.pi * value,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Image.asset('assets/card_/${5 + index}.jpg',
-                        fit: BoxFit.cover),
-                  ),
-                );
-              },
-            );
-          },
-        ),
-      );
+class PizzaTitleAndCart extends StatelessWidget {
+  const PizzaTitleAndCart({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              Text(
+                'Order Manually',
+                style: TextStyle(
+                    fontSize: 23,
+                    fontWeight: FontWeight.w600,
+                    color: Color.fromARGB(255, 102, 76, 66)),
+              ),
+              Icon(Icons.shopping_cart_outlined, color: _color)
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: const [
+              Icon(Icons.location_on, color: _color),
+              SizedBox(width: 10),
+              Text('Washington Park')
+            ],
+          ),
+          Container(
+            width: 100,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(40),
+                color: const Color.fromARGB(255, 179, 172, 114)),
+            child: const Text('Pizza'),
+          ),
+        ],
+      ),
+    );
+  }
 }

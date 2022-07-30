@@ -23,6 +23,7 @@ import 'package:animations_anatomy/screens/challenges_/superhero_chlng_scree.dar
 import 'package:animations_anatomy/screens/animation_/draggable_anim_screen.dart';
 import 'package:animations_anatomy/screens/animation_/insta_story_screen.dart';
 import 'package:animations_anatomy/screens/pizza_home_screen.dart';
+import 'package:animations_anatomy/screens/testing_1.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -43,6 +44,13 @@ class AppDrawer extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.payment),
               title: const Text('Testing Screen'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const Testing1Screen())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Pizza Home'),
               onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (_) => const PizzaHomeScreen())),
             ),

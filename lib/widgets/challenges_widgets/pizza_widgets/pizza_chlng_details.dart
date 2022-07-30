@@ -190,6 +190,7 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
           ),
         ),
         const SizedBox(height: 5),
+        // Price
         AnimatedSwitcher(
           duration: _duration,
           transitionBuilder: (child, animation) {
@@ -206,6 +207,7 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
           ),
         ),
         const SizedBox(height: 10),
+        // Pizza Size
         ValueListenableBuilder(
           valueListenable: _notifierPizzaSize,
           builder: (context, PizzaSizeState pizzaSize, _) {
@@ -261,25 +263,6 @@ class _PizzaChlngDetailsState extends State<PizzaChlngDetails>
     await _controller.reverse(from: 1);
     Provider.of<PizzaBloc>(context, listen: false)
         .refreshIngredientList(ingredient);
-  }
-}
-
-enum PizzaSizeValue { S, M, L }
-
-class PizzaSizeState {
-  final PizzaSizeValue value;
-  final double factor;
-
-  PizzaSizeState({required this.value}) : factor = _getFactorBySize(value);
-  static double _getFactorBySize(PizzaSizeValue value) {
-    switch (value) {
-      case PizzaSizeValue.S:
-        return 0.8;
-      case PizzaSizeValue.M:
-        return 0.9;
-      case PizzaSizeValue.L:
-        return 1.0;
-    }
   }
 }
 

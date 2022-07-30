@@ -39,7 +39,7 @@ final List<Pizza> pizzaList = [
   Pizza(
       name: 'Neapolitan Pizza',
       price: 8.12,
-      image: 'assets/pizza_/pizza-0.png'),
+      image: 'assets/pizza_/pizza-8.png'),
   Pizza(name: 'Chicago Pizza', price: 6.25, image: 'assets/pizza_/pizza-1.png'),
   Pizza(
       name: 'New York-Style Pizza',
@@ -57,10 +57,6 @@ final List<Pizza> pizzaList = [
       name: 'California Pizza',
       price: 5.50,
       image: 'assets/pizza_/pizza-6.png'),
-  Pizza(
-      name: 'Neapolitan Pizza',
-      price: 12.45,
-      image: 'assets/pizza_/pizza-8.png'),
   Pizza(
       name: 'Detroit Pizza2', price: 4.87, image: 'assets/pizza_/pizza-9.png'),
   Pizza(

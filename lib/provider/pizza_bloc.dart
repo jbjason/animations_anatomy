@@ -1,4 +1,4 @@
-import 'package:animations_anatomy/models/ingredient.dart';
+import 'package:animations_anatomy/models/pizza.dart';
 import 'package:flutter/cupertino.dart' show ChangeNotifier;
 
 class PizzaBloc with ChangeNotifier {

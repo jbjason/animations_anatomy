@@ -1,4 +1,4 @@
-import 'package:animations_anatomy/models/ingredient.dart';
+import 'package:animations_anatomy/models/pizza.dart';
 import 'package:animations_anatomy/provider/pizza_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

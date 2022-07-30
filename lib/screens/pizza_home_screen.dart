@@ -1,7 +1,10 @@
-import 'package:animations_anatomy/models/ingredient.dart';
+import 'dart:math';
+
+import 'package:animations_anatomy/models/pizza.dart';
 import 'package:flutter/material.dart';
 
-const _color = Color.fromARGB(255, 190, 164, 154);
+const _color = Color.fromARGB(255, 241, 236, 238);
+const _textColor = Color.fromARGB(255, 155, 123, 111);
 
 class PizzaHomeScreen extends StatelessWidget {
   const PizzaHomeScreen({Key? key}) : super(key: key);
@@ -9,13 +12,14 @@ class PizzaHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 241, 236, 238),
+      backgroundColor: _color,
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: const [
             PizzaTitleAndCart(),
             Expanded(child: PizzaHomeDetails()),
-            SizedBox(height: 30),
+            SizedBox(height: 80),
           ],
         ),
       ),
@@ -23,20 +27,8 @@ class PizzaHomeScreen extends StatelessWidget {
   }
 }
 
-class PizzaHomeDetails extends StatefulWidget {
+class PizzaHomeDetails extends StatelessWidget {
   const PizzaHomeDetails({Key? key}) : super(key: key);
-  @override
-  State<PizzaHomeDetails> createState() => _PizzaHomeDetailsState();
-}
-
-class _PizzaHomeDetailsState extends State<PizzaHomeDetails> {
-  final _controller = PageController(viewportFraction: .7);
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,47 +38,146 @@ class _PizzaHomeDetailsState extends State<PizzaHomeDetails> {
         // background COntainer
         Positioned(
           top: 0,
-          width: size.width * .4,
-          left: size.width * .3,
+          width: size.width * .6,
+          left: size.width * .2,
           bottom: 0,
           child: DecoratedBox(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: _color,
               borderRadius: BorderRadius.vertical(
-                  bottom: Radius.elliptical(size.width * .2, 100)),
+                  bottom: Radius.elliptical(size.width * .3, size.height * .2)),
+              gradient: LinearGradient(
+                  colors: [Colors.white.withOpacity(0.3), _color],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter),
               boxShadow: const [
                 BoxShadow(
-                    color: Colors.black12, spreadRadius: 2, blurRadius: 80)
+                    offset: Offset(0, 2),
+                    color: Colors.black12,
+                    spreadRadius: 10,
+                    blurRadius: 80)
               ],
             ),
           ),
         ),
+
+        // pageView Builder
+        const PizzaHomePageView(),
+      ],
+    );
+  }
+}
+
+class PizzaHomePageView extends StatefulWidget {
+  const PizzaHomePageView({Key? key}) : super(key: key);
+  @override
+  State<PizzaHomePageView> createState() => _PizzaHomePageViewState();
+}
+
+class _PizzaHomePageViewState extends State<PizzaHomePageView> {
+  late PageController _controller;
+  double _val = 0.0, _rotate = 0.0;
+
+  @override
+  void initState() {
+    _controller = PageController(viewportFraction: .7, initialPage: 0);
+    _controller.addListener(_listener);
+    super.initState();
+  }
+
+  void _listener() {
+    setState(() => _val = _controller.page!);
+  }
+
+  @override
+  void dispose() {
+    _controller.removeListener(_listener);
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
         Positioned.fill(
-          child: SafeArea(
-            child: PageView.builder(
-              controller: _controller,
-              itemCount: pizzaList.length,
-              itemBuilder: (context, index) {
-                final _pizza = pizzaList[index];
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(child: Image.asset(_pizza.image)),
-                    Text(_pizza.name, style: const TextStyle(color: _color)),
-                    const Text('★★★★★'),
-                    const SizedBox(height: 10),
-                    Text(
-                      '\$ ${_pizza.price}',
-                      style: const TextStyle(
-                          color: Colors.brown,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w800),
+          child: LayoutBuilder(
+            builder: (context, constraints) => Stack(
+              children: [
+                Positioned(
+                  left: 20,
+                  child: Transform.rotate(
+                      angle: pi / 2 * (1 - _rotate),
+                      child: Image.asset('assets/pizza_/back1.png')),
+                ),
+                Positioned(
+                  left: 30,
+                  child: Transform.rotate(
+                      angle: -pi / 2 * _rotate,
+                      child: Image.asset('assets/pizza_/back1.png')),
+                ),
+                Positioned(
+                  top: constraints.maxHeight * .04,
+                  left: constraints.maxWidth * .16,
+                  width: constraints.maxWidth * .67,
+                  height: constraints.maxHeight * .68,
+                  child: DecoratedBox(
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 15,
+                          spreadRadius: 3,
+                          offset: Offset(0, 5),
+                        ),
+                      ],
                     ),
-                  ],
-                );
-              },
+                    child: Image.asset('assets/pizza_/dish.png'),
+                  ),
+                ),
+              ],
             ),
           ),
+        ),
+        PageView.builder(
+          controller: _controller,
+          physics: const ClampingScrollPhysics(),
+          itemCount: pizzaList.length,
+          itemBuilder: (context, index) {
+            final _pizza = pizzaList[index];
+            final _percent = index - _val;
+            _rotate = _percent.clamp(0, 1);
+            double _scale = 0.0, _translate = 0.0;
+            if (_controller.position.haveDimensions) {
+              _scale = _percent.clamp(-0.5, 0.5);
+              _translate = _percent.clamp(-1, 1);
+            }
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Transform.scale(
+                        scale: 1 - _scale, child: Image.asset(_pizza.image)),
+                  ),
+                ),
+                Text(_pizza.name,
+                    style: const TextStyle(color: _textColor, fontSize: 20)),
+                const Text('★★★★★', style: TextStyle(color: _textColor)),
+                const SizedBox(height: 10),
+                Text(
+                  '\$ ${_pizza.price}',
+                  style: const TextStyle(
+                      color: Colors.brown,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w800),
+                ),
+                const SizedBox(height: 50),
+              ],
+            );
+          },
         ),
       ],
     );
@@ -99,8 +190,9 @@ class PizzaTitleAndCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.all(20),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,25 +204,33 @@ class PizzaTitleAndCart extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: Color.fromARGB(255, 102, 76, 66)),
               ),
-              Icon(Icons.shopping_cart_outlined, color: _color)
+              Icon(Icons.shopping_cart_outlined, color: _textColor)
             ],
           ),
-          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: const [
-              Icon(Icons.location_on, color: _color),
+              Icon(Icons.location_on, color: _textColor),
               SizedBox(width: 10),
-              Text('Washington Park')
+              Text(
+                'Washington Park',
+                style: TextStyle(color: _textColor),
+              )
             ],
           ),
+          const SizedBox(height: 8),
           Container(
             width: 100,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(40),
-                color: const Color.fromARGB(255, 179, 172, 114)),
-            child: const Text('Pizza'),
+                color: Colors.orange[400]),
+            child: const Center(
+              child: Text(
+                'Pizza',
+                style: TextStyle(fontWeight: FontWeight.w900, color: _color),
+              ),
+            ),
           ),
         ],
       ),

@@ -76,6 +76,7 @@ class PizzaHomePageView extends StatefulWidget {
 class _PizzaHomePageViewState extends State<PizzaHomePageView> {
   late PageController _controller;
   double _val = 0.0, _rotate = 0.0;
+  double _scale = 0.0, _translateX = 0.0, _translateY = 0.0;
 
   @override
   void initState() {
@@ -147,10 +148,18 @@ class _PizzaHomePageViewState extends State<PizzaHomePageView> {
             final _pizza = pizzaList[index];
             final _percent = index - _val;
             _rotate = _percent.clamp(0, 1);
-            double _scale = 0.0, _translate = 0.0;
+
             if (_controller.position.haveDimensions) {
-              _scale = _percent.clamp(-0.5, 0.5);
-              _translate = _percent.clamp(-1, 1);
+              _scale = _percent.clamp(-.5, .5).abs();
+              final _translate = _percent.clamp(-1.0, 1.0);
+              if (_translate < 0) {
+                _translateX = 130 * _translate.abs();
+                _translateY = 150 * _translate.abs();
+              } else if (_translate > 0) {
+                _translateX = (1 - _translate);
+                _translateY = 150 * (1 - _translate);
+                print(_translateY);
+              }
             }
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -158,8 +167,12 @@ class _PizzaHomePageViewState extends State<PizzaHomePageView> {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(15),
-                    child: Transform.scale(
-                        scale: 1 - _scale, child: Image.asset(_pizza.image)),
+                    child: Transform.translate(
+                      offset: Offset(_translateX, _translateY),
+                      child: Transform.scale(
+                          scale: (1 - _scale),
+                          child: Image.asset(_pizza.image)),
+                    ),
                   ),
                 ),
                 Text(_pizza.name,

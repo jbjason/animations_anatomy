@@ -26,7 +26,6 @@ class _DraggableAnimScreenState extends State<DraggableAnimScreen> {
                 // drag top to bottom  : value = 1 to 0
                 setState(() {
                   _percent = 2 * notification.extent - 0.8;
-                  print(_percent);
                 });
                 return true;
               },

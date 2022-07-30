@@ -1,5 +1,4 @@
-import 'dart:math';
-
+import 'dart:math' as math;
 import 'package:animations_anatomy/models/pizza.dart';
 import 'package:flutter/material.dart';
 
@@ -107,13 +106,13 @@ class _PizzaHomePageViewState extends State<PizzaHomePageView> {
                 Positioned(
                   left: 20,
                   child: Transform.rotate(
-                      angle: pi / 2 * (1 - _rotate),
+                      angle: math.pi / 2 * (1 - _rotate),
                       child: Image.asset('assets/pizza_/back1.png')),
                 ),
                 Positioned(
                   left: 30,
                   child: Transform.rotate(
-                      angle: -pi / 2 * _rotate,
+                      angle: -math.pi / 2 * _rotate,
                       child: Image.asset('assets/pizza_/back1.png')),
                 ),
                 Positioned(

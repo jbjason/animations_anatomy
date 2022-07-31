@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:animations_anatomy/models/pizza.dart';
+import 'package:animations_anatomy/widgets/challenges_widgets/pizza_widgets/pizza_chlng_details.dart';
 import 'package:flutter/material.dart';
 
 const _color = Color.fromARGB(255, 241, 236, 238);
@@ -116,8 +117,9 @@ class _PizzaHomePageViewState extends State<PizzaHomePageView> {
                       angle: -math.pi / 2 * _rotate,
                       child: Image.asset('assets/pizza_/back1.png')),
                 ),
+                // dish Image
                 Positioned(
-                  top: constraints.maxHeight * .04,
+                  top: 4,
                   left: constraints.maxWidth * .16,
                   width: constraints.maxWidth * .67,
                   height: constraints.maxHeight * .68,
@@ -151,14 +153,16 @@ class _PizzaHomePageViewState extends State<PizzaHomePageView> {
 
             if (_controller.position.haveDimensions) {
               _scale = _percent.clamp(-.5, .5).abs();
-              final _translate = _percent.clamp(-1.0, 1.0);
+              final _translate = _percent.clamp(-1.0, 2.0);
               if (_translate < 0) {
-                _translateX = 130 * _translate.abs();
-                _translateY = 150 * _translate.abs();
+                _translateX = 100 * _translate.abs();
+                _translateY = 180 * _translate.abs();
               } else if (_translate > 0) {
-                _translateX = (1 - _translate);
-                _translateY = 150 * (1 - _translate);
-                print(_translateY);
+                _translateX = -100 * _translate;
+                _translateY = 180 * _translate;
+              } else {
+                _translateX = 0;
+                _translateY = 0;
               }
             }
             return Column(
@@ -186,7 +190,28 @@ class _PizzaHomePageViewState extends State<PizzaHomePageView> {
                       fontSize: 22,
                       fontWeight: FontWeight.w800),
                 ),
-                const SizedBox(height: 50),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    PizzaSizedButton(
+                      text: 'S',
+                      selected: false,
+                      onTap: () {},
+                    ),
+                    PizzaSizedButton(
+                      text: 'M',
+                      selected: true,
+                      onTap: () {},
+                    ),
+                    PizzaSizedButton(
+                      text: 'L',
+                      selected: false,
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 40),
               ],
             );
           },

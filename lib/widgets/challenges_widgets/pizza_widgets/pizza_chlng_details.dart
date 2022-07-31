@@ -284,7 +284,7 @@ class PizzaSizedButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.white,
+          color: selected ? Colors.white : Colors.white.withOpacity(0.4),
           boxShadow: selected
               ? [
                   const BoxShadow(

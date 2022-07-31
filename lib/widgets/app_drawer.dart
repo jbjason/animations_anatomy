@@ -24,6 +24,7 @@ import 'package:animations_anatomy/screens/animation_/draggable_anim_screen.dart
 import 'package:animations_anatomy/screens/animation_/insta_story_screen.dart';
 import 'package:animations_anatomy/screens/pizza_home_screen.dart';
 import 'package:animations_anatomy/screens/testing_1.dart';
+import 'package:animations_anatomy/screens/ticket_home_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -53,6 +54,13 @@ class AppDrawer extends StatelessWidget {
               title: const Text('Pizza Home'),
               onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (_) => const PizzaHomeScreen())),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Ticket Challenge'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const TicketHomeScreen())),
             ),
             const Divider(),
             // Challenge Animation

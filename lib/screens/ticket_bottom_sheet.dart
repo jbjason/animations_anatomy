@@ -4,12 +4,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 const double minHeight = 120;
-const double iconStartSize = 44;
-const double iconEndSize = 120;
-const double iconStartMarginTop = 36;
-const double iconEndMarginTop = 80;
-const double iconsVerticalSpacing = 24;
-const double iconsHorizontalSpacing = 16;
+const double imageSmallSize = 44;
+const double imageBigSize = 120;
+const double imageStartMarginTop = 36;
+const double imageEndMarginTop = 80;
+const double imageVerticalSpacing = 24;
+const double imageHorizontalSpacing = 16;
 
 class ExhibitionBottomSheet extends StatefulWidget {
   const ExhibitionBottomSheet({Key? key}) : super(key: key);
@@ -23,10 +23,8 @@ class _ExhibitionBottomSheetState extends State<ExhibitionBottomSheet>
 
   double get maxHeight => MediaQuery.of(context).size.height;
 
-  double get headerTopMargin =>
+  double get statusBarMargin =>
       lerp(20, 20 + MediaQuery.of(context).padding.top);
-
-  double get headerFontSize => lerp(14, 24);
 
   double get itemBorderRadius => lerp(8, 24);
 
@@ -34,15 +32,15 @@ class _ExhibitionBottomSheetState extends State<ExhibitionBottomSheet>
 
   double get iconRightBorderRadius => lerp(8, 0);
 
-  double get iconSize => lerp(iconStartSize, iconEndSize);
+  double get imageSize => lerp(imageSmallSize, imageBigSize);
 
   double iconTopMargin(int index) =>
-      lerp(iconStartMarginTop,
-          iconEndMarginTop + index * (iconsVerticalSpacing + iconEndSize)) +
-      headerTopMargin;
+      lerp(imageStartMarginTop,
+          imageEndMarginTop + index * (imageVerticalSpacing + imageBigSize)) +
+      statusBarMargin;
 
   double iconLeftMargin(int index) =>
-      lerp(index * (iconsHorizontalSpacing + iconStartSize), 0);
+      lerp(index * (imageHorizontalSpacing + imageSmallSize), 0);
 
   @override
   void initState() {
@@ -83,14 +81,29 @@ class _ExhibitionBottomSheetState extends State<ExhibitionBottomSheet>
                 borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
               ),
               child: Stack(
-                children: <Widget>[
-                  const MenuButton(),
-                  SheetHeader(
-                    fontSize: headerFontSize,
-                    topMargin: headerTopMargin,
+                children: [
+                  const Positioned(
+                    right: 0,
+                    bottom: 24,
+                    child: Icon(
+                      Icons.menu,
+                      color: Colors.white,
+                      size: 28,
+                    ),
                   ),
-                  for (Event event in events) _buildFullItem(event),
-                  for (Event event in events) _buildIcon(event),
+                  Positioned(
+                    top: statusBarMargin,
+                    child: Text(
+                      'Booked Exhibition',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: lerp(14, 24),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  for (CartItem cartItem in cartItems) _buildFullItem(cartItem),
+                  for (CartItem cartItem in cartItems) _buildIcon(cartItem),
                 ],
               ),
             ),
@@ -100,11 +113,11 @@ class _ExhibitionBottomSheetState extends State<ExhibitionBottomSheet>
     );
   }
 
-  Widget _buildIcon(Event event) {
-    int index = events.indexOf(event);
+  Widget _buildIcon(CartItem cartItem) {
+    int index = cartItems.indexOf(cartItem);
     return Positioned(
-      height: iconSize,
-      width: iconSize,
+      height: imageSize,
+      width: imageSize,
       top: iconTopMargin(index),
       left: iconLeftMargin(index),
       child: ClipRRect(
@@ -113,7 +126,7 @@ class _ExhibitionBottomSheetState extends State<ExhibitionBottomSheet>
           right: Radius.circular(iconRightBorderRadius),
         ),
         child: Image.asset(
-          'assets/${event.assetName}',
+          cartItem.assetName,
           fit: BoxFit.cover,
           alignment: Alignment(lerp(1, 0), 0),
         ),
@@ -121,16 +134,16 @@ class _ExhibitionBottomSheetState extends State<ExhibitionBottomSheet>
     );
   }
 
-  Widget _buildFullItem(Event event) {
-    int index = events.indexOf(event);
-    return ExpandedEventItem(
+  Widget _buildFullItem(CartItem cartItem) {
+    int index = cartItems.indexOf(cartItem);
+    return ExpandedCartItem(
       topMargin: iconTopMargin(index),
       leftMargin: iconLeftMargin(index),
-      height: iconSize,
+      height: imageSize,
       isVisible: _controller.status == AnimationStatus.completed,
       borderRadius: itemBorderRadius,
-      title: event.title,
-      date: event.date,
+      title: cartItem.title,
+      date: cartItem.date,
     );
   }
 
@@ -159,7 +172,7 @@ class _ExhibitionBottomSheetState extends State<ExhibitionBottomSheet>
   }
 }
 
-class ExpandedEventItem extends StatelessWidget {
+class ExpandedCartItem extends StatelessWidget {
   final double topMargin;
   final double leftMargin;
   final double height;
@@ -168,7 +181,7 @@ class ExpandedEventItem extends StatelessWidget {
   final String title;
   final String date;
 
-  const ExpandedEventItem(
+  const ExpandedCartItem(
       {Key? key,
       required this.topMargin,
       required this.height,
@@ -242,56 +255,18 @@ class ExpandedEventItem extends StatelessWidget {
   }
 }
 
-final List<Event> events = [
-  Event('steve-johnson.jpeg', 'Shenzhen GLOBAL DESIGN AWARD 2018', '4.20-30'),
-  Event('efe-kurnaz.jpg', 'Shenzhen GLOBAL DESIGN AWARD 2018', '4.20-30'),
-  Event('rodion-kutsaev.jpeg', 'Dawan District Guangdong Hong Kong', '4.28-31'),
+final List<CartItem> cartItems = [
+  CartItem(
+      'steve-johnson.jpeg', 'Shenzhen GLOBAL DESIGN AWARD 2018', '4.20-30'),
+  CartItem('efe-kurnaz.jpg', 'Shenzhen GLOBAL DESIGN AWARD 2018', '4.20-30'),
+  CartItem(
+      'rodion-kutsaev.jpeg', 'Dawan District Guangdong Hong Kong', '4.28-31'),
 ];
 
-class Event {
+class CartItem {
   final String assetName;
   final String title;
   final String date;
 
-  Event(this.assetName, this.title, this.date);
-}
-
-class SheetHeader extends StatelessWidget {
-  final double fontSize;
-  final double topMargin;
-
-  const SheetHeader({Key? key, required this.fontSize, required this.topMargin})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      top: topMargin,
-      child: Text(
-        'Booked Exhibition',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: fontSize,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-    );
-  }
-}
-
-class MenuButton extends StatelessWidget {
-  const MenuButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Positioned(
-      right: 0,
-      bottom: 24,
-      child: Icon(
-        Icons.menu,
-        color: Colors.white,
-        size: 28,
-      ),
-    );
-  }
+  CartItem(this.assetName, this.title, this.date);
 }

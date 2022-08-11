@@ -1,6 +1,6 @@
 import 'package:animations_anatomy/models/travel.dart';
 import 'package:animations_anatomy/models/trip.dart';
-import 'package:animations_anatomy/widgets/animation_widgets/image1_widgets/back_images.dart';
+import 'package:animations_anatomy/widgets/back_images.dart';
 import 'package:flutter/material.dart';
 
 // Moving images animation

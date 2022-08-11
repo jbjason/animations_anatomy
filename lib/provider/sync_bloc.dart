@@ -1,5 +1,5 @@
 import 'package:animations_anatomy/models/sync_tabbar.dart';
-import 'package:animations_anatomy/widgets/challenges_widgets/sync_widgets/sync_concept_.dart';
+import 'package:animations_anatomy/screens/challenges_/sync_tabbar/sync_concept_.dart';
 import 'package:flutter/material.dart';
 
 class SyncBloc with ChangeNotifier {

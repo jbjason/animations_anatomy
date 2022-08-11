@@ -1,6 +1,6 @@
 import 'package:animations_anatomy/models/coffee_card.dart';
-import 'package:animations_anatomy/widgets/challenges_widgets/coffee_widgets/hot_and_ice_buttons.dart';
-import 'package:animations_anatomy/widgets/challenges_widgets/coffee_widgets/price_and_add_button.dart';
+import 'package:animations_anatomy/screens/challenges_/coffe_chlng/hot_and_ice_buttons.dart';
+import 'package:animations_anatomy/screens/challenges_/coffe_chlng/price_and_add_button.dart';
 import 'package:flutter/material.dart';
 
 class CoffeeChlngDetails extends StatelessWidget {

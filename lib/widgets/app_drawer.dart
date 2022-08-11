@@ -23,6 +23,7 @@ import 'package:animations_anatomy/screens/animation_/draggable_anim_screen.dart
 import 'package:animations_anatomy/screens/animation_/insta_story_screen.dart';
 
 import 'package:animations_anatomy/screens/challenges_/ticket_chlng/ticket_home_screen.dart';
+import 'package:animations_anatomy/screens/drawer2_chlng.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -42,9 +43,9 @@ class AppDrawer extends StatelessWidget {
             const Divider(),
             ListTile(
               leading: const Icon(Icons.payment),
-              title: const Text('Ticket Challenge'),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const TicketHomeScreen())),
+              title: const Text('Drawer2 Chlng'),
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (_) => const Drawer2ChlngScreen())),
             ),
             const Divider(),
             // Challenge Animation
@@ -83,6 +84,13 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Card Flow1'),
             onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(builder: (_) => const CardFlow1Screen())),
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.payment),
+            title: const Text('Ticket Challenge'),
+            onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const TicketHomeScreen())),
           ),
           const Divider(),
           // Sync TapBar

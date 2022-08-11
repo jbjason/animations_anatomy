@@ -4,7 +4,6 @@ import 'package:animations_anatomy/screens/challenges_/batman_chlng//batman_imag
 import 'package:animations_anatomy/screens/challenges_/batman_chlng//batman_logo_anim.dart';
 import 'package:animations_anatomy/screens/challenges_/batman_chlng//batman_welcome_text.dart';
 import 'package:animations_anatomy/screens/challenges_/batman_chlng//signup_widgets.dart';
-import 'package:animations_anatomy/screens/challenges_/batman_chlng//yellow_button_anim.dart';
 import 'package:flutter/material.dart';
 
 class BatmanSignInScreen extends StatefulWidget {

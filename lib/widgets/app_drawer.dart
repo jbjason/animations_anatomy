@@ -23,7 +23,7 @@ import 'package:animations_anatomy/screens/animation_/draggable_anim_screen.dart
 import 'package:animations_anatomy/screens/animation_/insta_story_screen.dart';
 
 import 'package:animations_anatomy/screens/challenges_/ticket_chlng/ticket_home_screen.dart';
-import 'package:animations_anatomy/screens/drawer2_chlng.dart';
+import 'package:animations_anatomy/screens/challenges_/drawer2_chlng/drawer2_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -44,8 +44,8 @@ class AppDrawer extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.payment),
               title: const Text('Drawer2 Chlng'),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (_) => const Drawer2ChlngScreen())),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const Drawer2Screen())),
             ),
             const Divider(),
             // Challenge Animation

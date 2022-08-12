@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 const _duration = Duration(milliseconds: 1000);
@@ -49,12 +49,12 @@ class Drawer2ChlngScreen extends StatelessWidget {
             itemCount: 4,
             itemBuilder: (context, index) {
               return TweenAnimationBuilder(
-                tween: Tween<double>(begin: -pi / 2, end: 0),
+                tween: Tween<double>(begin: -math.pi / 2, end: 0),
                 duration: _duration,
                 builder: (context, double val, _) {
                   return Transform(
                     alignment: Alignment.center,
-                    transform: Matrix4.identity()..rotateY(val * pi / 180),
+                    transform: Matrix4.identity()..rotateY(val),
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -71,86 +71,71 @@ class Drawer2ChlngScreen extends StatelessWidget {
       );
 }
 
-class DrawerItemList extends StatefulWidget {
+class DrawerItemList extends StatelessWidget {
   const DrawerItemList({Key? key, required this.animation}) : super(key: key);
   final Animation<double> animation;
-  @override
-  State<DrawerItemList> createState() => _DrawerItemListState();
-}
 
-class _DrawerItemListState extends State<DrawerItemList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: 200),
-          const Text('jb jason'),
-          Expanded(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    const Text('-'),
-                    const SizedBox(height: 20),
-                    AnimatedCharacters(
-                      style: const TextStyle(fontSize: 30),
-                      text: _categoryList[0],
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 100,
-            width: 200,
-            child: ElevatedButton(child: const Text('Press'), onPressed: () {}),
-          ),
-        ],
-      ),
+      body: ListView.builder(
+          itemCount: _categoryList.length,
+          itemBuilder: (context, index) => _drawerItem(_categoryList[index])),
     );
   }
+
+  Widget _drawerItem(String text) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+        child: Row(
+          children: [
+            const Text('-', style: TextStyle(fontSize: 30)),
+            const SizedBox(width: 30),
+            AnimatedCharacters(
+              style: const TextStyle(fontSize: 25),
+              text: text,
+            )
+          ],
+        ),
+      );
 }
 
 class AnimatedCharacters extends StatelessWidget {
-  AnimatedCharacters({Key? key, required this.style, required this.text})
-      : super(key: key) {
-    characters = text.split('');
-  }
+  const AnimatedCharacters({Key? key, required this.style, required this.text})
+      : super(key: key);
   final String text;
-  late List<String> characters;
   final TextStyle style;
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        ...characters.asMap().entries.map(
-          (char) {
-            return FutureBuilder(
-              future: Future.delayed(Duration(milliseconds: char.key * 200)),
-              builder: (context, snap) {
-                if (snap.connectionState == ConnectionState.waiting) {
-                  return const SizedBox();
-                }
-                return TweenAnimationBuilder(
-                  tween: Tween<double>(begin: 30, end: 0),
-                  duration: const Duration(milliseconds: 1000),
-                  builder: (context, double val, chil) {
-                    return Transform.translate(
-                      offset: Offset(0, val),
-                      child: chil,
-                    );
-                  },
-                  child: Text(char.value, style: style),
-                );
-              },
-            );
-          },
-        )
-      ],
+    List<String> characters = text.split('');
+    return ClipRect(
+      child: Row(
+        children: [
+          ...characters.asMap().entries.map(
+            (char) {
+              return FutureBuilder(
+                future: Future.delayed(Duration(milliseconds: char.key * 200)),
+                builder: (context, snap) {
+                  if (snap.connectionState == ConnectionState.waiting) {
+                    return const SizedBox();
+                  }
+                  return TweenAnimationBuilder(
+                    tween: Tween<double>(begin: 30, end: 0),
+                    duration: const Duration(milliseconds: 1000),
+                    builder: (context, double val, chil) {
+                      return Transform.translate(
+                        offset: Offset(0, val),
+                        child: chil,
+                      );
+                    },
+                    child: Text(char.value, style: style),
+                  );
+                },
+              );
+            },
+          )
+        ],
+      ),
     );
   }
 }

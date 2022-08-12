@@ -79,12 +79,13 @@ class DrawerItemList extends StatefulWidget {
 }
 
 class _DrawerItemListState extends State<DrawerItemList> {
-  final List<Widget> _list = [];
+  final _val = ValueNotifier<Widget>(Container());
+  bool _isRender = false;
   @override
   void initState() {
     super.initState();
     // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   _addCategory();
+    //   Future.delayed(_duration).then((value) => );
     // });
   }
 
@@ -98,12 +99,18 @@ class _DrawerItemListState extends State<DrawerItemList> {
           const SizedBox(height: 200),
           const Text('jb jason'),
           Expanded(
-            child: ListView.builder(
-              itemCount: _list.length,
-              itemBuilder: (context, i) {
-                return _list[i];
-              },
-            ),
+            child: _isRender
+                ? ValueListenableBuilder(
+                    valueListenable: _val,
+                    builder: (context, Widget value, _) => ListView.builder(
+                      itemCount: _categoryList.length,
+                      itemBuilder: (context, i) {
+                        _addCategory(_categoryList[i]);
+                        return Row(children: [value]);
+                      },
+                    ),
+                  )
+                : Container(),
           ),
           SizedBox(
             height: 100,
@@ -111,7 +118,9 @@ class _DrawerItemListState extends State<DrawerItemList> {
             child: ElevatedButton(
               child: const Text('Press'),
               onPressed: () {
-                _addCategory();
+                setState(() {
+                  _isRender = true;
+                });
               },
             ),
           ),
@@ -120,38 +129,45 @@ class _DrawerItemListState extends State<DrawerItemList> {
     );
   }
 
-  void _addCategory() async {
+  void _addCategory(String cat) {
     String _text = '';
-    Widget _a = Container();
-    for (int i = 0; i < _category.length; i++) {
-      for (int j = 0; j < _category[i].length; j++) {
-        _text += _category[i][j];
-        _a = TweenAnimationBuilder(
-            tween: Tween<double>(begin: 0, end: 1),
-            duration: const Duration(milliseconds: 200),
-            builder: (context, val, _) => Text(
-                  _text,
-                  style: const TextStyle(fontSize: 30, color: Colors.black),
-                ));
-      }
-
-      if (mounted) {
-        _list.add(_a);
-        setState(() {});
-        await Future.delayed(const Duration(milliseconds: 300));
-      }
-      _text = '';
+    List<Widget> _a = [];
+    for (int i = 0; i < cat.length; i++) {
+      _text += cat[i];
+      print(_text);
+      _val.value = Text(
+        _text,
+        style: const TextStyle(fontSize: 30, color: Colors.black),
+      );
+      // print(_text);
+      // _a.add(TweenAnimationBuilder(
+      //     tween: Tween<double>(begin: 0, end: 1),
+      //     duration: const Duration(milliseconds: 400),
+      //     builder: (context, val, _) => Text(
+      //           _text,
+      //           style: const TextStyle(fontSize: 30, color: Colors.black),
+      //         )));
+      // _text = '';
+      // Timer(const Duration(milliseconds: 200), () {
+      //   Future(() {}).then((_) {
+      //     return Future.delayed(const Duration(milliseconds: 200), () async {
+      //       // _a.add(Text(
+      //       //   _text,
+      //       //   style: const TextStyle(fontSize: 30, color: Colors.black),
+      //       // ));
+      //       _val.value = Text(
+      //         _text,
+      //         style: const TextStyle(fontSize: 30, color: Colors.black),
+      //       );
+      //       // setState(() {});
+      //     });
+      //   });
+      // });
     }
-
-    // Future.delayed(const Duration(milliseconds: 200)).then((value) async {
-    //   _text += item[i];
-    //   await Future.delayed(const Duration(milliseconds: 200));
-    //   setState(() {});
-    // });
   }
 }
 
-const List<String> _category = [
+const List<String> _categoryList = [
   'WRIST WATCH',
   'LEATHER GOODS',
   'PERFUME',

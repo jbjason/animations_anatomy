@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
-const _duration = Duration(milliseconds: 500);
+const _duration = Duration(milliseconds: 1000);
 
 class Drawer2ChlngScreen extends StatelessWidget {
   const Drawer2ChlngScreen({Key? key}) : super(key: key);
@@ -49,7 +49,7 @@ class Drawer2ChlngScreen extends StatelessWidget {
             itemCount: 4,
             itemBuilder: (context, index) {
               return TweenAnimationBuilder(
-                tween: Tween<double>(begin: -90, end: 0),
+                tween: Tween<double>(begin: -pi / 2, end: 0),
                 duration: _duration,
                 builder: (context, double val, _) {
                   return Transform(
@@ -79,16 +79,6 @@ class DrawerItemList extends StatefulWidget {
 }
 
 class _DrawerItemListState extends State<DrawerItemList> {
-  final _val = ValueNotifier<Widget>(Container());
-  bool _isRender = false;
-  @override
-  void initState() {
-    super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   Future.delayed(_duration).then((value) => );
-    // });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,71 +89,69 @@ class _DrawerItemListState extends State<DrawerItemList> {
           const SizedBox(height: 200),
           const Text('jb jason'),
           Expanded(
-            child: _isRender
-                ? ValueListenableBuilder(
-                    valueListenable: _val,
-                    builder: (context, Widget value, _) => ListView.builder(
-                      itemCount: _categoryList.length,
-                      itemBuilder: (context, i) {
-                        _addCategory(_categoryList[i]);
-                        return Row(children: [value]);
-                      },
-                    ),
-                  )
-                : Container(),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    const Text('-'),
+                    const SizedBox(height: 20),
+                    AnimatedCharacters(
+                      style: const TextStyle(fontSize: 30),
+                      text: _categoryList[0],
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
           SizedBox(
             height: 100,
             width: 200,
-            child: ElevatedButton(
-              child: const Text('Press'),
-              onPressed: () {
-                setState(() {
-                  _isRender = true;
-                });
-              },
-            ),
+            child: ElevatedButton(child: const Text('Press'), onPressed: () {}),
           ),
         ],
       ),
     );
   }
+}
 
-  void _addCategory(String cat) {
-    String _text = '';
-    List<Widget> _a = [];
-    for (int i = 0; i < cat.length; i++) {
-      _text += cat[i];
-      print(_text);
-      _val.value = Text(
-        _text,
-        style: const TextStyle(fontSize: 30, color: Colors.black),
-      );
-      // print(_text);
-      // _a.add(TweenAnimationBuilder(
-      //     tween: Tween<double>(begin: 0, end: 1),
-      //     duration: const Duration(milliseconds: 400),
-      //     builder: (context, val, _) => Text(
-      //           _text,
-      //           style: const TextStyle(fontSize: 30, color: Colors.black),
-      //         )));
-      // _text = '';
-      // Timer(const Duration(milliseconds: 200), () {
-      //   Future(() {}).then((_) {
-      //     return Future.delayed(const Duration(milliseconds: 200), () async {
-      //       // _a.add(Text(
-      //       //   _text,
-      //       //   style: const TextStyle(fontSize: 30, color: Colors.black),
-      //       // ));
-      //       _val.value = Text(
-      //         _text,
-      //         style: const TextStyle(fontSize: 30, color: Colors.black),
-      //       );
-      //       // setState(() {});
-      //     });
-      //   });
-      // });
-    }
+class AnimatedCharacters extends StatelessWidget {
+  AnimatedCharacters({Key? key, required this.style, required this.text})
+      : super(key: key) {
+    characters = text.split('');
+  }
+  final String text;
+  late List<String> characters;
+  final TextStyle style;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        ...characters.asMap().entries.map(
+          (char) {
+            return FutureBuilder(
+              future: Future.delayed(Duration(milliseconds: char.key * 200)),
+              builder: (context, snap) {
+                if (snap.connectionState == ConnectionState.waiting) {
+                  return const SizedBox();
+                }
+                return TweenAnimationBuilder(
+                  tween: Tween<double>(begin: 30, end: 0),
+                  duration: const Duration(milliseconds: 1000),
+                  builder: (context, double val, chil) {
+                    return Transform.translate(
+                      offset: Offset(0, val),
+                      child: chil,
+                    );
+                  },
+                  child: Text(char.value, style: style),
+                );
+              },
+            );
+          },
+        )
+      ],
+    );
   }
 }
 

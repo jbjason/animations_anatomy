@@ -2,6 +2,7 @@ import 'package:animations_anatomy/screens/animation_/fb_story_screen.dart';
 import 'package:animations_anatomy/screens/animation_/flow_screen.dart';
 import 'package:animations_anatomy/screens/animation_/sliver1_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/batman_chlng/batman_signin_screen.dart';
+import 'package:animations_anatomy/screens/challenges_/custom_paint_anim/custom_paint_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/drag_bottom/drag_bottom_cart.dart';
 import 'package:animations_anatomy/screens/challenges_/sliver2_chlng/sliver2_screen.dart';
 import 'package:animations_anatomy/screens/animation_/animated_list1.dart';
@@ -21,7 +22,6 @@ import 'package:animations_anatomy/screens/challenges_/coffe_chlng/coffee_chlng_
 import 'package:animations_anatomy/screens/challenges_/superhero_chlng/superhero_chlng_scree.dart';
 import 'package:animations_anatomy/screens/animation_/draggable_anim_screen.dart';
 import 'package:animations_anatomy/screens/animation_/insta_story_screen.dart';
-
 import 'package:animations_anatomy/screens/challenges_/ticket_chlng/ticket_home_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/drawer2_chlng/drawer2_screen.dart';
 import 'package:flutter/material.dart';
@@ -40,13 +40,14 @@ class AppDrawer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const SizedBox(height: 20),
-            const Divider(),
             ListTile(
               leading: const Icon(Icons.payment),
-              title: const Text('Drawer2 Chlng'),
+              title: const Text('Custom Paint Anim'),
               onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const Drawer2Screen())),
+                  MaterialPageRoute(builder: (_) => const CustomPaintScreen())),
             ),
+            const Divider(),
+
             const Divider(),
             // Challenge Animation
             _challengeAnim(context),
@@ -125,7 +126,14 @@ class AppDrawer extends StatelessWidget {
                 builder: (_) => const SuperHeroChlngScreen())),
           ),
           const Divider(),
-
+          // Drawer2 Chlng
+          ListTile(
+            leading: const Icon(Icons.payment),
+            title: const Text('Drawer2 Chlng'),
+            onTap: () => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (_) => const Drawer2Screen())),
+          ),
+          const Divider(),
           // 3d Cards Animation
           ListTile(
             leading: const Icon(Icons.payment),

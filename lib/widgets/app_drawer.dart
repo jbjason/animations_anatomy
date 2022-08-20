@@ -2,6 +2,7 @@ import 'package:animations_anatomy/screens/animation_/fb_story_screen.dart';
 import 'package:animations_anatomy/screens/animation_/flow_screen.dart';
 import 'package:animations_anatomy/screens/animation_/sliver1_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/batman_chlng/batman_signin_screen.dart';
+import 'package:animations_anatomy/screens/challenges_/bounce_nav_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/custom_paint_anim/custom_paint_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/drag_bottom/drag_bottom_cart.dart';
 import 'package:animations_anatomy/screens/challenges_/sliver2_chlng/sliver2_screen.dart';
@@ -47,7 +48,13 @@ class AppDrawer extends StatelessWidget {
                   MaterialPageRoute(builder: (_) => const CustomPaintScreen())),
             ),
             const Divider(),
-
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('Bouncy Nav Buttons'),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const BounceNavScreen())),
+            ),
+            const Divider(),
             const Divider(),
             // Challenge Animation
             _challengeAnim(context),

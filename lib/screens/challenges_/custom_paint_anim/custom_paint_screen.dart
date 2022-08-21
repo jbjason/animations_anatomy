@@ -10,15 +10,16 @@ class CustomPaintScreen extends StatefulWidget {
 class _CustomPaintScreenState extends State<CustomPaintScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  late Animation<double> _animation;
   PickSkin _currentSkin = skins.first, _lastSkin = skins.last;
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
-        vsync: this,
-        upperBound: 2,
-        duration: const Duration(milliseconds: 600));
+        vsync: this, duration: const Duration(milliseconds: 600));
+    _animation = Tween<double>(begin: 0.0, end: 2.0).animate(
+        CurvedAnimation(parent: _controller, curve: Curves.slowMiddle));
   }
 
   @override
@@ -35,10 +36,10 @@ class _CustomPaintScreenState extends State<CustomPaintScreen>
                     child: Image.asset(_lastSkin.image, fit: BoxFit.fill)),
                 Positioned.fill(
                   child: AnimatedBuilder(
-                    animation: _controller,
+                    animation: _animation,
                     builder: (context, _) => ClipPath(
                       clipper: _SkinClipper(
-                          percent: _controller.value, skin: _currentSkin),
+                          percent: _animation.value, skin: _currentSkin),
                       child: Image.asset(_currentSkin.image, fit: BoxFit.fill),
                     ),
                   ),

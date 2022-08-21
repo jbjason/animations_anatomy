@@ -41,20 +41,6 @@ class AppDrawer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const SizedBox(height: 20),
-            ListTile(
-              leading: const Icon(Icons.payment),
-              title: const Text('Custom Paint Anim'),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const CustomPaintScreen())),
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.payment),
-              title: const Text('Bouncy Nav Buttons'),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const BounceNavScreen())),
-            ),
-            const Divider(),
             const Divider(),
             // Challenge Animation
             _challengeAnim(context),
@@ -139,6 +125,22 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Drawer2 Chlng'),
             onTap: () => Navigator.of(context)
                 .push(MaterialPageRoute(builder: (_) => const Drawer2Screen())),
+          ),
+          const Divider(),
+          // Custom Paint Animation
+          ListTile(
+            leading: const Icon(Icons.payment),
+            title: const Text('Custom Paint Anim'),
+            onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const CustomPaintScreen())),
+          ),
+          const Divider(),
+          // Bouncy Nav buttons
+          ListTile(
+            leading: const Icon(Icons.payment),
+            title: const Text('Bouncy Nav Buttons'),
+            onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const BounceNavScreen())),
           ),
           const Divider(),
           // 3d Cards Animation

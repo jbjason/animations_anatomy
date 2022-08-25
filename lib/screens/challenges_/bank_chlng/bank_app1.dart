@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:animations_anatomy/models/book.dart';
-import 'package:animations_anatomy/screens/challenges_/bank_app_chlng/bank_app_item.dart';
-import 'package:animations_anatomy/screens/challenges_/bank_app_chlng/bank_app_title.dart';
+import 'package:animations_anatomy/screens/challenges_/bank_chlng/bank_app_item.dart';
+import 'package:animations_anatomy/screens/challenges_/bank_chlng/bank_app_title.dart';
 import 'package:flutter/material.dart';
 
 const _maxHeightTitle = 650.0;

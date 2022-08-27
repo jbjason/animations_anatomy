@@ -42,14 +42,6 @@ class AppDrawer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const SizedBox(height: 20),
-            ListTile(
-              leading: const Icon(Icons.payment),
-              title: const Text('Bank2 Challenge'),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const BankChlng2Screen())),
-            ),
-            const Divider(),
-
             const Divider(),
             // Challenge Animation
             _challengeAnim(context),
@@ -190,6 +182,13 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Starbuck Challenge'),
             onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(builder: (_) => const StarbuckChallenge())),
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.payment),
+            title: const Text('Bank2 Challenge'),
+            onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const BankChlng2Screen())),
           ),
           const Divider(),
           // Animated NavBar1

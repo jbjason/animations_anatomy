@@ -1,5 +1,5 @@
 import 'package:animations_anatomy/models/trip.dart';
-import 'package:animations_anatomy/screens/challenges_/disk2_chlng/disk_item2.dart';
+import 'package:animations_anatomy/screens/animation_/disk2_chlng/disk_item2.dart';
 import 'package:flutter/material.dart';
 
 class DiskChallenge2 extends StatefulWidget {

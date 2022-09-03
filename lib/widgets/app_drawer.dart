@@ -13,7 +13,7 @@ import 'package:animations_anatomy/screens/animation_/book_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/cards_3d/cards_3d_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/bank_chlng/bank_app1.dart';
 import 'package:animations_anatomy/screens/challenges_/card_flow1/card_flow1_screen.dart';
-import 'package:animations_anatomy/screens/challenges_/disk2_chlng/disk_challenge2.dart';
+import 'package:animations_anatomy/screens/animation_/disk2_chlng/disk_challenge2.dart';
 import 'package:animations_anatomy/screens/challenges_/hero_anim/hero_challange1.dart';
 import 'package:animations_anatomy/screens/challenges_/stack_card_scren.dart';
 import 'package:animations_anatomy/screens/challenges_/sync_tabbar/tab_bar_screen.dart';

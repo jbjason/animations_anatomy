@@ -34,7 +34,7 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[400],
+      color: Colors.grey[200],
       width: 250,
       child: SingleChildScrollView(
         child: Column(
@@ -184,6 +184,7 @@ class AppDrawer extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => const StarbuckChallenge())),
           ),
           const Divider(),
+          // Bank Challenge 2
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('Bank2 Challenge'),
@@ -205,14 +206,6 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Hero Challenge1'),
             onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(builder: (_) => const HeroChallenge1())),
-          ),
-          const Divider(),
-          // Disk Challenge2
-          ListTile(
-            leading: const Icon(Icons.payment),
-            title: const Text('Disk Challenge2'),
-            onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const DiskChallenge2())),
           ),
           const Divider(),
           // Sliver Animation2
@@ -238,6 +231,14 @@ class AppDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 20, color: Colors.white),
             ),
           ),
+          // Disk Challenge2
+          ListTile(
+            leading: const Icon(Icons.payment),
+            title: const Text('Disk Challenge2'),
+            onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const DiskChallenge2())),
+          ),
+          const Divider(),
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('Instagram Story'),

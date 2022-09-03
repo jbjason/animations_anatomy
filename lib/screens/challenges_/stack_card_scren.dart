@@ -91,7 +91,7 @@ class _Cards extends StatelessWidget {
                   border: Border.all(
                       width: 4, color: Colors.black.withOpacity(0.2)),
                   image: DecorationImage(
-                      image: NetworkImage(books[i].image), fit: BoxFit.cover),
+                      image: AssetImage(books[i].image), fit: BoxFit.cover),
                 ),
                 child: Center(
                   child: Text('JB Jason ${i + 1}',

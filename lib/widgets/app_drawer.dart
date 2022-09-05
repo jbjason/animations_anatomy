@@ -99,7 +99,7 @@ class AppDrawer extends StatelessWidget {
           // Bank App1
           ListTile(
             leading: const Icon(Icons.payment),
-            title: const Text('Bank App1'),
+            title: const Text('Bank1 Challenge'),
             onTap: () => Navigator.of(context)
                 .push(MaterialPageRoute(builder: (_) => const BankApp1())),
           ),

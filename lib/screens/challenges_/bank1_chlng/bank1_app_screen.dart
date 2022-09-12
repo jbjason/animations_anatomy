@@ -1,18 +1,19 @@
 import 'dart:ui';
 import 'package:animations_anatomy/models/book.dart';
-import 'package:animations_anatomy/screens/challenges_/bank_chlng/bank_app_item.dart';
-import 'package:animations_anatomy/screens/challenges_/bank_chlng/bank_app_title.dart';
+import 'package:animations_anatomy/screens/challenges_/bank1_chlng/bank1_animated_page.dart';
+import 'package:animations_anatomy/screens/challenges_/bank1_chlng/bank1_app_item.dart';
+import 'package:animations_anatomy/screens/challenges_/bank1_chlng/bank1_app_title.dart';
 import 'package:flutter/material.dart';
 
 const _maxHeightTitle = 650.0;
 
-class BankApp1 extends StatefulWidget {
-  const BankApp1({Key? key}) : super(key: key);
+class Bank1AppScreen extends StatefulWidget {
+  const Bank1AppScreen({Key? key}) : super(key: key);
   @override
-  State<BankApp1> createState() => _BankApp1State();
+  State<Bank1AppScreen> createState() => _Bank1AppScreenState();
 }
 
-class _BankApp1State extends State<BankApp1>
+class _Bank1AppScreenState extends State<Bank1AppScreen>
     with SingleTickerProviderStateMixin {
   late final PageController _controller;
   late AnimationController _animationController;
@@ -61,17 +62,20 @@ class _BankApp1State extends State<BankApp1>
                   ? lerpDouble(size.height * .3, 0, percent2)
                   : lerpDouble(size.height * .3, size.height * .85,
                       _animationController.value),
-              height: _isOne
-                  ? lerpDouble(size.height * .5, size.height, percent2)
-                  : size.height * .5,
               left: _isOne ? lerpDouble(15, 0, percent2) : 15,
-              right: _isOne ? lerpDouble(200, 0, percent2) : 200,
               child: Container(
+                height: _isOne
+                    ? lerpDouble(size.height * .5, size.height, percent2)
+                    : size.height * .5,
+                width: _isOne ? lerpDouble(300, size.width, percent2) : 300,
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 53, 73, 88),
+                  color: Colors.grey[850],
                   borderRadius:
                       BorderRadius.circular(lerpDouble(60, 0, percent2)!),
                 ),
+                child: Opacity(
+                    opacity: percent2, child: const Bank1AnimatedPage()),
               ),
             ),
           );
@@ -93,7 +97,7 @@ class _BankApp1State extends State<BankApp1>
                   itemCount: books.length - 2,
                   itemBuilder: (context, index) {
                     final percent = _value - index;
-                    return BankAppItem(
+                    return Bank1AppItem(
                         isSelect: _value == index,
                         book: books[index + 1],
                         index: index,
@@ -141,7 +145,7 @@ class _BankApp1State extends State<BankApp1>
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
                 color: Colors.grey[200]),
-            child: BankAppTitle(onTap: _startAnimation, isExpand: _isExpand),
+            child: Bank1AppTitle(onTap: _startAnimation, isExpand: _isExpand),
           );
         },
       ),

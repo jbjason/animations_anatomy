@@ -8,27 +8,18 @@ class ScreenTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TweenAnimationBuilder(
-      tween: Tween<double>(begin: 1, end: 0),
-      duration: const Duration(seconds: 1),
-      builder: (context, double val, Widget? child) => Transform(
-        transform: Matrix4.identity()..translate(val * 200, val * 200),
-        alignment: Alignment.center,
-        child: child,
-      ),
-      child: Row(
-        children: [
-          InkWell(
-              onTap: () => scaffoldKey.currentState!.openDrawer(),
-              child: const Icon(Icons.menu_sharp, size: 25)),
-          const SizedBox(width: 10),
-          Text(
-            text,
-            style: const TextStyle(
-                fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
+    return Row(
+      children: [
+        InkWell(
+            onTap: () => scaffoldKey.currentState!.openDrawer(),
+            child: const Icon(Icons.menu_sharp, size: 25)),
+        const SizedBox(width: 10),
+        Text(
+          text,
+          style: const TextStyle(
+              fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      ],
     );
   }
 }

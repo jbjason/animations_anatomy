@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class BankAppTitle extends StatelessWidget {
-  const BankAppTitle({Key? key, required this.onTap, required this.isExpand})
+class Bank1AppTitle extends StatelessWidget {
+  const Bank1AppTitle({Key? key, required this.onTap, required this.isExpand})
       : super(key: key);
   final void Function() onTap;
   final bool isExpand;

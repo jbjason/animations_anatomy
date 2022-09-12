@@ -1,6 +1,7 @@
 import 'package:animations_anatomy/screens/animation_/fb_story_screen.dart';
 import 'package:animations_anatomy/screens/animation_/flow_screen.dart';
 import 'package:animations_anatomy/screens/animation_/sliver1_screen.dart';
+import 'package:animations_anatomy/screens/challenges_/bank1_chlng/bank1_app_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/bank2_chlng/bank2_chlng_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/batman_chlng/batman_signin_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/bounce_nav_screen.dart';
@@ -11,7 +12,6 @@ import 'package:animations_anatomy/screens/animation_/animated_list1.dart';
 import 'package:animations_anatomy/screens/animation_/disk_challenge1.dart';
 import 'package:animations_anatomy/screens/animation_/book_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/cards_3d/cards_3d_screen.dart';
-import 'package:animations_anatomy/screens/challenges_/bank_chlng/bank_app1.dart';
 import 'package:animations_anatomy/screens/challenges_/card_flow1/card_flow1_screen.dart';
 import 'package:animations_anatomy/screens/animation_/disk2_chlng/disk_challenge2.dart';
 import 'package:animations_anatomy/screens/challenges_/hero_anim/hero_challange1.dart';
@@ -100,8 +100,8 @@ class AppDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('Bank1 Challenge'),
-            onTap: () => Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => const BankApp1())),
+            onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const Bank1AppScreen())),
           ),
           const Divider(),
           // Loading Animation

@@ -2,8 +2,8 @@ import 'dart:ui';
 import 'package:animations_anatomy/models/book.dart';
 import 'package:flutter/material.dart';
 
-class BankAppItem extends StatelessWidget {
-  const BankAppItem(
+class Bank1AppItem extends StatelessWidget {
+  const Bank1AppItem(
       {Key? key,
       required this.book,
       required this.percent,

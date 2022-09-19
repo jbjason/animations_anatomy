@@ -60,10 +60,8 @@ class _FlipCardScreenState extends State<FlipCardScreen>
                     ..setEntry(3, 2, .001)
                     ..rotateX(angle / 180 * pi),
                   child: !_isBack
-                      ? Image.asset('assets/parallax/painting2.jpg',
-                          fit: BoxFit.cover)
-                      : Image.asset('assets/parallax/painting3.jpg',
-                          fit: BoxFit.cover),
+                      ? Image.asset('assets/card_/jb.jpg', fit: BoxFit.cover)
+                      : Image.asset('assets/card_/jb1.jpg', fit: BoxFit.cover),
                 ),
               ),
             ),

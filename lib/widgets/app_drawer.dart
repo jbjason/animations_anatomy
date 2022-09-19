@@ -1,4 +1,5 @@
 import 'package:animations_anatomy/screens/animation_/fb_story_screen.dart';
+import 'package:animations_anatomy/screens/animation_/flip_card_screen.dart';
 import 'package:animations_anatomy/screens/animation_/flow_screen.dart';
 import 'package:animations_anatomy/screens/animation_/sliver1_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/bank1_chlng/bank1_app_screen.dart';
@@ -231,6 +232,14 @@ class AppDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 20, color: Colors.white),
             ),
           ),
+          // Flip Card
+          ListTile(
+            leading: const Icon(Icons.payment),
+            title: const Text('Flip Card'),
+            onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const FlipCardScreen())),
+          ),
+          const Divider(),
           // Disk Challenge2
           ListTile(
             leading: const Icon(Icons.payment),

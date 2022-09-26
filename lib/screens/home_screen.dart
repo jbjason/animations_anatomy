@@ -45,6 +45,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               const HomeTitle(title: 'CHALLENGES'),
               _challenges(),
+              const SizedBox(height: 40),
               const HomeTitle(title: 'PRACTICE'),
               _practice(context)
             ],

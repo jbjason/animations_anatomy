@@ -1,3 +1,4 @@
+import 'package:animations_anatomy/screens/animation_/bkash_counter/bkash_counter_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:animations_anatomy/screens/animation_/fb_story_screen.dart';
 import 'package:animations_anatomy/screens/animation_/flip_card_screen.dart';
@@ -91,6 +92,8 @@ class HomeScreen extends StatelessWidget {
           HomeButton(title: 'Flow Widgets', route: FlowScreen()),
           HomeButton(title: 'Book Concept', route: BookScreen()),
           HomeButton(title: 'Fb Story', route: FbStoryScreen()),
+          HomeButton(
+              title: 'Bkash Tap & Counter button', route: BkashCounterScreen()),
         ],
       );
 }

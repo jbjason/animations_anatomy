@@ -1,7 +1,7 @@
 import 'package:animations_anatomy/screens/challenges_/sync_tabbar/sync_category_item.dart';
 import 'package:animations_anatomy/screens/challenges_/sync_tabbar/sync_product_item.dart';
 import 'package:flutter/material.dart';
-import 'package:animations_anatomy/provider/sync_bloc.dart';
+import 'package:animations_anatomy/screens/challenges_/sync_tabbar/sync_bloc.dart';
 
 const categoryHeight = 50.0;
 const productHeight = 125.0;

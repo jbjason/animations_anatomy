@@ -1,6 +1,6 @@
-import 'package:animations_anatomy/screens/challenges_/loading_balloon_chlng/loading_bubbles.dart';
-import 'package:animations_anatomy/screens/challenges_/loading_balloon_chlng/loading_ending.dart';
-import 'package:animations_anatomy/screens/challenges_/loading_balloon_chlng/loading_home.dart';
+import 'package:animations_anatomy/screens/challenges_/loading_chlng/loading_bubbles.dart';
+import 'package:animations_anatomy/screens/challenges_/loading_chlng/loading_ending.dart';
+import 'package:animations_anatomy/screens/challenges_/loading_chlng/loading_home.dart';
 import 'package:flutter/material.dart';
 
 const mainDataBackupColor = Color(0xFF5113AA);

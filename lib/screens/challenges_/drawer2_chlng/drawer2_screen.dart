@@ -29,18 +29,21 @@ class _Drawer2ScreenState extends State<Drawer2Screen>
       body: SafeArea(
         child: Stack(
           children: [
+            // items
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [const SizedBox(height: 60), _gridView()],
             ),
+            // blue appDrawer
             AnimatedBuilder(
               animation: _controller,
               builder: (context, _) => Positioned(
                 height: size.height,
                 width: lerpDouble(-size.width, size.width, _controller.value),
-                child: Container(color: Colors.blue[300]),
+                child: Container(color: Colors.grey[900]),
               ),
             ),
+            // appBar
             _appBar(context),
           ],
         ),

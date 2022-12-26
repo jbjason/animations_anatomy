@@ -1,4 +1,4 @@
-import 'package:animations_anatomy/screens/challenges_/loading_balloon_chlng/loading_screen1.dart';
+import 'package:animations_anatomy/screens/challenges_/loading_chlng/loading_screen1.dart';
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 

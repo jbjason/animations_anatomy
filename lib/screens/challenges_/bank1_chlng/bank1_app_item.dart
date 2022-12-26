@@ -36,9 +36,10 @@ class Bank1AppItem extends StatelessWidget {
                         image: AssetImage(book.image), fit: BoxFit.cover),
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.black.withOpacity(.2),
-                          blurRadius: 25,
-                          offset: const Offset(0, 25))
+                        color: Colors.black.withOpacity(.2),
+                        blurRadius: 25,
+                        offset: const Offset(0, 25),
+                      )
                     ],
                   ),
                   child: const Align(

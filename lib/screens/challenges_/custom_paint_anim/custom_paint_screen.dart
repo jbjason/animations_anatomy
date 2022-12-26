@@ -28,7 +28,6 @@ class _CustomPaintScreenState extends State<CustomPaintScreen>
     return Scaffold(
       body: Column(
         children: [
-          _appBar(context),
           Expanded(
             child: Stack(
               children: [
@@ -91,18 +90,6 @@ class _CustomPaintScreenState extends State<CustomPaintScreen>
           },
           itemCount: skins.length,
         ),
-      );
-
-  Widget _appBar(BuildContext context) => AppBar(
-        elevation: 0,
-        centerTitle: true,
-        title: const Text('Home Screen'),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.brightness_3),
-          )
-        ],
       );
 }
 

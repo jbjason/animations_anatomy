@@ -95,6 +95,7 @@ class _Bank1AppScreenState extends State<Bank1AppScreen>
                   // onPageChanged: (val) => setState(() => _currentIndex = val),
                   controller: _controller,
                   itemCount: books.length - 2,
+                  clipBehavior: Clip.none,
                   itemBuilder: (context, index) {
                     final percent = _value - index;
                     return Bank1AppItem(

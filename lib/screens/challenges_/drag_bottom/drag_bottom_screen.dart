@@ -1,13 +1,13 @@
 import 'package:animations_anatomy/models/book.dart';
-import 'package:animations_anatomy/provider/drag_bottom_bloc.dart';
+import 'package:animations_anatomy/screens/challenges_/drag_bottom/drag_bottom_bloc.dart';
 import 'package:animations_anatomy/screens/challenges_/drag_bottom/drag_cart_list.dart';
 import 'package:animations_anatomy/screens/challenges_/drag_bottom/drag_stagg_item.dart';
 import 'package:flutter/material.dart';
 
 const _appBarHeight = kToolbarHeight;
 
-class DragBottomCart extends StatelessWidget {
-  const DragBottomCart({Key? key}) : super(key: key);
+class DragBottomScreen extends StatelessWidget {
+  const DragBottomScreen({Key? key}) : super(key: key);
 
   double _getBodyContainerTop(Size size, DragState _state) {
     if (_state == DragState.normal) {
@@ -77,7 +77,7 @@ class DragBottomCart extends StatelessWidget {
                   },
                   child: Container(
                     color: Colors.grey[900],
-                    child: const DragCartList(),
+                    child: DragCartList(state: _bloc.currentState),
                   ),
                 ),
               ),

@@ -4,7 +4,7 @@ import 'package:animations_anatomy/screens/challenges_/bank2_chlng/bank2_chlng_s
 import 'package:animations_anatomy/screens/challenges_/batman_chlng/batman_signin_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/bounce_nav_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/custom_paint_anim/custom_paint_screen.dart';
-import 'package:animations_anatomy/screens/challenges_/drag_bottom/drag_bottom_cart.dart';
+import 'package:animations_anatomy/screens/challenges_/drag_bottom/drag_bottom_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/sliver2_chlng/sliver2_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/cards_3d/cards_3d_screen.dart';
 import 'package:animations_anatomy/screens/challenges_/card_flow1/card_flow1_screen.dart';
@@ -56,7 +56,7 @@ class HomeScreen extends StatelessWidget {
           HomeButton(title: 'Custom Paint Anim', route: CustomPaintScreen()),
           HomeButton(title: 'Bouncy Nav Buttons', route: BounceNavScreen()),
           HomeButton(title: '3d Cards Animation', route: Cards3dScreen()),
-          HomeButton(title: 'Drag Bottom Cart', route: DragBottomCart()),
+          HomeButton(title: 'Drag Bottom Cart', route: DragBottomScreen()),
           HomeButton(title: 'Stacked Card', route: StackCardScreen()),
           HomeButton(title: 'Coffee Challenge', route: CoffeeChlngHome()),
           HomeButton(title: 'Starbuck Challenge', route: StarbuckChallenge()),

@@ -1,5 +1,5 @@
 import 'package:animations_anatomy/models/book.dart';
-import 'package:animations_anatomy/provider/drag_bottom_bloc.dart';
+import 'package:animations_anatomy/screens/challenges_/drag_bottom/drag_bottom_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
